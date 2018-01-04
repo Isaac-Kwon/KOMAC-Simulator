@@ -1,0 +1,407 @@
+#include "DetectorConstruction.hh"
+
+#include "G4Material.hh"
+#include "G4Element.hh"
+#include "G4MaterialTable.hh"
+#include "G4NistManager.hh"
+
+
+#include "G4VSolid.hh"
+#include "G4Box.hh"
+#include "G4Tubs.hh"
+#include "G4SubtractionSolid.hh"
+
+
+#include "G4LogicalVolume.hh"
+#include "G4VPhysicalVolume.hh"
+#include "G4PVPlacement.hh"
+#include "G4PVParameterised.hh"
+#include "G4PVReplica.hh"
+
+#include "G4Transform3D.hh"
+#include "G4ThreeVector.hh"
+#include "G4RotationMatrix.hh"
+
+#include "G4UserLimits.hh"
+#include "G4AssemblyVolume.hh"
+
+#include "G4RunManager.hh"
+#include "G4GenericMessenger.hh"
+
+#include "G4VisAttributes.hh"
+#include "G4Colour.hh"
+
+#include "G4ios.hh"
+#include "G4SystemOfUnits.hh"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+DetectorConstruction::DetectorConstruction()
+: G4VUserDetectorConstruction()
+{
+    ConstructMaterials();
+    
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+DetectorConstruction::~DetectorConstruction()
+{
+    
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4VPhysicalVolume * DetectorConstruction::Construct()
+{
+    ConstructMaterials();
+    ConstructColors();
+    G4Material* air = G4Material::GetMaterial("G4_AIR");
+//    G4Material* air = G4Material::GetMaterial("G4_Galactic");
+    G4bool checkOverlaps = true;
+
+    // geometries --------------------------------------------------------------
+    // experimental hall (world volume)
+    
+    
+    G4VSolid* worldSolid
+    = new G4Box("worldBox", 1.*m, 4.*m, 2.*m);
+    G4LogicalVolume* worldLogical
+    = new G4LogicalVolume(worldSolid,air,"worldLogical");
+    G4VPhysicalVolume* worldPhysical
+    = new G4PVPlacement(0,G4ThreeVector(),worldLogical,"worldPhysical",0,false,0,checkOverlaps);
+    
+    
+    G4VisAttributes * white = new G4VisAttributes( G4Colour());
+    
+    worldLogical -> SetVisAttributes(world_color);
+    
+    G4Material * aluminum = G4Material::GetMaterial("G4_Al");
+    G4Material * gold = G4Material::GetMaterial("G4_Au");
+    G4Material * silicon = G4Material::GetMaterial("G4_Si");
+    G4Material * mylar = G4Material::GetMaterial("G4_MAYLAR");
+    
+    G4AssemblyVolume * CollimatorAssembly = Collimator(aluminum, 120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm);
+
+    G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
+    G4ThreeVector Ta1 = G4ThreeVector(0.*m, 0.*m, -0.57 *m);
+    CollimatorAssembly -> MakeImprint(worldLogical, Ta1, Ra);
+
+    G4AssemblyVolume * CollimatorFilmAssembly = FoilWithCollimator(aluminum, 120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm, gold, 0.1 *mm);
+    G4ThreeVector Ta2 = G4ThreeVector(0.*m, 0.*m, -0.52 *m);
+    CollimatorFilmAssembly -> MakeImprint(worldLogical, Ta2, Ra);
+    
+    G4AssemblyVolume * ShieldingAssembly = Shielding(aluminum, 69.5 *mm, 140.*mm, 10. *mm, true, false);
+    G4ThreeVector Ta3 = G4ThreeVector(-60. * mm, -60. *mm, -0.50 *m);
+    ShieldingAssembly -> MakeImprint(worldLogical, Ta3, Ra);
+    
+    G4AssemblyVolume * MountAssembly = DetectorAndMount(aluminum,
+                                                        302.*mm, 150.*mm, 137.*mm,
+                                                        6.*mm,
+                                                        20.*mm, 36.*mm, //Window Size
+                                                        70.*mm, 0.*mm,
+                                                        silicon,
+                                                        20.*mm, 36.*mm, 0.1*mm,
+                                                        30.*mm,
+                                                        mylar, 6.*mm);
+    G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);
+    MountAssembly -> MakeImprint(worldLogical, Ta4, Ra);
+    
+    return worldPhysical;
+    
+}
+
+
+//Y : height direction
+//XZ : Ground Plain
+G4AssemblyVolume * DetectorConstruction::Collimator(G4Material* material, G4double Xsize, G4double Ysize, G4double Zsize, G4double Radius){
+    G4VSolid * boxSolid = new G4Box("Collimator_Box_Solid", Xsize/2, Ysize/2, Zsize/2);
+    
+    G4double holeDepth;
+    holeDepth = (Xsize + Ysize + Zsize);
+    
+    G4double YDeg;
+    
+    if (Xsize < Zsize){
+        YDeg = 90.0*deg;
+    }else{
+        YDeg = 0.0*deg;
+    }
+    
+    G4VSolid * holeSolid = new G4Tubs("HoleFirstCollimator",
+                                      0.0 *m, //inner radius
+                                      Radius, //outer radius
+                                      holeDepth, //tub's height
+                                      0.0 *deg, //start angle
+                                      360.0 *deg); //end angle
+    
+    G4RotationMatrix * Ra = new G4RotationMatrix(90.0 *deg, YDeg, 90.0 *deg);
+    G4ThreeVector Ta = G4ThreeVector(0.0 *m, 0.0 *m, 0.0 *m);
+    G4VSolid * CollimatorSolid = new G4SubtractionSolid("Collimater_Solid", boxSolid, holeSolid, Ra, Ta);
+    
+    G4LogicalVolume * CollimatorLogical = new G4LogicalVolume(CollimatorSolid, material, "CollimatorLogical");
+    
+    G4RotationMatrix * Ra0 = new G4RotationMatrix(0.0 *deg, 0.0 *deg, 0.0 *deg);
+    G4AssemblyVolume * CollimatorAssembly = new G4AssemblyVolume(CollimatorLogical, Ta, Ra0);
+    return CollimatorAssembly;
+}
+
+G4AssemblyVolume * DetectorConstruction::FoilWithCollimator(G4Material * material,
+                                                            G4double Xsize, G4double Ysize, G4double Zsize, G4double Radius,
+                                                            G4Material * material_film, G4double thickness){
+    G4AssemblyVolume * CollimatorAssembly = Collimator(material, Xsize, Ysize, Zsize, Radius);
+    
+    G4double filmSizeX;
+    G4double filmSizeY = Ysize;
+    
+    G4double filmPositionX, filmPositionY, filmPositionZ;
+    G4double filmRotationX, filmRotationY, filmRotationZ;
+    
+    filmRotationX = 90.0*deg;
+    filmRotationY = 90.0*deg;
+    filmRotationZ = 90.0*deg;
+    
+    filmPositionX = 0.0 * m;
+    filmPositionY = 0.0 * m;
+    filmPositionZ = 0.0 * m;
+    
+    if (Xsize < Zsize){
+        filmSizeX = Zsize;
+        filmPositionX = Xsize + thickness;
+    }else{
+        filmSizeX = Xsize;
+        filmRotationY = 0.0 *deg;
+        filmPositionZ = Zsize + thickness;
+    }
+    
+    G4VSolid * filmSolid = new G4Box("Film_Solid", filmSizeX/2, filmSizeY/2, thickness/2);
+    G4LogicalVolume * filmLogical = new G4LogicalVolume(filmSolid, material_film, "Film_Logical");
+    filmLogical -> SetVisAttributes(foil_color);
+    
+    G4RotationMatrix * Ra = new G4RotationMatrix(filmRotationX, filmRotationY, filmRotationZ);
+    G4ThreeVector Ta = G4ThreeVector(filmPositionX, filmPositionY, filmPositionZ);
+    
+    CollimatorAssembly -> AddPlacedVolume(filmLogical, Ta, Ra);
+    return CollimatorAssembly;
+}
+
+G4AssemblyVolume * DetectorConstruction::Absorber(){
+    G4AssemblyVolume * Absorber = new G4AssemblyVolume();
+    return Absorber;
+}
+
+G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
+                                               G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,
+                                               G4double thickness,
+                                               G4double mountWindowSizeX, G4double mountWindowSizeY, //Window Size
+                                               G4double mountWindowPositionX, G4double mountWindowPositionY,
+                                               G4Material * windowMaterial, G4double windowThickness){ //Window Position from center of side
+    
+    G4AssemblyVolume * MountAssembly = new G4AssemblyVolume();
+    
+    // Definition of the physics volume of the Mount
+    G4RotationMatrix* Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
+    
+    G4VSolid * TBPlateSolid = new G4Box("TBPlateSolid", mountSizeX/2 - thickness, thickness/2, mountSizeZ/2 - thickness);
+    G4LogicalVolume * TBPlateLogical = new G4LogicalVolume(TBPlateSolid, mountMaterial, "TBPlateLogical", 0, 0, 0);
+    TBPlateLogical -> SetVisAttributes(mount_color);
+
+    G4ThreeVector TopVector = G4ThreeVector(0 - mountWindowPositionX,
+                                            (mountSizeY-thickness)/2 - mountWindowPositionY,
+                                            mountSizeZ/2);
+    G4ThreeVector BottomVector = G4ThreeVector(0 - mountWindowPositionX,
+                                               -(mountSizeY-thickness)/2 - mountWindowPositionY,
+                                               mountSizeZ/2);
+    
+    MountAssembly -> AddPlacedVolume(TBPlateLogical, TopVector, Ra);
+    MountAssembly -> AddPlacedVolume(TBPlateLogical, BottomVector, Ra);
+    
+    //
+    
+    G4VSolid * ZSidePlateSolid = new G4Box("ZSidePlateSolid", mountSizeX/2, mountSizeY/2, thickness/2);
+    G4LogicalVolume * ZSidePlateLogical = new G4LogicalVolume(ZSidePlateSolid, mountMaterial, "ZSidePlateLogical", 0, 0, 0);
+    ZSidePlateLogical  -> SetVisAttributes(mount_color);
+    
+    G4VSolid *mountWindowSolid = new G4Box("mountWindowSolid",
+                                           mountWindowSizeX/2,
+                                           mountWindowSizeY/2,
+                                           thickness);
+    
+    G4VSolid *mountWindowCoverSolid = new G4Box("mountWindowCoverSolid",
+                                                mountWindowSizeX/2,
+                                                mountWindowSizeY/2,
+                                                windowThickness/2);
+    G4LogicalVolume * mountWindowCoverLogical = new G4LogicalVolume(mountWindowCoverSolid, windowMaterial, "mountWindowCoverLogical");
+//    mountWindowCoverLogical -> SetVisAttributes(mylar_color);
+    
+    G4ThreeVector coverVector = G4ThreeVector(0.*m, 0.*m, windowThickness/2);
+//    MountAssembly -> AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra);
+    
+    G4ThreeVector windowPositionVector = G4ThreeVector(mountWindowPositionX, mountWindowPositionY, 0);
+    G4VSolid * windowSidePlateSolid = new G4SubtractionSolid("mountWindowSizePlateSolid", ZSidePlateSolid, mountWindowSolid, Ra, windowPositionVector);
+    G4LogicalVolume * windowSidePlateLogical = new G4LogicalVolume(windowSidePlateSolid, mountMaterial, "windowSidePlateLogical", 0, 0, 0);
+    windowSidePlateLogical -> SetVisAttributes(mount_color);
+    
+    G4ThreeVector FrontVector = G4ThreeVector(0 - mountWindowPositionX,
+                                              0 - mountWindowPositionY,
+                                              -(mountSizeZ-thickness)/2 + mountSizeZ/2);
+    G4ThreeVector BacksideVector = G4ThreeVector(0 - mountWindowPositionX,
+                                                 0 - mountWindowPositionY,
+                                                 (mountSizeZ-thickness)/2 + mountSizeZ/2);
+    
+    MountAssembly -> AddPlacedVolume(windowSidePlateLogical, FrontVector, Ra);
+    MountAssembly -> AddPlacedVolume(ZSidePlateLogical, BacksideVector, Ra);
+    
+    //
+    
+    G4VSolid *XSidePlateSolid = new G4Box("XSidePlate", thickness/2, mountSizeY/2, mountSizeZ/2 - thickness);
+    G4LogicalVolume *XSidePlateLogical = new G4LogicalVolume(XSidePlateSolid, mountMaterial, "XSidePlateLogical", 0, 0, 0);
+    
+    XSidePlateLogical -> SetVisAttributes(mount_color);
+    G4ThreeVector LeftVector = G4ThreeVector((mountSizeX-thickness)/2 - mountWindowPositionX,
+                                             0 - mountWindowPositionY,
+                                             mountSizeZ/2);
+    G4ThreeVector RightVector = G4ThreeVector(-(mountSizeX-thickness)/2 - mountWindowPositionX,
+                                              0 - mountWindowPositionY,
+                                              mountSizeZ/2);
+    
+    MountAssembly -> AddPlacedVolume(XSidePlateLogical, LeftVector, Ra);
+    MountAssembly -> AddPlacedVolume(XSidePlateLogical, RightVector, Ra);
+    
+    return MountAssembly;
+    
+}
+
+G4AssemblyVolume * DetectorConstruction::DetectorAndMount(G4Material * mountMaterial,
+                                                          G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,
+                                                          G4double thickness,
+                                                          G4double mountWindowSizeX, G4double mountWindowSizeY, //Window Size
+                                                          G4double mountWindowPositionX, G4double mountWindowPositionY,
+                                                          G4Material * detectorMaterial,
+                                                          G4double detectorSizeX, G4double detectorSizeY, G4double detectorSizeZ,
+                                                          G4double detectorDepth,
+                                                          G4Material * windowMaterial, G4double windowThickness){
+    
+    G4AssemblyVolume * DetectorAndMountAssembly = Mount(mountMaterial,
+                                                        mountSizeX, mountSizeY, mountSizeZ,
+                                                        thickness,
+                                                        mountWindowSizeX, mountWindowSizeY, //Window Size
+                                                        mountWindowPositionX, mountWindowPositionY,
+                                                        windowMaterial, windowThickness);
+    
+    G4VSolid * detectorSolid = new G4Box("DetectorSolid",
+                                         detectorSizeX/2, detectorSizeY/2, detectorSizeZ/2);
+    G4LogicalVolume * detectorLogical = new G4LogicalVolume(detectorSolid, detectorMaterial,
+                                                            "DetectorLogical");
+    detectorLogical -> SetVisAttributes(detector_color);
+    
+    G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
+    G4ThreeVector Ta = G4ThreeVector(0.*m, 0.*m, detectorDepth);
+    DetectorAndMountAssembly -> AddPlacedVolume(detectorLogical, Ta, Ra);
+    
+    return DetectorAndMountAssembly;
+    
+}
+
+G4AssemblyVolume * DetectorConstruction::Shielding(G4Material * material,
+                                                   G4double Xsize, G4double Ysize, G4double Zsize,
+                                                   G4bool referenceX, G4bool referenceY){ //Sheidling reference on Bottom side Edge
+    G4VSolid * shieldingPlateSolid = new G4Box("shieldingPlateSolid", Xsize/2, Ysize/2, Zsize/2);
+    G4LogicalVolume * shieldingPlateLogical = new G4LogicalVolume(shieldingPlateSolid, material, "sheldingPlateLogical");
+    
+    G4AssemblyVolume * shieldingAssembly = new G4AssemblyVolume();
+    
+    G4double refPointX, refPointY;
+    if(referenceX){
+        refPointX = -Xsize/2;
+    }else{
+        refPointX = Xsize/2;
+    }
+    
+    if(referenceY){
+        refPointY = -Ysize/2;
+    }else{
+        refPointY = Ysize/2;
+    }
+    
+    G4ThreeVector Ta = G4ThreeVector(refPointX, refPointY , 0.*m);
+    G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
+    
+    shieldingAssembly -> AddPlacedVolume(shieldingPlateLogical, Ta, Ra);
+    return shieldingAssembly;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void DetectorConstruction::ConstructMaterials()
+{
+    G4NistManager* nistManager = G4NistManager::Instance();
+
+    nistManager->FindOrBuildMaterial("G4_AIR");
+    nistManager->FindOrBuildMaterial("G4_Al");
+    nistManager->FindOrBuildMaterial("G4_Au");
+    nistManager->FindOrBuildMaterial("G4_Si");
+    nistManager->FindOrBuildMaterial("G4_MYLAR");
+    nistManager->FindOrBuildMaterial("G4_Galactic");
+
+    G4cout << G4endl << "The materials defined are : " << G4endl << G4endl;
+    G4cout << *(G4Material::GetMaterialTable()) << G4endl;
+}
+
+void DetectorConstruction::ConstructColors()
+{
+    white = new G4VisAttributes( G4Colour());
+    white -> SetVisibility(true);
+    white -> SetForceSolid(true);
+    
+    trans_white = new G4VisAttributes( G4Colour());
+    trans_white -> SetVisibility(false);
+    trans_white -> SetForceSolid(false);
+    
+    blue = new G4VisAttributes(G4Colour(0. ,0. ,1.));
+    blue -> SetVisibility(true);
+    blue -> SetForceSolid(true);
+    
+    gray = new G4VisAttributes( G4Colour(0.5, 0.5, 0.5 ));
+    gray-> SetVisibility(true);
+    gray-> SetForceSolid(true);
+    
+    lightgray = new G4VisAttributes( G4Colour(0.75, 0.75, 0.75 ));
+    lightgray-> SetVisibility(true);
+    lightgray-> SetForceSolid(true);
+    
+    red = new G4VisAttributes(G4Colour(1. ,0. ,0.));
+    red-> SetVisibility(true);
+    red-> SetForceSolid(true);
+    
+    yellow = new G4VisAttributes(G4Colour(1., 1., 0. ));
+    yellow-> SetVisibility(true);
+    yellow-> SetForceSolid(true);
+    
+    green = new G4VisAttributes( G4Colour(25/255. , 255/255. ,  25/255. ));
+    green -> SetVisibility(true);
+    green -> SetForceSolid(true);
+    
+    darkGreen = new G4VisAttributes( G4Colour(0/255. , 100/255. ,  0/255. ));
+    darkGreen -> SetVisibility(true);
+    darkGreen -> SetForceSolid(true);
+    
+    darkOrange3 = new G4VisAttributes( G4Colour(205/255. , 102/255. ,  000/255. ));
+    darkOrange3 -> SetVisibility(true);
+    darkOrange3 -> SetForceSolid(true);
+    
+    skyBlue = new G4VisAttributes( G4Colour(135/255. , 206/255. ,  235/255. ));
+    skyBlue -> SetVisibility(true);
+    skyBlue -> SetForceSolid(true);
+    
+    world_color = trans_white;
+    mount_color = lightgray;
+    mylar_color = gray;
+    foil_color = yellow;
+    detector_color = darkOrange3;
+    collimator_color = gray;
+    shielding_color = gray;
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

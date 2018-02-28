@@ -11,7 +11,7 @@
 #endif
 
 #include "G4UImanager.hh"
-#include "FTFP_BERT.hh"
+#include "QGSP_BERT.hh"
 #include "G4StepLimiterPhysics.hh"
 
 #include "G4VisExecutive.hh"
@@ -29,7 +29,7 @@ int main(int argc,char** argv)
         //Let G4UIExecutive guess what is the best available UI
         ui = new G4UIExecutive(argc,argv);
     }
-    
+
     // Construct the default run manager
     // Note that if we have built G4 with support for Multi-threading we set it here
 #ifdef G4MULTITHREADED
@@ -40,36 +40,36 @@ int main(int argc,char** argv)
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
-    
+
     // Activate UI-command base scorer
     G4ScoringManager * scManager = G4ScoringManager::GetScoringManager();
     scManager->SetVerboseLevel(1);
-    
+
     // Mandatory user initialization classes
-    
+
     //====================
     //The Geometry
     runManager->SetUserInitialization(new DetectorConstruction);
-    
+
     //====================
     //The Physics
-    G4VModularPhysicsList* physicsList = new FTFP_BERT;
+    G4VModularPhysicsList* physicsList = new QGSP_BERT;
     physicsList->RegisterPhysics(new G4StepLimiterPhysics());
     runManager->SetUserInitialization(physicsList);
-    
+
     //====================
     // User action initialization
     runManager->SetUserInitialization(new ActionInitialization());
-    
+
     // Visualization manager construction
     G4VisManager* visManager = new G4VisExecutive;
     // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
     // G4VisManager* visManager = new G4VisExecutive("Quiet");
     visManager->Initialize();
-    
+
     // Get the pointer to the User Interface manager
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
-    
+
     if (argc>1) {
         // execute an argument macro file if exist
         G4String command = "/control/execute ";
@@ -89,10 +89,10 @@ int main(int argc,char** argv)
     // Free the store: user actions, physics_list and detector_description are
     // owned and deleted by the run manager, so they should not be deleted
     // in the main() program !
-    
+
     delete visManager;
     delete runManager;
-    
+
     return 0;
 }
 

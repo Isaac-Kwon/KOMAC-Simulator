@@ -53,9 +53,9 @@ class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 public:
     PrimaryGeneratorAction();
     virtual ~PrimaryGeneratorAction();
-    
+
     virtual void GeneratePrimaries(G4Event*);
-    
+
     void SetMomentum(G4double val) { fMomentum = val; }
     G4double GetMomentum() const { return fMomentum; }
 
@@ -67,7 +67,7 @@ public:
 
     void SetRandomize(G4bool val) { fRandomizePrimary = val; }
     G4bool GetRandomize() const { return fRandomizePrimary; }
-    
+
 private:
     void DefineCommands();
 

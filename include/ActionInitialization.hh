@@ -45,7 +45,7 @@ class ActionInitialization : public G4VUserActionInitialization
     //You may want to create here an instance of RunAction
     //To allow merging of results from threads
     virtual void BuildForMaster() const;
-    
+
     //This is called by each worker thread.
     //Create here the user-actions needed by each thread:
     // RunAction, EventAction, SteppingAction, StackingAction
@@ -56,5 +56,3 @@ class ActionInitialization : public G4VUserActionInitialization
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
-
-    

@@ -50,55 +50,64 @@ class G4GenericMessenger;
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
-    DetectorConstruction();
-    virtual ~DetectorConstruction();
-    
-    //Here the geomtry is constructed. This method is called only by
-    //master thread and all geometry built here is shared among threads
-    virtual G4VPhysicalVolume* Construct();
+  DetectorConstruction();
+  virtual ~DetectorConstruction();
 
-    //This is just a convinience: a method where all materials needed
-    //are created
-    void ConstructMaterials();
-    void ConstructColors();
-    
-    G4AssemblyVolume * Collimator(G4Material* material, G4double Xsize, G4double Ysize, G4double Zsize, G4double Radius);
-    G4AssemblyVolume * FoilWithCollimator(G4Material * material, G4double Xsize, G4double Ysize, G4double Zsize, G4double Radius, G4Material * material_film, G4double thickness);
-    G4AssemblyVolume * Absorber();
-    G4AssemblyVolume * Mount(G4Material * mountMaterial, G4double MountSizeX, G4double Ysize, G4double Zsize, G4double thickness, G4double mountWindowSizeX, G4double mountWindowSizeY, G4double mountWindowPositionX , G4double mountWindowPositionY, G4Material * windowMaterial, G4double windowThickness);
-    G4AssemblyVolume * DetectorAndMount(G4Material * mountMaterial,
-                                        G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,
-                                        G4double thickness,
-                                        G4double mountWindowSizeX, G4double mountWindowSizeY, //Window Size
-                                        G4double mountWindowPositionX, G4double mountWindowPositionY,
-                                        G4Material * detectorMaterial,
-                                        G4double detectorSizeX, G4double detectorSizeY, G4double detectorSizeZ, G4double detectorDepth,
-                                        G4Material * windowMaterial, G4double windowThickness);
-    G4AssemblyVolume * Shielding(G4Material * material,
-                                 G4double Xsize, G4double Ysize, G4double Zsize,
-                                 G4bool referenceX, G4bool referenceY);
-    
-    G4VisAttributes* blue;
-    G4VisAttributes* gray;
-    G4VisAttributes* white;
-    G4VisAttributes* red;
-    G4VisAttributes* yellow;
-    G4VisAttributes* green;
-    G4VisAttributes* darkGreen;
-    G4VisAttributes* darkOrange3;
-    G4VisAttributes* skyBlue;
-    G4VisAttributes* lightgray;
-    
-    G4VisAttributes* world_color;
-    G4VisAttributes* trans_white;
-    G4VisAttributes* mount_color;
-    G4VisAttributes* foil_color;
-    G4VisAttributes* mylar_color;
-    G4VisAttributes* detector_color;
-    G4VisAttributes* collimator_color;
-    G4VisAttributes* shielding_color;
-    
-    
+
+  //Here the geomtry is constructed. This method is called only by
+  //master thread and all geometry built here is shared among threads
+  virtual G4VPhysicalVolume* Construct();
+
+  //This is just a convinience: a method where all materials needed
+  //are created
+  void ConstructMaterials();
+  void ConstructColors();
+
+  G4AssemblyVolume * Collimator(G4Material* material, G4double Xsize, G4double Ysize, G4double Zsize, G4double Radius);
+  G4AssemblyVolume * FoilWithCollimator(G4Material * material,
+                                        G4double Xsize, G4double Ysize, G4double Zsize, G4double Radius,
+                                        G4Material * material_film, G4double thickness);
+  G4AssemblyVolume * Absorber();
+  G4AssemblyVolume * Mount(G4Material * mountMaterial,
+                           G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,
+                           G4double thickness,
+                           G4double mountWindowSizeX, G4double mountWindowSizeY,
+                           G4double mountWindowPositionX , G4double mountWindowPositionY,
+                           G4Material * windowMaterial, G4double windowThickness);
+  G4AssemblyVolume * DetectorAndMount(G4Material * mountMaterial,
+                                      G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,
+                                      G4double thickness,
+                                      G4double mountWindowSizeX, G4double mountWindowSizeY, //Window Size
+                                      G4double mountWindowPositionX, G4double mountWindowPositionY,
+                                      G4Material * detectorMaterial,
+                                      G4double detectorSizeX, G4double detectorSizeY, G4double detectorSizeZ,
+                                      G4double detectorDepth,
+                                      G4Material * windowMaterial, G4double windowThickness);
+  G4AssemblyVolume * Shielding(G4Material * material,
+                               G4double Xsize, G4double Ysize, G4double Zsize,
+                               G4bool referenceX, G4bool referenceY);
+
+  // Color set
+  G4VisAttributes* blue;
+  G4VisAttributes* gray;
+  G4VisAttributes* white;
+  G4VisAttributes* red;
+  G4VisAttributes* yellow;
+  G4VisAttributes* green;
+  G4VisAttributes* darkGreen;
+  G4VisAttributes* darkOrange3;
+  G4VisAttributes* skyBlue;
+  G4VisAttributes* lightgray;
+  // Setting value
+  G4VisAttributes* world_color;
+  G4VisAttributes* trans_white;
+  G4VisAttributes* mount_color;
+  G4VisAttributes* foil_color;
+  G4VisAttributes* mylar_color;
+  G4VisAttributes* detector_color;
+  G4VisAttributes* collimator_color;
+  G4VisAttributes* shielding_color;
+
 private:
 
 };

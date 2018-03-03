@@ -79,7 +79,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   G4Material * aluminum = G4Material::GetMaterial("G4_Al");
   G4Material * gold = G4Material::GetMaterial("G4_Au");
   G4Material * silicon = G4Material::GetMaterial("G4_Si");
-  G4Material * mylar = G4Material::GetMaterial("G4_MAYLAR");
+  G4Material * mylar = G4Material::GetMaterial("G4_MYLAR");
 
   // 1st Collimator
   G4AssemblyVolume * CollimatorAssembly = Collimator(aluminum, 120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm);
@@ -98,16 +98,16 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   ShieldingAssembly -> MakeImprint(worldLogical, Ta3, Ra);
 
   // Mount
-  G4AssemblyVolume * MountAssembly = DetectorAndMount(aluminum,
-                                                      302.*mm, 150.*mm, 137.*mm,
-                                                      6.*mm,
-                                                      20.*mm, 36.*mm, //Window Size
-                                                      70.*mm, 0.*mm,
-                                                      silicon,
-                                                      20.*mm, 36.*mm, 0.1*mm,
-                                                      30.*mm,
-                                                      mylar, 6.*mm);
-  G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);
+  G4AssemblyVolume * MountAssembly = DetectorAndMount(aluminum, // Mount material
+                                                      302.*mm, 150.*mm, 137.*mm, // Mount size
+                                                      6.*mm,          // Mount thickness
+                                                      20.*mm, 36.*mm, // Window Size
+                                                      76.*mm, 0.*mm,  // Window position based mount center
+                                                      silicon,        // Detector material
+                                                      20.*mm, 36.*mm, 0.1*mm, // Detector size
+                                                      30.*mm, // Detector depth from surface
+                                                      mylar, 6.*mm); // Window material, window thickness FIXME: Window thickness not needed(?)
+  G4ThreeVector Ta4 = G4ThreeVector(0.*cm,0.*m,0.*m);
   MountAssembly -> MakeImprint(worldLogical, Ta4, Ra);
 
   return worldPhysical;
@@ -210,15 +210,14 @@ G4AssemblyVolume * DetectorConstruction::Absorber() // TODO: Delete?
 G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
                                                G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,
                                                G4double thickness,
-                                               G4double mountWindowSizeX, G4double mountWindowSizeY, //Window Size
-                                               G4double mountWindowPositionX, G4double mountWindowPositionY,
-                                               G4Material * windowMaterial, G4double windowThickness) //Window Position from center of side
+                                               G4double mountWindowSizeX, G4double mountWindowSizeY, // Window Size
+                                               G4double mountWindowPositionX, G4double mountWindowPositionY, // Window Position from center of side
+                                               G4Material * windowMaterial, G4double windowThickness) 
 {
 
-  G4AssemblyVolume * MountAssembly = new G4AssemblyVolume();
+  G4AssemblyVolume * MountAssembly = new G4AssemblyVolume(); // Initalize
 
-  // Definition of the physics volume of the Mount
-  G4RotationMatrix* Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
+  G4RotationMatrix* Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg); // Default rotation: No rotation.
 
   // Top & Bottom plate
   G4VSolid * TBPlateSolid = new G4Box("TBPlateSolid", mountSizeX/2 - thickness, thickness/2, mountSizeZ/2 - thickness);
@@ -226,63 +225,68 @@ G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
   G4LogicalVolume * TBPlateLogical = new G4LogicalVolume(TBPlateSolid, mountMaterial, "TBPlateLogical", 0, 0, 0);
   TBPlateLogical -> SetVisAttributes(mount_color);
 
-  G4ThreeVector TopVector = G4ThreeVector(0 - mountWindowPositionX,
+  G4ThreeVector TopVector = G4ThreeVector(mountWindowPositionX,
                                           (mountSizeY-thickness)/2 - mountWindowPositionY,
                                           mountSizeZ/2);
-  G4ThreeVector BottomVector = G4ThreeVector(0 - mountWindowPositionX,
+  G4ThreeVector BottomVector = G4ThreeVector(mountWindowPositionX,
                                              -(mountSizeY-thickness)/2 - mountWindowPositionY,
                                              mountSizeZ/2);
 
-  MountAssembly->AddPlacedVolume(TBPlateLogical, TopVector, Ra);
-  MountAssembly->AddPlacedVolume(TBPlateLogical, BottomVector, Ra);
+  MountAssembly->AddPlacedVolume(TBPlateLogical, TopVector, Ra); // Place the top plate.
+  MountAssembly->AddPlacedVolume(TBPlateLogical, BottomVector, Ra); // Place the bottom plate.
 
+  // The plate for back and front
   G4VSolid * ZSidePlateSolid = new G4Box("ZSidePlateSolid", mountSizeX/2, mountSizeY/2, thickness/2);
-  G4LogicalVolume * ZSidePlateLogical = new G4LogicalVolume(ZSidePlateSolid, mountMaterial, "ZSidePlateLogical", 0, 0, 0);
-  ZSidePlateLogical  -> SetVisAttributes(mount_color);
+  G4LogicalVolume * ZSidePlateLogical = new G4LogicalVolume(ZSidePlateSolid, mountMaterial, "ZSidePlateLogical", 0, 0, 0); // Logical volume for back.
+  ZSidePlateLogical->SetVisAttributes(mount_color);
 
+  // Subtract two volume to make mount window in front plate.
   G4VSolid *mountWindowSolid = new G4Box("mountWindowSolid",
                                          mountWindowSizeX/2,
                                          mountWindowSizeY/2,
-                                         thickness);
+                                         thickness);  // Window solid, use it in subtraction to make a front side
+  G4ThreeVector windowPositionVector = G4ThreeVector(-mountWindowPositionX, -mountWindowPositionY, 0); // Naming follows the 3D CAD notation, but geant4 follows the beam axis as z direction.
 
+  G4VSolid * windowSidePlateSolid = new G4SubtractionSolid("mountWindowSizePlateSolid", ZSidePlateSolid, mountWindowSolid, Ra, windowPositionVector); // Define the front plate including a window.
+  G4LogicalVolume * windowSidePlateLogical = new G4LogicalVolume(windowSidePlateSolid, mountMaterial, "windowSidePlateLogical", 0, 0, 0);
+  windowSidePlateLogical->SetVisAttributes(mount_color);
+
+  G4ThreeVector FrontVector = G4ThreeVector(mountWindowPositionX,
+                                            -mountWindowPositionY,
+                                            -(mountSizeZ-thickness)/2 + mountSizeZ/2);
+  G4ThreeVector BacksideVector = G4ThreeVector(mountWindowPositionX,
+                                               -mountWindowPositionY,
+                                               (mountSizeZ/2-thickness/2) + mountSizeZ/2);
+
+  MountAssembly -> AddPlacedVolume(windowSidePlateLogical, FrontVector, Ra); // Place the front plate.
+  MountAssembly -> AddPlacedVolume(ZSidePlateLogical, BacksideVector, Ra);   // Place the back plate.
+
+  // The plate for left and right. (left is positive direction in x axis and right is negative direction in x axis.)
+  G4VSolid *XSidePlateSolid = new G4Box("XSidePlate", thickness/2, mountSizeY/2, mountSizeZ/2 - thickness); // Left, Rifht cover
+  G4LogicalVolume *XSidePlateLogical = new G4LogicalVolume(XSidePlateSolid, mountMaterial, "XSidePlateLogical", 0, 0, 0);
+  XSidePlateLogical -> SetVisAttributes(mount_color);
+
+  G4ThreeVector LeftVector = G4ThreeVector((mountSizeX/2-thickness/2) + mountWindowPositionX,
+                                           -mountWindowPositionY,
+                                           mountSizeZ/2);
+  G4ThreeVector RightVector = G4ThreeVector(-(mountSizeX/2-thickness/2) + mountWindowPositionX,
+                                            -mountWindowPositionY,
+                                            mountSizeZ/2);
+
+  MountAssembly -> AddPlacedVolume(XSidePlateLogical, LeftVector, Ra); // Place the left plate.
+  MountAssembly -> AddPlacedVolume(XSidePlateLogical, RightVector, Ra); // Place the right plate.
+
+  // Window cover to shield light from outside.
+  // TODO: Separate the input variable. The cover geometry and window geometry is different.
+  // FIXME: Separate the cover and mylar film. It's different.
   G4VSolid *mountWindowCoverSolid = new G4Box("mountWindowCoverSolid",
                                               mountWindowSizeX/2,
                                               mountWindowSizeY/2,
                                               windowThickness/2);
-  G4LogicalVolume * mountWindowCoverLogical = new G4LogicalVolume(mountWindowCoverSolid, windowMaterial, "mountWindowCoverLogical");
-  // mountWindowCoverLogical -> SetVisAttributes(mylar_color);
-
-  G4ThreeVector coverVector = G4ThreeVector(0.*m, 0.*m, windowThickness/2);
-  // MountAssembly -> AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra);x
-
-  G4ThreeVector windowPositionVector = G4ThreeVector(mountWindowPositionX, mountWindowPositionY, 0);
-  G4VSolid * windowSidePlateSolid = new G4SubtractionSolid("mountWindowSizePlateSolid", ZSidePlateSolid, mountWindowSolid, Ra, windowPositionVector);
-  G4LogicalVolume * windowSidePlateLogical = new G4LogicalVolume(windowSidePlateSolid, mountMaterial, "windowSidePlateLogical", 0, 0, 0);
-  windowSidePlateLogical -> SetVisAttributes(mount_color);
-
-  G4ThreeVector FrontVector = G4ThreeVector(0 - mountWindowPositionX,
-                                            0 - mountWindowPositionY,
-                                            -(mountSizeZ-thickness)/2 + mountSizeZ/2);
-  G4ThreeVector BacksideVector = G4ThreeVector(0 - mountWindowPositionX,
-                                               0 - mountWindowPositionY,
-                                               (mountSizeZ-thickness)/2 + mountSizeZ/2);
-
-  MountAssembly -> AddPlacedVolume(windowSidePlateLogical, FrontVector, Ra);
-  MountAssembly -> AddPlacedVolume(ZSidePlateLogical, BacksideVector, Ra);
-
-  G4VSolid *XSidePlateSolid = new G4Box("XSidePlate", thickness/2, mountSizeY/2, mountSizeZ/2 - thickness);
-  G4LogicalVolume *XSidePlateLogical = new G4LogicalVolume(XSidePlateSolid, mountMaterial, "XSidePlateLogical", 0, 0, 0);
-
-  XSidePlateLogical -> SetVisAttributes(mount_color);
-  G4ThreeVector LeftVector = G4ThreeVector((mountSizeX-thickness)/2 - mountWindowPositionX,
-                                           0 - mountWindowPositionY,
-                                           mountSizeZ/2);
-  G4ThreeVector RightVector = G4ThreeVector(-(mountSizeX-thickness)/2 - mountWindowPositionX,
-                                            0 - mountWindowPositionY,
-                                            mountSizeZ/2);
-
-  MountAssembly -> AddPlacedVolume(XSidePlateLogical, LeftVector, Ra);
-  MountAssembly -> AddPlacedVolume(XSidePlateLogical, RightVector, Ra);
+  G4LogicalVolume * mountWindowCoverLogical = new G4LogicalVolume(mountWindowCoverSolid, windowMaterial, "mountWindowCoverLogical", 0, 0, 0);
+  mountWindowCoverLogical -> SetVisAttributes(mylar_color);
+  G4ThreeVector coverVector = G4ThreeVector(0.*m, 0.*m, -windowThickness/2);
+  MountAssembly->AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra); // Place the cover plate.
 
   return MountAssembly;
 

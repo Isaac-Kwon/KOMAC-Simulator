@@ -109,6 +109,7 @@ public:
   G4VisAttributes* shielding_color;
 
 private:
+  G4LogicalVolume* fScoringVolume;
 
 };
 

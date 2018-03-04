@@ -1,4 +1,3 @@
-
 #include "stdio.h"
 
 #include "DetectorConstruction.hh"
@@ -46,7 +45,6 @@ int main(int argc,char** argv)
     scManager->SetVerboseLevel(1);
 
     // Mandatory user initialization classes
-
     //====================
     //The Geometry
     runManager->SetUserInitialization(new DetectorConstruction);

@@ -37,7 +37,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DetectorConstruction::DetectorConstruction()
-  : G4VUserDetectorConstruction()
+  : G4VUserDetectorConstruction(),
+    fScoringVolume(0)
 {
 
 }
@@ -316,6 +317,7 @@ G4AssemblyVolume * DetectorConstruction::DetectorAndMount(G4Material * mountMate
                                        detectorSizeX/2, detectorSizeY/2, detectorSizeZ/2);
   G4LogicalVolume * detectorLogical = new G4LogicalVolume(detectorSolid, detectorMaterial, "DetectorLogical");
   detectorLogical -> SetVisAttributes(detector_color);
+  fScoringVolume = detectorLogical;
 
   G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
   G4ThreeVector Ta = G4ThreeVector(0.*m, 0.*m, detectorDepth);

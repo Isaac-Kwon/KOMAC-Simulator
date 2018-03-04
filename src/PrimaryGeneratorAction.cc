@@ -41,8 +41,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
-: G4VUserPrimaryGeneratorAction(),     
-  fParticleGun(0), fMessenger(0), 
+: G4VUserPrimaryGeneratorAction(),
+  fParticleGun(0), fMessenger(0),
   fPositron(0), fMuon(0), fPion(0), fKaon(0), fProton(0),
   fMomentum(100.*MeV),
   fSigmaMomentum(10.*MeV),

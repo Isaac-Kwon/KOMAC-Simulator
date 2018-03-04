@@ -86,6 +86,7 @@ public:
   G4AssemblyVolume * Shielding(G4Material * material,
                                G4double Xsize, G4double Ysize, G4double Zsize,
                                G4bool referenceX, G4bool referenceY);
+  G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; } // Get the scoring volume variable.
 
   // Color set
   G4VisAttributes* blue;

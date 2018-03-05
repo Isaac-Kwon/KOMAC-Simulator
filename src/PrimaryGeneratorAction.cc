@@ -44,8 +44,8 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction(),
   fParticleGun(0), fMessenger(0),
   fPositron(0), fMuon(0), fPion(0), fKaon(0), fProton(0),
-  fMomentum(100.*MeV),
-  fSigmaMomentum(10.*MeV),
+  fMomentum(194.*MeV),
+  fSigmaMomentum(19.4*MeV),
   fSigmaAngle(0.*deg),
   fRandomizePrimary(false)
 {

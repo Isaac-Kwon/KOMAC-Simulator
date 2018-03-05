@@ -83,13 +83,16 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   G4Material * mylar = G4Material::GetMaterial("G4_MYLAR");
 
   // 1st Collimator
-  G4AssemblyVolume * CollimatorAssembly = Collimator(aluminum, 120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm);
+  G4AssemblyVolume * CollimatorAssembly = Collimator(aluminum, // Collimator material
+                                                     120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm); // x, y, z size, hole radius
   G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
   G4ThreeVector Ta1 = G4ThreeVector(0.*m, 0.*m, -0.57 *m);
   CollimatorAssembly->MakeImprint(worldLogical, Ta1, Ra);
 
   // 2nd Collimator with gold film
-  G4AssemblyVolume * CollimatorFilmAssembly = FoilWithCollimator(aluminum, 120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm, gold, 0.1 *mm);
+  G4AssemblyVolume * CollimatorFilmAssembly = FoilWithCollimator(aluminum, // Collimator material
+                                                                 120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm, // x, y, z size, hole radius
+                                                                 gold, 0.1 *mm); // Foil material, Foil thickness
   G4ThreeVector Ta2 = G4ThreeVector(0.*m, 0.*m, -0.52 *m);
   CollimatorFilmAssembly -> MakeImprint(worldLogical, Ta2, Ra);
 
@@ -105,7 +108,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
                                                       20.*mm, 36.*mm, // Window Size
                                                       76.*mm, 0.*mm,  // Window position based mount center
                                                       silicon,        // Detector material
-                                                      20.*mm, 36.*mm, 0.1*mm, // Detector size
+                                                      20.*mm, 36.*mm, 0.1*mm, // Detector size, NOTE: Change thickness from 0.1mm to 30mm for QA
                                                       30.*mm, // Detector depth from surface
                                                       mylar, 6.*mm); // Window material, window thickness FIXME: Window thickness not needed(?)
   G4ThreeVector Ta4 = G4ThreeVector(0.*cm,0.*m,0.*m);
@@ -129,7 +132,7 @@ G4AssemblyVolume * DetectorConstruction::Collimator(G4Material* material, G4doub
 
   G4double YDeg;
 
-  if (Xsize < Zsize){
+  if (Xsize < Zsize){           // TODO: Is it needed? 
     YDeg = 90.0*deg;
   }else{
     YDeg = 0.0*deg;
@@ -179,7 +182,7 @@ G4AssemblyVolume * DetectorConstruction::FoilWithCollimator(G4Material * materia
   filmPositionY = 0.0 * m;
   filmPositionZ = 0.0 * m;
 
-  if (Xsize < Zsize){
+  if (Xsize < Zsize){           // TODO: Is it needed?
     filmSizeX = Zsize;
     filmPositionX = Xsize + thickness;
   }else{
@@ -213,7 +216,7 @@ G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
                                                G4double thickness,
                                                G4double mountWindowSizeX, G4double mountWindowSizeY, // Window Size
                                                G4double mountWindowPositionX, G4double mountWindowPositionY, // Window Position from center of side
-                                               G4Material * windowMaterial, G4double windowThickness) 
+                                               G4Material * windowMaterial, G4double windowThickness)
 {
 
   G4AssemblyVolume * MountAssembly = new G4AssemblyVolume(); // Initalize
@@ -287,7 +290,7 @@ G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
   G4LogicalVolume * mountWindowCoverLogical = new G4LogicalVolume(mountWindowCoverSolid, windowMaterial, "mountWindowCoverLogical", 0, 0, 0);
   mountWindowCoverLogical -> SetVisAttributes(mylar_color);
   G4ThreeVector coverVector = G4ThreeVector(0.*m, 0.*m, -windowThickness/2);
-  MountAssembly->AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra); // Place the cover plate.
+  // MountAssembly->AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra); // Place the cover plate. NOTE: Comment out for QA
 
   return MountAssembly;
 

@@ -147,6 +147,9 @@ void RunAction::EndOfRunAction(const G4Run* run)
      << " Cumulated dose per run, in scoring volume : "
      << G4BestUnit(dose,"Dose") << " rms = " << G4BestUnit(rmsDose,"Dose")
      << G4endl
+     << " Deposit energy in scoring volume : "
+     << edep/MeV << " MeV"
+     << G4endl
      << "------------------------------------------------------------"
      << G4endl
      << G4endl;

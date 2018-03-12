@@ -198,7 +198,7 @@ G4AssemblyVolume * DetectorConstruction::FoilWithCollimator(G4Material * materia
   G4RotationMatrix * Ra = new G4RotationMatrix(filmRotationX, filmRotationY, filmRotationZ);
   G4ThreeVector Ta = G4ThreeVector(filmPositionX, filmPositionY, filmPositionZ);
 
-  CollimatorAssembly->AddPlacedVolume(filmLogical, Ta, Ra);
+  // CollimatorAssembly->AddPlacedVolume(filmLogical, Ta, Ra);
 
   return CollimatorAssembly;
 }

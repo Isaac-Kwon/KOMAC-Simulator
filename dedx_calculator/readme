@@ -1,0 +1,12 @@
+README FILE
+
+####################################################################
+This file is to get the stopping power of proton in silicon. 
+Below is the description of each file.
+
+pstar_silicon.dat: The data file from pstar.
+	- URL: https://physics.nist.gov/PhysRefData/Star/Text/PSTAR.html
+calcuation.c: Calculate the dE/dx value iteratively.
+
+####################################################################
+Usage: root calculation.c\(0.3\) in case of 0.3cm thickness

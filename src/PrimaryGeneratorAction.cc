@@ -61,7 +61,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
     fProton = particleTable->FindParticle(particleName="proton");
 
     // default particle kinematics
-    fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,-1.42*m));
+    fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,-0.84*m));
     fParticleGun->SetParticleDefinition(fProton);
 
     // define commands for this class

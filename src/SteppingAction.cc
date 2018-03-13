@@ -34,6 +34,7 @@
 #include "DetectorConstruction.hh"
 
 #include "G4Step.hh"
+#include "G4Track.hh"
 #include "G4Event.hh"
 #include "G4RunManager.hh"
 #include "G4LogicalVolume.hh"
@@ -73,6 +74,11 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   // collect energy deposited in this step
   G4double edepStep = step->GetTotalEnergyDeposit();
   fEventAction->AddEdep(edepStep);
+
+  G4Track* track         = step->GetTrack();
+  G4double kinEnergy     = track->GetKineticEnergy();
+  G4cout << "Step Energy: " << kinEnergy/CLHEP::MeV << " MeV" << G4endl;
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

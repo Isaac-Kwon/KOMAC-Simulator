@@ -75,9 +75,18 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4double edepStep = step->GetTotalEnergyDeposit();
   fEventAction->AddEdep(edepStep);
 
+  G4double stepLength = step->GetStepLength();
+
   G4Track* track         = step->GetTrack();
   G4double kinEnergy     = track->GetKineticEnergy();
-  G4cout << "Step Energy: " << kinEnergy/CLHEP::MeV << " MeV" << G4endl;
+
+  G4ThreeVector preStep = step->GetPreStepPoint()->GetPosition();
+  G4ThreeVector postStep = step->GetPostStepPoint()->GetPosition();
+
+  G4cout << "Pre-step position(mm): (" << preStep.x()/CLHEP::mm << ", " << preStep.y()/CLHEP::mm << ", " << preStep.z()/CLHEP::mm << ")" << G4endl;
+  G4cout << "Post-step position(mm): (" << postStep.x()/CLHEP::mm << ", " << postStep.y()/CLHEP::mm << ", " << postStep.z()/CLHEP::mm << ")" << G4endl;
+
+  G4cout << "Step Energy: " << kinEnergy/CLHEP::MeV << " MeV | Deposit Energy" <<  edepStep/CLHEP::MeV << " MeV | StepLength: " << stepLength/CLHEP::cm << " cm" << G4endl;
 
 }
 

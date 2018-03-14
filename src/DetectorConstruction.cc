@@ -111,7 +111,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
                                                       20.*mm, 36.*mm, 0.1*mm, // Detector size, NOTE: Change thickness from 0.1mm to 3mm for QA
                                                       30.*mm, // Detector depth from surface
                                                       mylar, 6.*mm); // Window material, window thickness FIXME: Window thickness not needed(?)
-  G4ThreeVector Ta4 = G4ThreeVector(0.*cm,0.*m,0.*m);
+  G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);
   MountAssembly -> MakeImprint(worldLogical, Ta4, Ra);
 
   return worldPhysical;

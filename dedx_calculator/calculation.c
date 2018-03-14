@@ -130,10 +130,9 @@ TGraph* getTotalStoppingPower(int debug=0)
 	return gstopping;
 }
 
-void calculation(Int_t debug=0, Float_t thickness=0.01) // thickness unit: cm
+void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20) // thickness unit: cm, proton energy unit: MeV
 {
 	Float_t silicon_density = 2.33; // unit: g/cm^2
-	Float_t proton_energy = 14.0798; // unit: 20MeV
 	Float_t area = 2.0 * 3.6; // unit: cm^2
 	Float_t mass = silicon_density*area*thickness; // unit: g
 	Float_t step_size = 0.0001; // unit: cm
@@ -158,7 +157,7 @@ void calculation(Int_t debug=0, Float_t thickness=0.01) // thickness unit: cm
 	while(1)
 	{
 		cout << "loop#: " << iloop;
-		cout << "\t|\tLocation: " << penetration_length << "/" << thickness;
+		cout << "\t|\tLocation: " << penetration_length;
 		cout << "\t|\tProton energy: " << proton_energy << " MeV\t|\t";
 
 		// Total energy loss(Electronic + Nuclear)

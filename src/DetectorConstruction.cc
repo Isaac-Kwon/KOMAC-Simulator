@@ -82,6 +82,23 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   G4Material * silicon = G4Material::GetMaterial("G4_Si");
   G4Material * mylar = G4Material::GetMaterial("G4_MYLAR");
 
+  // Beam window
+  G4Tubs * beamWindow = new G4Tubs("beamWindow",    // Name
+                                    0*mm,           // radius min
+                                    150*mm,         // radius max
+                                    0.25*mm,        // Thickness/2
+                                    0,              // Start angle
+                                    360);           // End angle  
+  G4LogicalVolume* beamWindowLogical = new G4LogicalVolume(beamWindow, air, "beamWindowLogical");
+  new G4PVPlacement(0,                                  // No rotation
+                    G4ThreeVector(0.*m,0.*m,-1.42*m),   // at (0,0,-1.42m)
+                    beamWindowLogical,                  // its logical volume
+                    "beamWindowPhysical",               // its name
+                    worldLogical,                       // its mother volume
+                    false,                              // no boolean operations
+                    0,                                  // copy number
+                    checkOverlaps);                     // Checking overlaps
+  beamWindowLogical->SetVisAttributes(gray);
   // 1st Collimator
   G4AssemblyVolume * CollimatorAssembly = Collimator(aluminum, // Collimator material
                                                      120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm); // x, y, z size, hole radius
@@ -130,13 +147,7 @@ G4AssemblyVolume * DetectorConstruction::Collimator(G4Material* material, G4doub
   G4double holeDepth;
   holeDepth = (Xsize + Ysize + Zsize);
 
-  G4double YDeg;
-
-  if (Xsize < Zsize){           // TODO: Is it needed? 
-    YDeg = 90.0*deg;
-  }else{
-    YDeg = 0.0*deg;
-  }
+  G4double YDeg = 0.0;
 
   G4VSolid * holeSolid = new G4Tubs("HoleFirstCollimator",
                                     0.0 *m,      //inner radius
@@ -182,14 +193,9 @@ G4AssemblyVolume * DetectorConstruction::FoilWithCollimator(G4Material * materia
   filmPositionY = 0.0 * m;
   filmPositionZ = 0.0 * m;
 
-  if (Xsize < Zsize){           // TODO: Is it needed?
-    filmSizeX = Zsize;
-    filmPositionX = Xsize + thickness;
-  }else{
-    filmSizeX = Xsize;
-    filmRotationY = 0.0 *deg;
-    filmPositionZ = Zsize + thickness;
-  }
+  filmSizeX = Xsize;
+  filmRotationY = 0.0 *deg;
+  filmPositionZ = Zsize + thickness;
 
   G4VSolid * filmSolid = new G4Box("Film_Solid", filmSizeX/2, filmSizeY/2, thickness/2);
   G4LogicalVolume * filmLogical = new G4LogicalVolume(filmSolid, material_film, "Film_Logical");
@@ -205,11 +211,13 @@ G4AssemblyVolume * DetectorConstruction::FoilWithCollimator(G4Material * materia
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4AssemblyVolume * DetectorConstruction::Absorber() // TODO: Delete?
+G4AssemblyVolume * DetectorConstruction::Absorber() // NOTE: Legacy parts. Use when needed the absorber geometry
 {
   G4AssemblyVolume * Absorber = new G4AssemblyVolume();
   return Absorber;
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
                                                G4double mountSizeX, G4double mountSizeY, G4double mountSizeZ,

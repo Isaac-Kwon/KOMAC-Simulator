@@ -30,6 +30,10 @@
 
 #include "PrimaryGeneratorAction.hh"
 
+#include "G4Tubs.hh"
+#include "G4LogicalVolumeStore.hh"
+#include "G4LogicalVolume.hh"
+
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
@@ -47,7 +51,8 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   fMomentum(194.*MeV),
   fSigmaMomentum(19.4*MeV),
   fSigmaAngle(0.*deg),
-  fRandomizePrimary(false)
+  fRandomizePrimary(false),
+  fBeamWindow(0)
 {
     G4int n_particle = 1;
     fParticleGun  = new G4ParticleGun(n_particle);
@@ -61,7 +66,6 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
     fProton = particleTable->FindParticle(particleName="proton");
 
     // default particle kinematics
-    fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,-1.42*m));
     fParticleGun->SetParticleDefinition(fProton);
 
     // define commands for this class
@@ -80,6 +84,14 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 {
+    // Bean window
+    G4double radius = 25.0*mm;
+    G4double position_angle = 360;
+    G4double half_thickness = 2.5*mm;
+    G4LogicalVolume *beamWinLV = G4LogicalVolumeStore::GetInstance()->GetVolume("beamWindowLogical");
+    fBeamWindow = dynamic_cast<G4Tubs*>(beamWinLV->GetSolid());
+
+
     G4ParticleDefinition* particle;
 
     if (fRandomizePrimary)
@@ -116,9 +128,20 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 
     fParticleGun->SetParticleEnergy(Ekin);
 
-    G4double angle = (G4UniformRand()-0.5)*fSigmaAngle;
-    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(angle),0.,
-                                                             std::cos(angle)));
+    G4double phi = G4UniformRand()*2*CLHEP::pi;
+    G4double theta = G4UniformRand()*0.5*CLHEP::pi; // polar angle
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(theta)*std::cos(phi),
+                                                                std::sin(theta)*std::sin(phi),
+                                                                std::cos(theta)));
+    G4cout << "Particle momentum direction: " << phi << " " << theta<< G4endl;
+    G4double size = 0.8; 
+    G4double radius_input = size * radius * G4UniformRand();
+    G4double position_angle_input = position_angle * G4UniformRand();
+    G4double x0 = size * radius_input * std::cos(position_angle_input);
+    G4double y0 = size * radius_input * std::sin(position_angle_input);
+    G4double z0 = (-0.57*m) + half_thickness;
+
+    fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
 
     fParticleGun->GeneratePrimaryVertex(event);
 }

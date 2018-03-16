@@ -35,6 +35,7 @@
 #include "G4ParticleGun.hh"
 #include "globals.hh"
 
+class G4Tubs;
 class G4ParticleGun;
 class G4GenericMessenger;
 class G4Event;
@@ -87,6 +88,7 @@ private:
   G4double fSigmaMomentum;
   G4double fSigmaAngle;
   G4bool fRandomizePrimary;
+  G4Tubs* fBeamWindow;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -6,11 +6,11 @@ Float_t getAbsorbedDose(Float_t total_deposit, Float_t material_mass)
 	Float_t result = total_deposit/material_mass*jtomev*gtokg;
 	return result;
 }
-TGraph* getElectronicStoppingPower(int debug=0)
+TGraph* getElectronicStoppingPower(int debug=0, TString fileName = "pstar_silicon.dat")
 {
 
 	ifstream in;
-	in.open("pstar_silicon.dat");
+	in.open(fileName.Data());
 
 	Float_t energy, electronic_stopping, nuclear_stopping, total_stopping;
 	string dump;
@@ -47,11 +47,11 @@ TGraph* getElectronicStoppingPower(int debug=0)
 	}
 	return gstopping;
 }
-TGraph* getNuclearStoppingPower(int debug=0)
+TGraph* getNuclearStoppingPower(int debug=0, TString fileName = "pstar_silicon.dat")
 {
 
 	ifstream in;
-	in.open("pstar_silicon.dat");
+	in.open(fileName.Data());
 
 	Float_t energy, electronic_stopping, nuclear_stopping, total_stopping;
 	string dump;
@@ -89,11 +89,11 @@ TGraph* getNuclearStoppingPower(int debug=0)
 }
 
 
-TGraph* getTotalStoppingPower(int debug=0)
+TGraph* getTotalStoppingPower(int debug=0, TString fileName = "pstar_silicon.dat")
 {
 
 	ifstream in;
-	in.open("pstar_silicon.dat");
+	in.open(fileName.Data());
 
 	Float_t energy, electronic_stopping, nuclear_stopping, total_stopping;
 	string dump;
@@ -129,21 +129,34 @@ TGraph* getTotalStoppingPower(int debug=0)
 	}
 	return gstopping;
 }
-
-void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20) // thickness unit: cm, proton energy unit: MeV
+// material list
+// 0: air
+// 1: silicon
+void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20, Int_t material = 1) // thickness unit: cm, proton energy unit: MeV
 {
-	Float_t silicon_density = 2.33; // unit: g/cm^2
+	Float_t density = 0; // unit: g/cm^2
+	TString materialFile;
+	switch(material){
+		case 0:
+			density = 1.20479E-03;
+			materialFile = "pstar_air.dat";
+			break;
+		case 1:
+			density = 2.33;
+			materialFile = "pstar_silicon.dat";
+			break;
+	}
 	Float_t area = 2.0 * 3.6; // unit: cm^2
-	Float_t mass = silicon_density*area*thickness; // unit: g
+	Float_t mass = density*area*thickness; // unit: g
 	Float_t step_size = 0.0001; // unit: cm
 	Float_t total_deposit = 0; // unit: MeV
 
-	TGraph * eStoppingPower = getElectronicStoppingPower(debug);
-	TGraph * nStoppingPower = getNuclearStoppingPower(debug);
-	TGraph * tStoppingPower = getTotalStoppingPower(debug);
+	TGraph * eStoppingPower = getElectronicStoppingPower(debug, materialFile);
+	TGraph * nStoppingPower = getNuclearStoppingPower(debug, materialFile);
+	TGraph * tStoppingPower = getTotalStoppingPower(debug, materialFile);
 
-	cout << "Thickness: " << thickness << "cm" << endl;
-	cout << "Step size: " << step_size << endl;
+	cout << "Thickness: " << thickness << " cm" << endl;
+	cout << "Step size: " << step_size << " cm" << endl;
 
 	Int_t iloop = 0;
 	Float_t penetration_length = 0;
@@ -162,19 +175,19 @@ void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20
 
 		// Total energy loss(Electronic + Nuclear)
 		Float_t current_stopping_total = tStoppingPower->Eval(proton_energy);
-		Float_t dedx_total = current_stopping_total*silicon_density;
+		Float_t dedx_total = current_stopping_total*density;
 		Float_t energy_loss_total = dedx_total*step_size;
 
 		// Electronic stopping power(i.e. inelastic)
 		Float_t current_stopping_electronic = eStoppingPower->Eval(proton_energy);
-		Float_t dedx_electronic = current_stopping_electronic*silicon_density;
+		Float_t dedx_electronic = current_stopping_electronic*density;
 		Float_t deposit_energy = dedx_electronic*step_size;
 		total_deposit += deposit_energy;
 
 		gCal_eStoppingPower->SetPoint(iloop, proton_energy, current_stopping_electronic);
 		gCal_eDedx->SetPoint(iloop, proton_energy, dedx_electronic);
 		gCal_eDeposit->SetPoint(iloop, proton_energy, deposit_energy);
-		Float_t scale_factor = TMath::Power(step_size*silicon_density,-1);
+		Float_t scale_factor = TMath::Power(step_size*density,-1);
 		gCal_eDeposit_scale->SetPoint(iloop, proton_energy, deposit_energy*scale_factor);
 
 		proton_energy = proton_energy-energy_loss_total;

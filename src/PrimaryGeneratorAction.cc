@@ -86,7 +86,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 {
     // Bean window
     G4double radius = 25.0*mm;
-    G4double position_angle = 360;
+    G4double position_angle = 5;
     G4double half_thickness = 2.5*mm;
     G4LogicalVolume *beamWinLV = G4LogicalVolumeStore::GetInstance()->GetVolume("beamWindowLogical");
     fBeamWindow = dynamic_cast<G4Tubs*>(beamWinLV->GetSolid());

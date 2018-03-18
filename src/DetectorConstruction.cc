@@ -145,7 +145,7 @@ G4AssemblyVolume * DetectorConstruction::Collimator(G4Material* material, G4doub
 
   G4VSolid * boxSolid = new G4Box("Collimator_Box_Solid", Xsize/2, Ysize/2, Zsize/2);
   G4double holeDepth;
-  holeDepth = (Xsize + Ysize + Zsize);
+  holeDepth = Zsize;
 
   G4double YDeg = 0.0;
 

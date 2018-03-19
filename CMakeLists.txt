@@ -45,6 +45,7 @@ set(_SCRIPTS
 	init_vis.mac
 	vis.mac
 	gui.mac
+  run.mac
 	run.png
 	)
 

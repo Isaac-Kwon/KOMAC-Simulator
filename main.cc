@@ -10,7 +10,7 @@
 #endif
 
 #include "G4UImanager.hh"
-#include "QGSP_BERT.hh"
+#include "QBBC.hh"
 #include "G4StepLimiterPhysics.hh"
 
 #include "G4VisExecutive.hh"
@@ -40,18 +40,15 @@ int main(int argc,char** argv)
     G4RunManager* runManager = new G4RunManager;
 #endif
 
-    // Activate UI-command base scorer
-    G4ScoringManager * scManager = G4ScoringManager::GetScoringManager();
-    scManager->SetVerboseLevel(1);
-
     // Mandatory user initialization classes
     //====================
     //The Geometry
-    runManager->SetUserInitialization(new DetectorConstruction);
+    runManager->SetUserInitialization(new DetectorConstruction());
 
     //====================
     //The Physics
-    G4VModularPhysicsList* physicsList = new QGSP_BERT;
+    G4VModularPhysicsList* physicsList = new QBBC;
+    physicsList->SetVerboseLevel(1);
     physicsList->RegisterPhysics(new G4StepLimiterPhysics());
     runManager->SetUserInitialization(physicsList);
 

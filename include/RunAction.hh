@@ -37,6 +37,7 @@
 #include "globals.hh"
 
 class G4Run;
+class HistoManager; // Histogram manager
 
 /// Run action class
 ///
@@ -59,6 +60,8 @@ class RunAction : public G4UserRunAction
   private:
     G4Accumulable<G4double> fEdep;
     G4Accumulable<G4double> fEdep2;
+    HistoManager* fHistoManager;
+
 };
 
 #endif

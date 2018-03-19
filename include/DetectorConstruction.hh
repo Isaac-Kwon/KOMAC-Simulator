@@ -89,19 +89,13 @@ public:
   G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; } // Get the scoring volume variable.
 
   // Color set
-  G4VisAttributes* blue;
+  G4VisAttributes* trans_white;
   G4VisAttributes* gray;
-  G4VisAttributes* white;
-  G4VisAttributes* red;
   G4VisAttributes* yellow;
-  G4VisAttributes* green;
-  G4VisAttributes* darkGreen;
   G4VisAttributes* darkOrange3;
-  G4VisAttributes* skyBlue;
   G4VisAttributes* lightgray;
   // Setting value
   G4VisAttributes* world_color;
-  G4VisAttributes* trans_white;
   G4VisAttributes* mount_color;
   G4VisAttributes* foil_color;
   G4VisAttributes* mylar_color;

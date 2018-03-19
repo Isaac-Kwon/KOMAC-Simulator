@@ -392,17 +392,9 @@ void DetectorConstruction::ConstructMaterials()
 
 void DetectorConstruction::ConstructColors()
 {
-  white = new G4VisAttributes( G4Colour());
-  white -> SetVisibility(true);
-  white -> SetForceSolid(true);
-
   trans_white = new G4VisAttributes( G4Colour());
   trans_white -> SetVisibility(false);
   trans_white -> SetForceSolid(false);
-
-  blue = new G4VisAttributes(G4Colour(0. ,0. ,1.));
-  blue -> SetVisibility(true);
-  blue -> SetForceSolid(true);
 
   gray = new G4VisAttributes( G4Colour(0.5, 0.5, 0.5 ));
   gray-> SetVisibility(true);
@@ -412,29 +404,13 @@ void DetectorConstruction::ConstructColors()
   lightgray-> SetVisibility(true);
   lightgray-> SetForceSolid(true);
 
-  red = new G4VisAttributes(G4Colour(1. ,0. ,0.));
-  red-> SetVisibility(true);
-  red-> SetForceSolid(true);
-
   yellow = new G4VisAttributes(G4Colour(1., 1., 0. ));
   yellow-> SetVisibility(true);
   yellow-> SetForceSolid(true);
 
-  green = new G4VisAttributes( G4Colour(25/255. , 255/255. ,  25/255. ));
-  green -> SetVisibility(true);
-  green -> SetForceSolid(true);
-
-  darkGreen = new G4VisAttributes( G4Colour(0/255. , 100/255. ,  0/255. ));
-  darkGreen -> SetVisibility(true);
-  darkGreen -> SetForceSolid(true);
-
   darkOrange3 = new G4VisAttributes( G4Colour(205/255. , 102/255. ,  000/255. ));
   darkOrange3 -> SetVisibility(true);
   darkOrange3 -> SetForceSolid(true);
-
-  skyBlue = new G4VisAttributes( G4Colour(135/255. , 206/255. ,  235/255. ));
-  skyBlue -> SetVisibility(true);
-  skyBlue -> SetForceSolid(true);
 
   // Color setup
   world_color = trans_white;    // For world volume

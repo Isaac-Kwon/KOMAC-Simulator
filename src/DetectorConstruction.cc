@@ -82,23 +82,6 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   G4Material * silicon = G4Material::GetMaterial("G4_Si");
   G4Material * mylar = G4Material::GetMaterial("G4_MYLAR");
 
-  // Beam window
-  G4Tubs * beamWindow = new G4Tubs("beamWindow",    // Name
-                                    0*mm,           // radius min
-                                    25.0*mm,         // radius max
-                                    2.5*mm,        // Thickness/2
-                                    0,              // Start angle
-                                    360);           // End angle  
-  G4LogicalVolume* beamWindowLogical = new G4LogicalVolume(beamWindow, air, "beamWindowLogical");
-  new G4PVPlacement(0,                                  // No rotation
-                    G4ThreeVector(0.*m,0.*m,-0.57*m),   // at (0,0,-1.42m)
-                    beamWindowLogical,                  // its logical volume
-                    "beamWindowPhysical",               // its name
-                    worldLogical,                       // its mother volume
-                    false,                              // no boolean operations
-                    0,                                  // copy number
-                    checkOverlaps);                     // Checking overlaps
-  beamWindowLogical->SetVisAttributes(gray);
   // 1st Collimator
   G4AssemblyVolume * CollimatorAssembly = Collimator(aluminum, // Collimator material
                                                      120.0 *mm, 120.0 *mm, 5.0 *mm, 25.0*mm); // x, y, z size, hole radius

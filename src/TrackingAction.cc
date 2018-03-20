@@ -65,27 +65,29 @@ void TrackingAction::PreUserTrackingAction(const G4Track* track)
   G4double dr = analysisManager->GetH1Width(2);
   G4double dv = 2*twopi*r*r*dr;  
 
-  // fill histograms    
-  analysisManager->FillH1(1,ekin);
-  if (dv > 0.) analysisManager->FillH1(2, r, 1./dv);  
-  analysisManager->FillH1(3,cost);  
-  analysisManager->FillH1(4,phi);    
-  analysisManager->FillH2(1,x,y);
-  analysisManager->FillH2(2,y,z);
-  analysisManager->FillH2(3,z,x);      
-  analysisManager->FillH2(4,phi,cost);
-  analysisManager->FillH2(5,phi,theta);
-  
-  // fill ntuple  
-  analysisManager->FillNtupleIColumn(0,pid);
-  analysisManager->FillNtupleDColumn(1,ekin);
-  analysisManager->FillNtupleDColumn(2,x);
-  analysisManager->FillNtupleDColumn(3,y);
-  analysisManager->FillNtupleDColumn(4,z);
-  analysisManager->FillNtupleDColumn(5,theta);
-  analysisManager->FillNtupleDColumn(6,phi);
-  analysisManager->FillNtupleDColumn(7,weight);
-  analysisManager->AddNtupleRow();  
+  // fill histograms
+  if(!track->GetParentID()){ // Only primary particle
+    analysisManager->FillH1(1,ekin);
+    if (dv > 0.) analysisManager->FillH1(2, r, 1./dv);  
+    analysisManager->FillH1(3,cost);  
+    analysisManager->FillH1(4,phi);    
+    analysisManager->FillH2(1,x,y);
+    analysisManager->FillH2(2,y,z);
+    analysisManager->FillH2(3,z,x);
+    analysisManager->FillH2(4,phi,cost);
+    analysisManager->FillH2(5,phi,theta);    
+
+    // fill ntuple  
+    analysisManager->FillNtupleIColumn(1,0,pid);
+    analysisManager->FillNtupleDColumn(1,1,ekin);
+    analysisManager->FillNtupleDColumn(1,2,x);
+    analysisManager->FillNtupleDColumn(1,3,y);
+    analysisManager->FillNtupleDColumn(1,4,z);
+    analysisManager->FillNtupleDColumn(1,5,theta);
+    analysisManager->FillNtupleDColumn(1,6,phi);
+    analysisManager->FillNtupleDColumn(1,7,weight);
+    analysisManager->AddNtupleRow();
+  }      
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....

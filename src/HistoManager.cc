@@ -37,7 +37,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 HistoManager::HistoManager()
-  : fFileName("exgps")
+  : fFileName("result")
 {
   Book();
 }
@@ -61,6 +61,7 @@ void HistoManager::Book()
   
   analysis->SetFileName(fFileName);
   analysis->SetVerboseLevel(1);
+  analysis->SetNtupleMerging(true);
   analysis->SetActivation(true);     //enable inactivation of histos, nTuples
     
   // Default values (to be reset via /analysis/h1/set command)               
@@ -118,6 +119,18 @@ void HistoManager::Book()
   analysis->CreateNtupleDColumn("dirTheta");      //column 5
   analysis->CreateNtupleDColumn("dirPhi");        //column 6
   analysis->CreateNtupleDColumn("weight");        //column 7
+  analysis->FinishNtuple();
+
+  analysis->CreateNtuple("201", "Deposit Energy");
+  analysis->CreateNtupleIColumn("pid");           //column 0 
+  analysis->CreateNtupleDColumn("IncidentEkin");          //column 1
+  analysis->CreateNtupleDColumn("DepositE");      //column 2
+  analysis->CreateNtupleDColumn("prePosX");       //column 3
+  analysis->CreateNtupleDColumn("prePosY");       //column 4
+  analysis->CreateNtupleDColumn("prePosZ");       //column 5
+  analysis->CreateNtupleDColumn("postPosX");      //column 6
+  analysis->CreateNtupleDColumn("postPosY");      //column 7
+  analysis->CreateNtupleDColumn("postPosZ");      //column 8
   analysis->FinishNtuple();
   
   analysis->SetNtupleActivation(false);             

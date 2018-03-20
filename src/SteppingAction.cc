@@ -32,6 +32,7 @@
 #include "SteppingAction.hh"
 #include "EventAction.hh"
 #include "DetectorConstruction.hh"
+#include "HistoManager.hh"
 
 #include "G4Step.hh"
 #include "G4Track.hh"
@@ -71,6 +72,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   // check if we are in scoring volume
   if (volume != fScoringVolume) return;
 
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
   // collect energy deposited in this step
   G4double edepStep = step->GetTotalEnergyDeposit();
   fEventAction->AddEdep(edepStep);
@@ -79,6 +82,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   G4Track* track         = step->GetTrack();
   G4double kinEnergy     = track->GetKineticEnergy();
+  G4int pid              = track->GetDynamicParticle()->GetPDGcode();
 
   G4ThreeVector preStep = step->GetPreStepPoint()->GetPosition();
   G4ThreeVector postStep = step->GetPostStepPoint()->GetPosition();
@@ -95,6 +99,16 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4cout << "Poststep Kinetic Energy: " << kinEnergy_postStep/CLHEP::MeV << " MeV\t|\t";  
   G4cout << "Deposit Energy" <<  edepStep/CLHEP::MeV << " MeV\t|\tStepLength: " << stepLength/CLHEP::cm << " cm" << G4endl;
 
+  analysisManager->FillNtupleIColumn(2,0,pid);
+  analysisManager->FillNtupleDColumn(2,1,kinEnergy_preStep);
+  analysisManager->FillNtupleDColumn(2,2,edepStep);
+  analysisManager->FillNtupleDColumn(2,3,preStep.x());
+  analysisManager->FillNtupleDColumn(2,4,preStep.y());
+  analysisManager->FillNtupleDColumn(2,5,preStep.z());
+  analysisManager->FillNtupleDColumn(2,6,postStep.x());
+  analysisManager->FillNtupleDColumn(2,7,postStep.y());
+  analysisManager->FillNtupleDColumn(2,8,postStep.z());
+  analysisManager->AddNtupleRow();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

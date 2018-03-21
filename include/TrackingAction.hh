@@ -23,45 +23,34 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B1RunAction.hh 99560 2016-09-27 07:03:29Z gcosmo $
+// $Id:  TrackingAction.hh 81498 2014-05-31 13:45:23Z ldesorgh $
 //
-/// \file B1RunAction.hh
-/// \brief Definition of the B1RunAction class
-// Modify this file to KOMAC-simulator
+/// \file eventgenerator/exgps/include/TrackingAction.hh
+/// \brief Definition of the  TrackingAction class
+//
 
-#ifndef RunAction_h
-#define RunAction_h 1
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-#include "G4UserRunAction.hh"
-#include "G4Accumulable.hh"
+#ifndef TrackingAction_h
+#define TrackingAction_h 1
+
+#include "G4UserTrackingAction.hh"
 #include "globals.hh"
 
-class G4Run;
-class HistoManager; // Histogram manager
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-/// Run action class
-///
-/// In EndOfRunAction(), it calculates the dose in the selected volume
-/// from the energy deposit accumulated via stepping and event actions.
-/// The computed dose is then printed on the screen.
-
-class RunAction : public G4UserRunAction
+class TrackingAction : public G4UserTrackingAction
 {
   public:
-    RunAction();
-    virtual ~RunAction();
-
-    // virtual G4Run* GenerateRun();
-    virtual void BeginOfRunAction(const G4Run*);
-    virtual void   EndOfRunAction(const G4Run*);
-
-    void AddEdep (G4double edep);
-
-  private:
-    G4Accumulable<G4double> fEdep;
-    G4Accumulable<G4double> fEdep2;
-    HistoManager* fHistoManager;
-
+    TrackingAction() ;
+   ~TrackingAction() { };
+    
+    virtual void  PreUserTrackingAction(const G4Track*);
 };
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 #endif
+
+    

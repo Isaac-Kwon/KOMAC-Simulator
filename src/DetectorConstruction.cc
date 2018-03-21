@@ -9,6 +9,7 @@
 #include "G4VSolid.hh"
 #include "G4Box.hh"
 #include "G4Tubs.hh"
+#include "G4Sphere.hh"
 #include "G4SubtractionSolid.hh"
 
 
@@ -66,8 +67,10 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   G4Material* air = G4Material::GetMaterial("G4_AIR");
   // G4Material* air = G4Material::GetMaterial("G4_Galactic"); // For QA
 
+
   G4VSolid* worldSolid
     = new G4Box("worldBox", 1.*m, 4.*m, 2.*m);
+    // = new G4Sphere("worldSphere", 0, 5.*m, 0, CLHEP::twopi, 0, CLHEP::pi);
   G4LogicalVolume* worldLogical
     = new G4LogicalVolume(worldSolid,air,"worldLogical");
   G4VPhysicalVolume* worldPhysical

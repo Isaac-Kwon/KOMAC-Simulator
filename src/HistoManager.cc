@@ -123,7 +123,7 @@ void HistoManager::Book()
 
   analysis->CreateNtuple("201", "Deposit Energy");
   analysis->CreateNtupleIColumn("pid");           //column 0 
-  analysis->CreateNtupleDColumn("IncidentEkin");          //column 1
+  analysis->CreateNtupleDColumn("IncidentEkin");  //column 1
   analysis->CreateNtupleDColumn("DepositE");      //column 2
   analysis->CreateNtupleDColumn("prePosX");       //column 3
   analysis->CreateNtupleDColumn("prePosY");       //column 4
@@ -133,7 +133,7 @@ void HistoManager::Book()
   analysis->CreateNtupleDColumn("postPosZ");      //column 8
   analysis->FinishNtuple();
   
-  analysis->SetNtupleActivation(false);             
+  analysis->SetNtupleActivation(true);             
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

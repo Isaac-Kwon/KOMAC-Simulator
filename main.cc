@@ -40,10 +40,6 @@ int main(int argc,char** argv)
     G4RunManager* runManager = new G4RunManager;
 #endif
 
-    // Activate UI-command base scorer
-    G4ScoringManager * scManager = G4ScoringManager::GetScoringManager();
-    scManager->SetVerboseLevel(1);
-
     // Mandatory user initialization classes
     //====================
     //The Geometry

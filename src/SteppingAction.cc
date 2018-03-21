@@ -85,7 +85,9 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4int pid              = track->GetDynamicParticle()->GetPDGcode();
 
   G4ThreeVector preStep = step->GetPreStepPoint()->GetPosition();
+  G4double preStepX = preStep.x()/CLHEP::mm, preStepY = preStep.y()/CLHEP::mm, preStepZ = preStep.z()/CLHEP::mm;
   G4ThreeVector postStep = step->GetPostStepPoint()->GetPosition();
+  G4double postStepX = postStep.x()/CLHEP::mm, postStepY = postStep.y()/CLHEP::mm, postStepZ = postStep.z()/CLHEP::mm;
 
   G4double kinEnergy_preStep = step->GetPreStepPoint()->GetKineticEnergy();
   G4double kinEnergy_postStep = step->GetPostStepPoint()->GetKineticEnergy();
@@ -102,13 +104,13 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   analysisManager->FillNtupleIColumn(2,0,pid);
   analysisManager->FillNtupleDColumn(2,1,kinEnergy_preStep);
   analysisManager->FillNtupleDColumn(2,2,edepStep);
-  analysisManager->FillNtupleDColumn(2,3,preStep.x());
-  analysisManager->FillNtupleDColumn(2,4,preStep.y());
-  analysisManager->FillNtupleDColumn(2,5,preStep.z());
-  analysisManager->FillNtupleDColumn(2,6,postStep.x());
-  analysisManager->FillNtupleDColumn(2,7,postStep.y());
-  analysisManager->FillNtupleDColumn(2,8,postStep.z());
-  analysisManager->AddNtupleRow();
+  analysisManager->FillNtupleDColumn(2,3,preStepX);
+  analysisManager->FillNtupleDColumn(2,4,preStepY);
+  analysisManager->FillNtupleDColumn(2,5,preStepZ);
+  analysisManager->FillNtupleDColumn(2,6,postStepX);
+  analysisManager->FillNtupleDColumn(2,7,postStepY);
+  analysisManager->FillNtupleDColumn(2,8,postStepZ);
+  analysisManager->AddNtupleRow(2);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

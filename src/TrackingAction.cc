@@ -86,7 +86,7 @@ void TrackingAction::PreUserTrackingAction(const G4Track* track)
     analysisManager->FillNtupleDColumn(1,5,theta);
     analysisManager->FillNtupleDColumn(1,6,phi);
     analysisManager->FillNtupleDColumn(1,7,weight);
-    analysisManager->AddNtupleRow();
+    analysisManager->AddNtupleRow(1);
   }      
 }
 

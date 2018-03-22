@@ -134,7 +134,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
                                                                 std::sin(theta)*std::sin(phi),
                                                                 std::cos(theta)));
     // G4cout << "Particle momentum direction: " << phi << " " << theta<< G4endl;
-    G4double size = 0.8; 
+    G4double size = 1; 
     G4double radius_input = size * radius * G4UniformRand();
     G4double position_angle_input = position_angle * G4UniformRand();
     G4double x0 = size * radius_input * std::cos(position_angle_input);

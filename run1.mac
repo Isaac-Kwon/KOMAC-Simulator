@@ -29,7 +29,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 10
+/run/beamOn 100
 ################################################
 #
 # Radius: 1~2mm
@@ -48,7 +48,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 30
+/run/beamOn 300
 ################################################
 #
 # Radius: 2~3mm
@@ -67,7 +67,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 50
+/run/beamOn 500
 ################################################
 #
 # Radius: 3~4mm
@@ -86,7 +86,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 70
+/run/beamOn 700
 ################################################
 #
 # Radius: 4~5mm
@@ -105,7 +105,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 90
+/run/beamOn 900
 ################################################
 #
 # Radius: 5~6mm
@@ -124,7 +124,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 110
+/run/beamOn 1100
 ################################################
 #
 # Radius: 6~7mm
@@ -143,7 +143,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 130
+/run/beamOn 1300
 ################################################
 #
 # Radius: 7~8mm
@@ -162,7 +162,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 150
+/run/beamOn 1500
 ################################################
 #
 # Radius: 8~9mm
@@ -181,7 +181,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 170
+/run/beamOn 1700
 ################################################
 #
 # Radius: 9~10mm
@@ -200,7 +200,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 190
+/run/beamOn 1900
 ################################################
 #
 # Radius: 10~11mm
@@ -219,7 +219,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 210
+/run/beamOn 2100
 ################################################
 #
 # Radius: 11~12mm
@@ -238,7 +238,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 230
+/run/beamOn 2300
 ################################################
 #
 # Radius: 12~13mm
@@ -257,7 +257,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 250
+/run/beamOn 2500
 ################################################
 #
 # Radius: 13~14mm
@@ -276,7 +276,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 270
+/run/beamOn 2700
 ################################################
 #
 # Radius: 14~15mm
@@ -295,7 +295,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 290
+/run/beamOn 2900
 ################################################
 #
 # Radius: 15~16mm
@@ -314,7 +314,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 310
+/run/beamOn 3100
 ################################################
 #
 # Radius: 16~17mm
@@ -333,7 +333,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 330
+/run/beamOn 3300
 ################################################
 #
 # Radius: 17~18mm
@@ -352,7 +352,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 350
+/run/beamOn 3500
 ################################################
 #
 # Radius: 18~19mm
@@ -371,7 +371,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 370
+/run/beamOn 3700
 ################################################
 #
 # Radius: 19~20mm
@@ -390,7 +390,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 390
+/run/beamOn 3900
 ################################################
 #
 # Radius: 20~21mm
@@ -409,7 +409,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 410
+/run/beamOn 4100
 ################################################
 #
 # Radius: 21~22mm
@@ -428,7 +428,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 430
+/run/beamOn 4300
 ################################################
 #
 # Radius: 22~23mm
@@ -447,7 +447,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 450
+/run/beamOn 4500
 ################################################
 #
 # Radius: 23~24mm
@@ -466,7 +466,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 470
+/run/beamOn 4700
 ################################################
 #
 # Radius: 24~25mm
@@ -485,6 +485,6 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 490
+/run/beamOn 4900
 
 

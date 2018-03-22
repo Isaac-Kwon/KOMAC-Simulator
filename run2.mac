@@ -1,0 +1,34 @@
+# KOMAC Simulator
+#
+# Change the default number of workers (in multi-threading mode) 
+# /run/numberOfWorkers 4
+#
+# Initialize kernel
+/run/initialize
+#
+# proton 194 MeV(Energy: 20MeV)
+# proton 141 MeV(Energy: 10.5MeV)
+#
+/gun/particle proton
+/tutorial/generator/momentum 194 MeV
+################################################
+#
+# Radius: 0~1mm
+#
+# Particle position distribution in polar angle 
+/tutorial/generator/radius 24 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run_24_mm_1000_noAngle
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 100 -5 5 cm  #x-y
+/analysis/h2/setY 1 100 -5 5 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg 
+/analysis/h2/setY 4 100 -1 1 none 
+#
+/run/printProgress 100
+#
+/run/beamOn 100
+
+

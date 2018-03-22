@@ -1,5 +1,6 @@
 void getBeamProfile(){
-	gStyle->SetOptStat(0);
+	Int_t debug = 0;
+	gStyle->SetOptStat(1);
 	ifstream in;
 	in.open("beamProfile.csv");
 	Float_t count;
@@ -9,9 +10,10 @@ void getBeamProfile(){
 	Int_t nbinx = 110;
 	Int_t nbiny = 108;
 	TH2F *beamProfile = new TH2F("h2dBeamProfile", "Beam Profile", nbinx, 2.125, 7.625, nbiny, 1.925, 7.325);
+	TH2F *correctedBeamProfile = new TH2F("h2dCorrectedBeamProfile", "Beam Profile", nbinx, 2.125, 7.625, nbiny, 1.925, 7.325);
 
 	Int_t nlines = 0;
-	TString cell;
+	TString cell, correctedCell;
 	for (int iY = 0; iY < 108; ++iY){
 		x = 2.15;
 		for (int iX = 0; iX < 110; ++iX)
@@ -21,20 +23,43 @@ void getBeamProfile(){
 			Float_t count = cell.Atof();
 			int binx = beamProfile->GetXaxis()->FindBin(x);
 			int biny = beamProfile->GetYaxis()->FindBin(y);
-			// if(iY<2) cout << "Position coordinate: (" << x << "," << y << "," << count << ")" << endl;			
-			// if(iY<2) cout << "Bin coordinate: (" << binx << "," << biny << "," << count << ")" << endl;
-			// if (iX==0 ) cout << "First: " << count << endl;
-			// if (iX==109) cout << "End: " << count << endl;
+			if(debug>0){
+				if(iY<2) cout << "Position coordinate: (" << x << "," << y << "," << count << ")" << endl;			
+				if(iY<2) cout << "Bin coordinate: (" << binx << "," << biny << "," << count << ")" << endl;
+				if (iX==0 ) cout << "First: " << count << endl;
+				if (iX==109) cout << "End: " << count << endl;				
+			}
 			beamProfile->SetBinContent(binx, biny, count);
 			x += 0.05;
 		}
 		y += 0.05;
 	}
 	cout << nlines << endl;
+	Float_t max = beamProfile->GetMaximum();
+
+	for (int iY = 0; iY < 108; ++iY){
+		x = 2.15;
+		for (int iX = 0; iX < 110; ++iX)
+		{
+			if (!(iX==109)) correctedCell.ReadToDelim(in, ',');
+			else cell.ReadToDelim(in);
+			Float_t count = cell.Atof();
+			int binx = beamProfile->GetXaxis()->FindBin(x);
+			int biny = beamProfile->GetYaxis()->FindBin(y);
+			if(debug>0){
+				if(iY<2) cout << "Position coordinate: (" << x << "," << y << "," << count << ")" << endl;			
+				if(iY<2) cout << "Bin coordinate: (" << binx << "," << biny << "," << count << ")" << endl;
+				if (iX==0 ) cout << "First: " << count << endl;
+				if (iX==109) cout << "End: " << count << endl;
+			}
+			if(count<max*0.8) correctedBeamProfile->SetBinContent(binx, biny, count);
+			x += 0.05;
+		}
+		y += 0.05;
+	}
 
 	TCanvas *c1 = new TCanvas("c1", "Beam Profile", 500, 500);
 	c1->cd();
-	Float_t max = beamProfile->GetMaximum();
 	Int_t gbin = beamProfile->GetMaximumBin();
 	Int_t max_bin_x, max_bin_y, max_bin_z;
 	beamProfile->GetBinXYZ(gbin, max_bin_x, max_bin_y, max_bin_z);

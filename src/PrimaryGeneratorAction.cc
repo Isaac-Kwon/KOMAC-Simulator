@@ -52,7 +52,8 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   fSigmaMomentum(0.*MeV),
   fSigmaAngle(0.*deg),
   fRandomizePrimary(false),
-  fBeamWindow(0)
+  fBeamWindow(0),
+  fRadius(0.*mm)
 {
     G4int n_particle = 1;
     fParticleGun  = new G4ParticleGun(n_particle);
@@ -85,7 +86,6 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 {
     // Bean window
-    G4double radius = 25.0*mm;
     G4double position_angle = 2*CLHEP::pi;
     G4double half_thickness = 2.5*mm;
     G4LogicalVolume *beamWinLV = G4LogicalVolumeStore::GetInstance()->GetVolume("beamWindowLogical");
@@ -133,9 +133,10 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(theta)*std::cos(phi),
                                                                 std::sin(theta)*std::sin(phi),
                                                                 std::cos(theta)));
+    // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,1));
     // G4cout << "Particle momentum direction: " << phi << " " << theta<< G4endl;
     G4double size = 1; 
-    G4double radius_input = size * radius * G4UniformRand();
+    G4double radius_input = size * G4UniformRand()*mm + fRadius;
     G4double position_angle_input = position_angle * G4UniformRand();
     G4double x0 = size * radius_input * std::cos(position_angle_input);
     G4double y0 = size * radius_input * std::sin(position_angle_input);
@@ -166,6 +167,14 @@ void PrimaryGeneratorAction::DefineCommands()
     // ok
     //momentumCmd.SetParameterName("p", true);
     //momentumCmd.SetRange("p>=0.");
+
+    // fRadius command
+    G4GenericMessenger::Command& radiusCmd
+      = fMessenger->DeclarePropertyWithUnit("radius",
+          "mm", fRadius, "Radius of source position.");
+    radiusCmd.SetParameterName("r", true);
+    radiusCmd.SetRange("r>=0.");
+    radiusCmd.SetDefaultValue("25.");
 
     // sigmaMomentum command
     G4GenericMessenger::Command& sigmaMomentumCmd

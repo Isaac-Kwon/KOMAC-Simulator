@@ -89,6 +89,7 @@ private:
   G4double fSigmaAngle;
   G4bool fRandomizePrimary;
   G4Tubs* fBeamWindow;
+  G4double fRadius;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

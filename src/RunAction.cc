@@ -119,7 +119,7 @@ void RunAction::EndOfRunAction(const G4Run* run)
   const DetectorConstruction* detectorConstruction
    = static_cast<const DetectorConstruction*>
      (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-  G4double mass = detectorConstruction->GetScoringVolume()->GetMass();
+  G4double mass = detectorConstruction->GetScoringVolume(0)->GetMass();
   G4double dose = edep/mass;
   G4double rmsDose = rms/mass;
 

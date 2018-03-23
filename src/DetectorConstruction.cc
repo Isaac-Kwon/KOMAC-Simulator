@@ -39,7 +39,9 @@
 
 DetectorConstruction::DetectorConstruction()
   : G4VUserDetectorConstruction(),
-    fScoringVolume(0)
+    fScoringVolume0(0),
+    fScoringVolume1(0),
+    fScoringVolume2(0)
 {
 
 }
@@ -134,7 +136,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
                     checkOverlaps);                     // Checking overlaps
   beamProfileLogical1->SetVisAttributes(gray);
   fScoringVolume2 = beamProfileLogical1;
-  
+
   // Shielding plate
   G4AssemblyVolume * ShieldingAssembly = Shielding(aluminum, 69.5 *mm, 140.*mm, 10. *mm, true, false);
   G4ThreeVector Ta3 = G4ThreeVector(-60. * mm, -60. *mm, -0.50 *m);

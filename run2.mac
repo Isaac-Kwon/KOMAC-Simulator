@@ -13,22 +13,21 @@
 /tutorial/generator/momentum 194 MeV
 ################################################
 #
-# Radius: 0~1mm
+# Test
 #
 # Particle position distribution in polar angle 
 /tutorial/generator/radius 24 mm
 #
 # Rootfile setup
 #
-/analysis/setFileName run_24_mm_1000_noAngle
 /analysis/h1/set 1 100 1 30 MeV
-/analysis/h2/setX 1 100 -5 5 cm  #x-y
-/analysis/h2/setY 1 100 -5 5 cm  #x-y
-/analysis/h2/setX 4 120 0 360 deg 
-/analysis/h2/setY 4 100 -1 1 none 
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
 #
 /run/printProgress 100
 #
-/run/beamOn 100
+/run/beamOn 1000
 
 

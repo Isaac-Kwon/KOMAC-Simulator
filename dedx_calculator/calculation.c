@@ -47,6 +47,72 @@ TGraph* getElectronicStoppingPower(int debug=0, TString fileName = "pstar_silico
 	}
 	return gstopping;
 }
+TGraph* getElectronicStoppingPowerRange(TString fileName = "pstar_silicon.dat", Float_t range1=0, Float_t range2=100)
+{
+
+	cout << range1 << " " << range2 << endl;
+	Int_t range1_int = range1;
+	Int_t range2_int = range2;
+	Int_t range1_digit_decimal = range1_int/10;
+	Int_t range2_digit_decimal = range2_int/10;
+	cout << range1_digit_decimal << " " << range2_digit_decimal << endl;
+
+	Float_t range1_significant = range1/TMath::Power(10, range1_digit_decimal);
+	Float_t range2_significant = range2/TMath::Power(10, range2_digit_decimal);
+	cout << range1_significant << " " << range2_significant << endl;
+
+	Float_t step = 0.25;
+	Float_t nstep = 2;
+	Float_t range1_processed;
+	Float_t range2_processed;
+
+	if(step<range1_significant){
+		cout << "Step size" <<endl;
+		range1_significant = range1_significant - step;
+		range1_processed = range1_significant*TMath::Power(10, range1_digit_decimal);
+	}
+	else{
+		range1_processed = range1_significant*TMath::Power(10, range1_digit_decimal) - step*TMath::Power(10, range1_digit_decimal-1);
+	}
+	cout << range1_significant << " " << range1_processed << endl;
+		
+	if(step+range2_significant < 10){
+		cout << "Step size is larger" <<endl;
+		range2_significant = range2_significant + step;
+		range2_processed = range2_significant*TMath::Power(10, range2_digit_decimal);
+	}
+	else{
+		range2_processed = range2_significant*TMath::Power(10, range2_digit_decimal) + step*TMath::Power(10, range2_digit_decimal+1);
+	}
+	cout << range2_significant << " " << range2_processed << endl;
+
+	cout << range1_processed << " " << range2_processed << endl;
+
+	ifstream in;
+	in.open(fileName.Data());
+
+	Float_t energy, electronic_stopping, nuclear_stopping, total_stopping;
+	string dump;
+
+	TGraph *gstopping = new TGraph();
+
+	int line = 0;
+	while (1) {
+		if (line<8) {
+			getline(in, dump);
+			line++;
+			continue;
+		}
+		if (!in.good()) break;
+		in >> energy >> electronic_stopping >> nuclear_stopping >> total_stopping;
+		if(energy>=range1_processed && energy<=range2_processed) {
+			cout << "working" << endl;
+			gstopping->SetPoint(line-8, energy, electronic_stopping);
+			line++;
+		}
+	}
+	return gstopping;
+}
 TGraph* getNuclearStoppingPower(int debug=0, TString fileName = "pstar_silicon.dat")
 {
 
@@ -135,6 +201,7 @@ TGraph* getTotalStoppingPower(int debug=0, TString fileName = "pstar_silicon.dat
 void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20, Int_t material = 1) // thickness unit: cm, proton energy unit: MeV
 {
 	Float_t density = 0; // unit: g/cm^2
+	Float_t input_proton_energy = proton_energy;
 	TString materialFile;
 	switch(material){
 		case 0:
@@ -165,6 +232,7 @@ void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20
 	TGraph *gCal_eDedx = new TGraph();
 	TGraph *gCal_eDeposit = new TGraph();
 	TGraph *gCal_eDeposit_scale = new TGraph();
+	TGraph *gCal_used_stopping = new TGraph();
 
 	// Energy loss
 	while(1)
@@ -189,7 +257,6 @@ void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20
 		gCal_eDeposit->SetPoint(iloop, proton_energy, deposit_energy);
 		Float_t scale_factor = TMath::Power(step_size*density,-1);
 		gCal_eDeposit_scale->SetPoint(iloop, proton_energy, deposit_energy*scale_factor);
-
 		proton_energy = proton_energy-energy_loss_total;
 		penetration_length += step_size;
 
@@ -216,27 +283,20 @@ void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20
 
 	if(debug){
 		TCanvas *c_qa = new TCanvas("c_qa", "QA plots", 800, 600);
-		c_qa->SetLogx();
-		c_qa->SetLogy();
 		c_qa->cd();
 		TMultiGraph *mgr_qa = new TMultiGraph();
-		eStoppingPower->SetMarkerStyle(24);
-		eStoppingPower->SetMarkerSize(0.5);
-		mgr_qa->Add(eStoppingPower);
-		gCal_eStoppingPower->SetMarkerStyle(20);
-		gCal_eStoppingPower->SetMarkerSize(0.3);
+		if (proton_energy >0){
+			gCal_used_stopping = getElectronicStoppingPowerRange(materialFile, proton_energy, input_proton_energy);
+			gCal_used_stopping->SetMarkerStyle(24);
+			gCal_used_stopping->SetMarkerSize(1);
+			mgr_qa->Add(gCal_used_stopping);
+		}
+		gCal_eStoppingPower->SetMarkerStyle(24);
+		gCal_eStoppingPower->SetMarkerSize(0.7);
 		gCal_eStoppingPower->SetMarkerColor(kBlue);
 		mgr_qa->Add(gCal_eStoppingPower);
-		gCal_eDeposit->SetMarkerStyle(20);
-		gCal_eDeposit->SetMarkerSize(0.3);
-		gCal_eDeposit->SetMarkerColor(kRed);
-		mgr_qa->Add(gCal_eDeposit);
-		gCal_eDeposit_scale->SetMarkerStyle(24);
-		gCal_eDeposit_scale->SetMarkerSize(0.7);
-		gCal_eDeposit_scale->SetMarkerColor(kRed);
-		mgr_qa->Add(gCal_eDeposit_scale);
 
-		mgr_qa->SetTitle(";Proton Energy (MeV);Stopping Power");
+		mgr_qa->SetTitle(";Proton Energy (MeV);Stopping Power(MeV cm^{2}/g)");
 
 		mgr_qa->Draw("AP");
 	}

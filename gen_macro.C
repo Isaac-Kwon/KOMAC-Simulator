@@ -20,7 +20,7 @@ void gen_macro(){
 	ofs << Form("# Radius: %d~%dmm", i_radius, i_radius+1) << endl;
 	ofs << "#" << endl;
 	ofs << "# Particle position distribution in polar angle" << endl;
-	ofs << Form("/tutorial/generator/radius %d mm", i_radius);
+	ofs << Form("/tutorial/generator/radius %d mm", i_radius) << endl;
 	ofs << "#" << endl;
 	ofs << "# Rootfile setup" << endl;
 	ofs << "#" << endl;

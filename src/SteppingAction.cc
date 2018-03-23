@@ -89,10 +89,10 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   if (volume != fScoringVolume0 && volume != fScoringVolume1 && volume != fScoringVolume2) return;
 
   // ntuple id selection
-  int nutple = 0;
-  if (volume = fScoringVolume0 ) ntuple = 2;
-  if (volume = fScoringVolume1 ) ntuple = 3;
-  if (volume = fScoringVolume2 ) ntuple = 3;
+  int ntuple = 0;
+  if (volume == fScoringVolume0 ) ntuple = 2;
+  if (volume == fScoringVolume1 ) ntuple = 3;
+  if (volume == fScoringVolume2 ) ntuple = 3;
 
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 

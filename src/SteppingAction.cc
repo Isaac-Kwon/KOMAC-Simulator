@@ -105,6 +105,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4Track* track         = step->GetTrack();
   G4double kinEnergy     = track->GetKineticEnergy();
   G4int pid              = track->GetDynamicParticle()->GetPDGcode();
+  G4ThreeVector direction = track->GetMomentumDirection();  
+  G4double theta = direction.theta(), phi = direction.phi();
 
   G4ThreeVector preStep = step->GetPreStepPoint()->GetPosition();
   G4double preStepX = preStep.x()/CLHEP::mm, preStepY = preStep.y()/CLHEP::mm, preStepZ = preStep.z()/CLHEP::mm;
@@ -132,6 +134,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   analysisManager->FillNtupleDColumn(ntuple,6,postStepX);
   analysisManager->FillNtupleDColumn(ntuple,7,postStepY);
   analysisManager->FillNtupleDColumn(ntuple,8,postStepZ);
+  analysisManager->FillNtupleDColumn(ntuple,9,theta);
+  analysisManager->FillNtupleDColumn(ntuple,10,phi);
   analysisManager->AddNtupleRow(ntuple);
 }
 

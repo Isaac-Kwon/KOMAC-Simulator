@@ -131,6 +131,8 @@ void HistoManager::Book()
   analysis->CreateNtupleDColumn("postPosX");              //column 6
   analysis->CreateNtupleDColumn("postPosY");              //column 7
   analysis->CreateNtupleDColumn("postPosZ");              //column 8
+  analysis->CreateNtupleDColumn("dirTheta");              //column 9
+  analysis->CreateNtupleDColumn("dirPhi");                //column 10
 
   analysis->CreateNtuple("202", "Mount window position"); //ID 3
   analysis->CreateNtupleIColumn("pid");                   //column 0 
@@ -142,6 +144,8 @@ void HistoManager::Book()
   analysis->CreateNtupleDColumn("postPosX");              //column 6
   analysis->CreateNtupleDColumn("postPosY");              //column 7
   analysis->CreateNtupleDColumn("postPosZ");              //column 8
+  analysis->CreateNtupleDColumn("dirTheta");              //column 9
+  analysis->CreateNtupleDColumn("dirPhi");                //column 10
 
   analysis->CreateNtuple("203", "Collimator2 position");  //ID 4
   analysis->CreateNtupleIColumn("pid");                   //column 0 
@@ -153,6 +157,8 @@ void HistoManager::Book()
   analysis->CreateNtupleDColumn("postPosX");              //column 6
   analysis->CreateNtupleDColumn("postPosY");              //column 7
   analysis->CreateNtupleDColumn("postPosZ");              //column 8
+  analysis->CreateNtupleDColumn("dirTheta");              //column 9
+  analysis->CreateNtupleDColumn("dirPhi");                //column 10
 
   analysis->FinishNtuple();
   

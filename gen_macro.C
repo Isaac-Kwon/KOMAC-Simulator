@@ -11,7 +11,7 @@ void gen_macro(){
   ofs << "# Particle Energy" << endl;
   ofs << Form("/tutorial/generator/momentum %f MeV", momentum) << endl;
 
-  int max_radius = 25;
+  int max_radius = 100;
   int min_event = 100;
   for (int i_radius = 0; i_radius < max_radius; ++i_radius)
   {
@@ -26,10 +26,10 @@ void gen_macro(){
 	ofs << "#" << endl;
 	ofs << Form("/analysis/setFileName run_%2d_mm", i_radius) << endl;
 	ofs << "/analysis/h1/set 1 100 1 30 MeV" << endl;
-	ofs << "/analysis/h2/setX 1 100 -5 5 cm  #x-y" << endl;
-	ofs << "/analysis/h2/setY 1 100 -5 5 cm  #x-y" << endl;
+	ofs << "/analysis/h2/setX 1 300 -15 15 cm  #x-y" << endl;
+	ofs << "/analysis/h2/setY 1 300 -15 15 cm  #x-y" << endl;
 	ofs << "/analysis/h2/setX 4 120 0 360 deg" << endl;
-	ofs << "/analysis/h2/setY 4 100 -1 1 none" << endl;
+	ofs << "/analysis/h2/setY 4 101 -1.005 1.005 none" << endl;
 	ofs << "#" << endl;
 	ofs << "/run/printProgress 100" << endl;
 	ofs << "#" << endl;

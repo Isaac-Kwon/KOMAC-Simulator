@@ -66,7 +66,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     fScoringVolume0 = detectorConstruction->GetScoringVolume(0);
   }
 
-  if (!fScoringVolume2) {
+  if (!fScoringVolume1) {
     const DetectorConstruction* detectorConstruction
       = static_cast<const DetectorConstruction*>
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());

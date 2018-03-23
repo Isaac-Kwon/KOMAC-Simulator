@@ -128,11 +128,13 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 
     fParticleGun->SetParticleEnergy(Ekin);
 
-    G4double phi = G4UniformRand()*2*CLHEP::pi;
-    G4double theta = G4UniformRand()*0.5*CLHEP::pi; // polar angle
+    // 2pi beam directrion(Hafl sphere)
+    // G4double phi = G4UniformRand()*2*CLHEP::pi;
+    // G4double theta = G4UniformRand()*0.5*CLHEP::pi; // polar angle
     // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(theta)*std::cos(phi),
     //                                                             std::sin(theta)*std::sin(phi),
     //                                                             std::cos(theta)));
+    // Beam goes straght
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,1));
     // G4cout << "Particle momentum direction: " << phi << " " << theta<< G4endl;
     G4double size = 1; 

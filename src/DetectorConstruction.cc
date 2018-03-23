@@ -116,6 +116,24 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   G4ThreeVector Ta2 = G4ThreeVector(0.*m, 0.*m, -0.52 *m);
   CollimatorFilmAssembly -> MakeImprint(worldLogical, Ta2, Ra); // NOTE: Comment out this line for QA
 
+  // Beam profile detector at 2nd collimator hole
+  G4VSolid * beamProfileSolid1 = new G4Tubs("beamProfileSolid1",
+                                            0.0 *mm,      //inner radius
+                                            25.0*mm,      //outer radius
+                                            2.5*mm,       //tub's height
+                                            0.0 *deg,     //start angle
+                                            360.0 *deg);  //end angle
+  G4LogicalVolume* beamProfileLogical1 = new G4LogicalVolume(beamProfileSolid1, air, "beamProfileLogical1");
+  new G4PVPlacement(0,                                  // No rotation
+                    Ta2,                                // at (0,0,-0.52m)
+                    beamProfileLogical1,                  // its logical volume
+                    "beamProfilePhysical1",               // its name
+                    worldLogical,                       // its mother volume
+                    false,                              // no boolean operations
+                    0,                                  // copy number
+                    checkOverlaps);                     // Checking overlaps
+  beamProfileLogical1->SetVisAttributes(gray);
+
   // Shielding plate
   G4AssemblyVolume * ShieldingAssembly = Shielding(aluminum, 69.5 *mm, 140.*mm, 10. *mm, true, false);
   G4ThreeVector Ta3 = G4ThreeVector(-60. * mm, -60. *mm, -0.50 *m);
@@ -133,6 +151,22 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
                                                       mylar, 6.*mm); // Window material, window thickness FIXME: Window thickness not needed(?)
   G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);
   MountAssembly -> MakeImprint(worldLogical, Ta4, Ra);
+
+  // Beam profile detector at mount window
+  G4VSolid *beamProfileSolid2 = new G4Box("beamProfileSolid2",
+                                         20/2*mm,
+                                         36/2*mm,
+                                         0.5*mm);  // Window solid, use it in subtraction to make a front side
+  G4LogicalVolume* beamProfileLogical2 = new G4LogicalVolume(beamProfileSolid2, air, "beamProfileLogical2");
+  new G4PVPlacement(0,                                      // No rotation
+                    G4ThreeVector(-7.*cm, 0.*cm, -0.5*mm),  // at (-7cm, 0, -0.5mm)
+                    beamProfileLogical2,                    // its logical volume
+                    "beamProfilePhysical2",                 // its name
+                    worldLogical,                           // its mother volume
+                    false,                                  // no boolean operations
+                    0,                                      // copy number
+                    checkOverlaps);                         // Checking overlaps
+  beamProfileLogical2->SetVisAttributes(gray);
 
   return worldPhysical;
 }

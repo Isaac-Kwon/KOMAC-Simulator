@@ -92,7 +92,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   int ntuple = 0;
   if (volume == fScoringVolume0 ) ntuple = 2;
   if (volume == fScoringVolume1 ) ntuple = 3;
-  if (volume == fScoringVolume2 ) ntuple = 3;
+  if (volume == fScoringVolume2 ) ntuple = 4;
 
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 

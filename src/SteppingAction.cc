@@ -45,7 +45,9 @@
 SteppingAction::SteppingAction(EventAction* eventAction)
 : G4UserSteppingAction(),
   fEventAction(eventAction),
-  fScoringVolume(0)
+  fScoringVolume0(0),
+  fScoringVolume1(0),
+  fScoringVolume2(0)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -57,11 +59,25 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-  if (!fScoringVolume) {
+  if (!fScoringVolume0) {
     const DetectorConstruction* detectorConstruction
       = static_cast<const DetectorConstruction*>
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-    fScoringVolume = detectorConstruction->GetScoringVolume();
+    fScoringVolume0 = detectorConstruction->GetScoringVolume(0);
+  }
+
+  if (!fScoringVolume2) {
+    const DetectorConstruction* detectorConstruction
+      = static_cast<const DetectorConstruction*>
+        (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+    fScoringVolume1 = detectorConstruction->GetScoringVolume(1);
+  }
+
+  if (!fScoringVolume2) {
+    const DetectorConstruction* detectorConstruction
+      = static_cast<const DetectorConstruction*>
+        (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+    fScoringVolume2 = detectorConstruction->GetScoringVolume(2);
   }
 
   // get volume of the current step
@@ -70,7 +86,13 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
       ->GetVolume()->GetLogicalVolume();
 
   // check if we are in scoring volume
-  if (volume != fScoringVolume) return;
+  if (volume != fScoringVolume0 && volume != fScoringVolume1 && volume != fScoringVolume2) return;
+
+  // ntuple id selection
+  int nutple = 0;
+  if (volume = fScoringVolume0 ) ntuple = 2;
+  if (volume = fScoringVolume1 ) ntuple = 3;
+  if (volume = fScoringVolume2 ) ntuple = 3;
 
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
@@ -101,16 +123,16 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4cout << "Poststep Kinetic Energy: " << kinEnergy_postStep/CLHEP::MeV << " MeV\t|\t";  
   G4cout << "Deposit Energy" <<  edepStep/CLHEP::MeV << " MeV\t|\tStepLength: " << stepLength/CLHEP::cm << " cm" << G4endl;
 
-  analysisManager->FillNtupleIColumn(2,0,pid);
-  analysisManager->FillNtupleDColumn(2,1,kinEnergy_preStep);
-  analysisManager->FillNtupleDColumn(2,2,edepStep);
-  analysisManager->FillNtupleDColumn(2,3,preStepX);
-  analysisManager->FillNtupleDColumn(2,4,preStepY);
-  analysisManager->FillNtupleDColumn(2,5,preStepZ);
-  analysisManager->FillNtupleDColumn(2,6,postStepX);
-  analysisManager->FillNtupleDColumn(2,7,postStepY);
-  analysisManager->FillNtupleDColumn(2,8,postStepZ);
-  analysisManager->AddNtupleRow(2);
+  analysisManager->FillNtupleIColumn(ntuple,0,pid);
+  analysisManager->FillNtupleDColumn(ntuple,1,kinEnergy_preStep);
+  analysisManager->FillNtupleDColumn(ntuple,2,edepStep);
+  analysisManager->FillNtupleDColumn(ntuple,3,preStepX);
+  analysisManager->FillNtupleDColumn(ntuple,4,preStepY);
+  analysisManager->FillNtupleDColumn(ntuple,5,preStepZ);
+  analysisManager->FillNtupleDColumn(ntuple,6,postStepX);
+  analysisManager->FillNtupleDColumn(ntuple,7,postStepY);
+  analysisManager->FillNtupleDColumn(ntuple,8,postStepZ);
+  analysisManager->AddNtupleRow(ntuple);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

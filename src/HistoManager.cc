@@ -131,6 +131,29 @@ void HistoManager::Book()
   analysis->CreateNtupleDColumn("postPosX");      //column 6
   analysis->CreateNtupleDColumn("postPosY");      //column 7
   analysis->CreateNtupleDColumn("postPosZ");      //column 8
+
+  analysis->CreateNtuple("202", "Mount window position");
+  analysis->CreateNtupleIColumn("pid");           //column 0 
+  analysis->CreateNtupleDColumn("IncidentEkin");  //column 1
+  analysis->CreateNtupleDColumn("DepositE");      //column 2
+  analysis->CreateNtupleDColumn("prePosX");       //column 3
+  analysis->CreateNtupleDColumn("prePosY");       //column 4
+  analysis->CreateNtupleDColumn("prePosZ");       //column 5
+  analysis->CreateNtupleDColumn("postPosX");      //column 6
+  analysis->CreateNtupleDColumn("postPosY");      //column 7
+  analysis->CreateNtupleDColumn("postPosZ");      //column 8
+
+  analysis->CreateNtuple("203", "Collimator2 position");
+  analysis->CreateNtupleIColumn("pid");           //column 0 
+  analysis->CreateNtupleDColumn("IncidentEkin");  //column 1
+  analysis->CreateNtupleDColumn("DepositE");      //column 2
+  analysis->CreateNtupleDColumn("prePosX");       //column 3
+  analysis->CreateNtupleDColumn("prePosY");       //column 4
+  analysis->CreateNtupleDColumn("prePosZ");       //column 5
+  analysis->CreateNtupleDColumn("postPosX");      //column 6
+  analysis->CreateNtupleDColumn("postPosY");      //column 7
+  analysis->CreateNtupleDColumn("postPosZ");      //column 8
+
   analysis->FinishNtuple();
   
   analysis->SetNtupleActivation(true);             

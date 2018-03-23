@@ -24,7 +24,7 @@ void gen_macro(){
 	ofs << "#" << endl;
 	ofs << "# Rootfile setup" << endl;
 	ofs << "#" << endl;
-	ofs << Form("/analysis/setFileName run_%2d_mm", i_radius) << endl;
+	ofs << Form("/analysis/setFileName run_%02d_mm", i_radius) << endl;
 	ofs << "/analysis/h1/set 1 100 1 30 MeV" << endl;
 	ofs << "/analysis/h2/setX 1 300 -15 15 cm  #x-y" << endl;
 	ofs << "/analysis/h2/setY 1 300 -15 15 cm  #x-y" << endl;

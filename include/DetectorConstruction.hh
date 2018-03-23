@@ -88,17 +88,19 @@ public:
                                G4bool referenceX, G4bool referenceY);
   G4LogicalVolume* GetScoringVolume(int nScoring) const // Get the scoring volume variable.
   { 
+    G4LogicalVolume* volume;
     switch(nScoring){
       case 0:
-        return fScoringVolume0; 
+        volume = fScoringVolume0; 
         break;
       case 1:
-        return fScoringVolume1; 
+        volume = fScoringVolume1; 
         break;
       case 2:
-        return fScoringVolume2; 
+        volume = fScoringVolume2; 
         break;
     }
+    return volume;
   } 
 
   // Color set

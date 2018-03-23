@@ -87,7 +87,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 {
     // Bean window
     G4double position_angle = 2*CLHEP::pi;
-    G4double half_thickness = 2.5*mm;
+    G4double half_thickness = 1.*mm;
     G4LogicalVolume *beamWinLV = G4LogicalVolumeStore::GetInstance()->GetVolume("beamWindowLogical");
     fBeamWindow = dynamic_cast<G4Tubs*>(beamWinLV->GetSolid());
 
@@ -130,17 +130,17 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 
     G4double phi = G4UniformRand()*2*CLHEP::pi;
     G4double theta = G4UniformRand()*0.5*CLHEP::pi; // polar angle
-    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(theta)*std::cos(phi),
-                                                                std::sin(theta)*std::sin(phi),
-                                                                std::cos(theta)));
-    // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,1));
+    // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(theta)*std::cos(phi),
+    //                                                             std::sin(theta)*std::sin(phi),
+    //                                                             std::cos(theta)));
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,1));
     // G4cout << "Particle momentum direction: " << phi << " " << theta<< G4endl;
     G4double size = 1; 
     G4double radius_input = size * G4UniformRand()*mm + fRadius;
     G4double position_angle_input = position_angle * G4UniformRand();
     G4double x0 = size * radius_input * std::cos(position_angle_input);
     G4double y0 = size * radius_input * std::sin(position_angle_input);
-    G4double z0 = (-0.57*m) + half_thickness;
+    G4double z0 = (-1.42*m) + half_thickness;
 
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
 

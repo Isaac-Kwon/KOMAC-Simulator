@@ -34,7 +34,7 @@ build/
 *.out
 *.app
 
-
-
+# Executables
+run_generated.mac
 
 .DS_Store

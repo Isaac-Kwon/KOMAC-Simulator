@@ -3,7 +3,7 @@
 // 1: OGS
 // 2: HEPREP
 // 3: DAWN
-void gen_macro(int gui =1, int runAcc = 0){ 
+void gen_macro(int gui =1, int runAcc = 0, int min_event = 1){ 
 
   std::ofstream ofs ("run_generated.mac", std::ofstream::out);
 
@@ -44,7 +44,6 @@ void gen_macro(int gui =1, int runAcc = 0){
   ofs << Form("/tutorial/generator/momentum %f MeV", momentum) << endl;
 
   int max_radius = 100;
-  int min_event = 1;
   for (int i_radius = 0; i_radius < max_radius; ++i_radius)
   {
   	ofs << "################################################" << endl;

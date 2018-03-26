@@ -35,7 +35,7 @@ void gen_macro(int gui =1, int runAcc = 0){
 
   if (runAcc>0){
 	ofs << "# Accumulate multiple runs in one picture." << endl;
-	ofs << "/vis/scene/endOfRunAction Accumulate" << endl;  	
+	ofs << "/vis/scene/endOfRunAction accumulate" << endl;  	
   }
 
   ofs << "# Initialize kernel" << endl;

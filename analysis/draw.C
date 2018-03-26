@@ -86,7 +86,7 @@ TFile *getFile(TString name){
 	TFile *file = TFile::Open(Form("%s.root", name.Data()));
 	return file;
 }
-void draw(TString name = "root/run", int nEvent = 100000){
+void draw(TString name = "../build/run", int nEvent = 100000){
 	gStyle->SetOptStat(1);
 	// Get file & Tree
 	TFile *file = getFile(name.Data());
@@ -177,7 +177,6 @@ void draw(TString name = "root/run", int nEvent = 100000){
 	fill1dHistoFromTree(t_detector, h1d_Ekin_detector, "IncidentEkin", "pid==2212");
 	h1d_Ekin_detector->SetLineColor(kGreen);
 	h1d_Ekin_detector->Draw();
-	h1d_Ekin_mount->Draw("SAME");
 
 	// ---------------------------------------------------------------------------
 	// Detector

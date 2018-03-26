@@ -26,6 +26,8 @@ void gen_macro(int gui =1, int runAcc = 0){
 	ofs << "/vis/open HepRepFile" << endl;
 	ofs <<"# Add world volume" << endl;
 	ofs << "/vis/drawVolume" << endl;
+	ofs << "# Accumulate multiple events in one picture." << endl;
+	ofs << "/vis/scene/endOfEventAction accumulate" << endl;
 	ofs << "# Visualise geometry" << endl;
 	ofs << "/vis/viewer/flush" << endl;
 	ofs << "/vis/drawOnlyToBeKeptEvents" << endl;

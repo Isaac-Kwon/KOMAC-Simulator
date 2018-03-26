@@ -116,14 +116,15 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   G4double kinEnergy_preStep = step->GetPreStepPoint()->GetKineticEnergy();
   G4double kinEnergy_postStep = step->GetPostStepPoint()->GetKineticEnergy();
 
-  G4cout << "Step information" << G4endl;
-  G4cout << "------------------------------------------------" << G4endl;
-  G4cout << "Pre-step position(mm): (" << preStep.x()/CLHEP::mm << ", " << preStep.y()/CLHEP::mm << ", " << preStep.z()/CLHEP::mm << ")" << G4endl;
-  G4cout << "Post-step position(mm): (" << postStep.x()/CLHEP::mm << ", " << postStep.y()/CLHEP::mm << ", " << postStep.z()/CLHEP::mm << ")" << G4endl;
-  G4cout << "Step Energy: " << kinEnergy/CLHEP::MeV << " MeV\t|\t";
-  G4cout << "Prestep Kinetic Energy: " << kinEnergy_preStep/CLHEP::MeV << " MeV\t|\t";
-  G4cout << "Poststep Kinetic Energy: " << kinEnergy_postStep/CLHEP::MeV << " MeV\t|\t";  
-  G4cout << "Deposit Energy" <<  edepStep/CLHEP::MeV << " MeV\t|\tStepLength: " << stepLength/CLHEP::cm << " cm" << G4endl;
+  // TODO: Add debug flag to handle below debugging message.
+  // G4cout << "Step information" << G4endl;
+  // G4cout << "------------------------------------------------" << G4endl;
+  // G4cout << "Pre-step position(mm): (" << preStep.x()/CLHEP::mm << ", " << preStep.y()/CLHEP::mm << ", " << preStep.z()/CLHEP::mm << ")" << G4endl;
+  // G4cout << "Post-step position(mm): (" << postStep.x()/CLHEP::mm << ", " << postStep.y()/CLHEP::mm << ", " << postStep.z()/CLHEP::mm << ")" << G4endl;
+  // G4cout << "Step Energy: " << kinEnergy/CLHEP::MeV << " MeV\t|\t";
+  // G4cout << "Prestep Kinetic Energy: " << kinEnergy_preStep/CLHEP::MeV << " MeV\t|\t";
+  // G4cout << "Poststep Kinetic Energy: " << kinEnergy_postStep/CLHEP::MeV << " MeV\t|\t";  
+  // G4cout << "Deposit Energy" <<  edepStep/CLHEP::MeV << " MeV\t|\tStepLength: " << stepLength/CLHEP::cm << " cm" << G4endl;
 
   analysisManager->FillNtupleIColumn(ntuple,0,pid);
   analysisManager->FillNtupleDColumn(ntuple,1,kinEnergy_preStep);

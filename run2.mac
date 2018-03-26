@@ -2,50 +2,21 @@
 #
 # Change the default number of workers (in multi-threading mode) 
 # /run/numberOfWorkers 4
+# KOMAC Simulator
 #
-# ----------------
-# Verbose settings
-# ----------------
-/control/verbose 2
-/run/verbose 2
-#/tracking/verbose 2
-
-# viewing in DAWN:
-# /vis/open DAWNFILE
-
-# OpenGL driver
-#/vis/open OGL 600x600-0+0
-/vis/viewer/set/auxiliaryEdge false
-/vis/viewer/set/autoRefresh true
-/vis/viewer/zoom 16
-
+# HepRepFile diriver
+/vis/open HepRepFile
 # Add world volume
 /vis/drawVolume
 
-# Visualise geometry
-# /vis/viewer/flush
-
-# Set camera angle for OGL driver
-#/vis/viewer/set/viewpointThetaPhi 70 120
-
-# Add trajectories to the visualization.
 /vis/scene/add/trajectories
 
-# Accumulate multiple events in one picture.
+
 /vis/scene/endOfEventAction accumulate -1
-# Accumulate multiple runs in one picture.
 /vis/scene/endOfRunAction accumulate
-# Multithread mode
-/vis/multithreading/maxEventQueueSize -1
 
-/vis/ogl/set/displayListLimit 9999999
-
-
-# Trajectory colouring scheme
-/vis/modeling/trajectories/create/drawByCharge
-/vis/modeling/trajectories/drawByCharge-0/set -1 blue
-/vis/modeling/trajectories/drawByCharge-0/set 1 red
-/vis/modeling/trajectories/drawByCharge-0/set 0 green
+# Accumulate multiple events in one picture.
+/vis/drawOnlyToBeKeptEvents
 
 # Initialize kernel
 /run/initialize
@@ -73,7 +44,7 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 1000
+/run/beamOn 100
 
 
 

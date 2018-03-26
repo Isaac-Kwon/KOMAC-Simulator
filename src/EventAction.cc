@@ -61,6 +61,10 @@ void EventAction::EndOfEventAction(const G4Event*)
 {
   // accumulate statistics in run action
   fRunAction->AddEdep(fEdep);
+  if (fEdep>0){
+  	G4EventManager* fpEventManager = G4EventManager::GetEventManager();
+  	fpEventManager->KeepTheCurrentEvent();
+  } 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

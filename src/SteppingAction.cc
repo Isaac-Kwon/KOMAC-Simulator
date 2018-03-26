@@ -98,7 +98,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   // collect energy deposited in this step
   G4double edepStep = step->GetTotalEnergyDeposit();
-  fEventAction->AddEdep(edepStep);
+  if (ntuple==2) fEventAction->AddEdep(edepStep);
 
   G4double stepLength = step->GetStepLength();
 

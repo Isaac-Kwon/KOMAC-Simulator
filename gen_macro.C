@@ -3,7 +3,7 @@
 // 1: OGS
 // 2: HEPREP
 // 3: DAWN
-void gen_macro(int gui =1){ 
+void gen_macro(int gui =1, int runAcc = 0){ 
 
   std::ofstream ofs ("run_generated.mac", std::ofstream::out);
 
@@ -16,8 +16,6 @@ void gen_macro(int gui =1){
   	ofs << "/vis/scene/add/trajectories" << endl;
 	ofs << "# Accumulate multiple events in one picture." << endl;
 	ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
-	ofs << "# Accumulate multiple runs in one picture." << endl;
-	ofs << "/vis/scene/endOfRunAction accumulate" << endl;
 	ofs << "# Multithread mode" << endl;
 	ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
 	ofs << "/vis/ogl/set/displayListLimit 9999999" << endl;
@@ -34,8 +32,11 @@ void gen_macro(int gui =1){
 	ofs << "/vis/scene/add/trajectories" << endl;
 	ofs << "# Accumulate multiple events in one picture." << endl;
 	ofs << "/vis/scene/endOfEventAction accumulate" << endl;
+  }
+
+  if (runAcc>0){
 	ofs << "# Accumulate multiple runs in one picture." << endl;
-	ofs << "/vis/scene/endOfRunAction Accumulate" << endl;
+	ofs << "/vis/scene/endOfRunAction Accumulate" << endl;  	
   }
 
   ofs << "# Initialize kernel" << endl;

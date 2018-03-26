@@ -24,12 +24,12 @@ void gen_macro(int gui =1, int runAcc = 0){
   if (gui==2){
 	ofs << "# HepRepFile diriver" << endl;
 	ofs << "/vis/open HepRepFile" << endl;
-	ofs <<"# Add world volume" << endl;
+	ofs << "# Add world volume" << endl;
 	ofs << "/vis/drawVolume" << endl;
+  	ofs << "# Add trajectories to the visualization." << endl;
+  	ofs << "/vis/scene/add/trajectories" << endl;
 	ofs << "# Accumulate multiple events in one picture." << endl;
-	ofs << "/vis/scene/endOfEventAction accumulate" << endl;
-	ofs << "# Visualise geometry" << endl;
-	ofs << "/vis/viewer/flush" << endl;
+	ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
 	ofs << "/vis/drawOnlyToBeKeptEvents" << endl;
   }
 

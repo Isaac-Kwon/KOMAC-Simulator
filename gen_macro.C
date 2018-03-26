@@ -1,4 +1,9 @@
-void gen_macro(){
+// GUI input
+// 0: No event display
+// 1: OGS
+// 2: HEPREP
+// 3: DAWN
+void gen_macro(int gui =1){ 
 
   std::ofstream ofs ("run_generated.mac", std::ofstream::out);
 
@@ -6,13 +11,40 @@ void gen_macro(){
 
   ofs << "# KOMAC Simulator" << endl;
   ofs << "#" << endl;
+  if (gui==1){
+  	ofs << "# Add trajectories to the visualization." << endl;
+  	ofs << "/vis/scene/add/trajectories" << endl;
+	ofs << "# Accumulate multiple events in one picture." << endl;
+	ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
+	ofs << "# Accumulate multiple runs in one picture." << endl;
+	ofs << "/vis/scene/endOfRunAction accumulate" << endl;
+	ofs << "# Multithread mode" << endl;
+	ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
+	ofs << "/vis/ogl/set/displayListLimit 9999999" << endl;
+  }
+
+  if (gui==2){
+	ofs << "# HepRepFile diriver" << endl;
+	ofs << "/vis/open HepRepFile" << endl;
+	ofs <<"# Add world volume" << endl;
+	ofs << "/vis/drawVolume" << endl;
+	ofs << "# Visualise geometry" << endl;
+	ofs << "/vis/viewer/flush" << endl;
+	ofs << "# Add trajectories to the visualization." << endl;
+	ofs << "/vis/scene/add/trajectories" << endl;
+	ofs << "# Accumulate multiple events in one picture." << endl;
+	ofs << "/vis/scene/endOfEventAction accumulate" << endl;
+	ofs << "# Accumulate multiple runs in one picture." << endl;
+	ofs << "/vis/scene/endOfRunAction Accumulate" << endl;
+  }
+
   ofs << "# Initialize kernel" << endl;
   ofs << "/run/initialize" << endl;
   ofs << "# Particle Energy" << endl;
   ofs << Form("/tutorial/generator/momentum %f MeV", momentum) << endl;
 
   int max_radius = 100;
-  int min_event = 100;
+  int min_event = 1;
   for (int i_radius = 0; i_radius < max_radius; ++i_radius)
   {
   	ofs << "################################################" << endl;

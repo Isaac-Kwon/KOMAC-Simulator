@@ -28,10 +28,7 @@ void gen_macro(int gui =1, int runAcc = 0){
 	ofs << "/vis/drawVolume" << endl;
 	ofs << "# Visualise geometry" << endl;
 	ofs << "/vis/viewer/flush" << endl;
-	ofs << "# Add trajectories to the visualization." << endl;
-	ofs << "/vis/scene/add/trajectories" << endl;
-	ofs << "# Accumulate multiple events in one picture." << endl;
-	ofs << "/vis/scene/endOfEventAction accumulate" << endl;
+	ofs << "/vis/drawOnlyToBeKeptEvents" << endl;
   }
 
   if (runAcc>0){

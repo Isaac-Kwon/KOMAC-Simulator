@@ -34,7 +34,13 @@ build/
 *.out
 *.app
 
-# Executables
+# macro
 run_generated.mac
+
+# HepRep
+user.properties
+
+# log file
+*.log
 
 .DS_Store

@@ -18,6 +18,7 @@
 
 # Folder
 build/
+*/result*
 
 # Fortran module files
 *.mod

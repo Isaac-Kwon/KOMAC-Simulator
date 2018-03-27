@@ -28,8 +28,8 @@ void gen_macro(int gui =1, int runAcc = 0, int min_event = 1){
 	ofs << "/vis/drawVolume" << endl;
   	ofs << "# Add trajectories to the visualization." << endl;
   	ofs << "/vis/scene/add/trajectories" << endl;
-	ofs << "# Accumulate multiple events in one picture." << endl;
-	ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
+	// ofs << "# Accumulate multiple events in one picture." << endl;
+	// ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
 	ofs << "/vis/drawOnlyToBeKeptEvents" << endl;
   }
 
@@ -37,6 +37,10 @@ void gen_macro(int gui =1, int runAcc = 0, int min_event = 1){
 	ofs << "# Accumulate multiple runs in one picture." << endl;
 	ofs << "/vis/scene/endOfRunAction accumulate" << endl;  	
   }
+
+  ofs << "#Multithreading mode for visulaization" << endl;
+  ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
+  ofs << "/vis/multithreading/actionOnEventQueueFull wait" << endl;
 
   ofs << "# Initialize kernel" << endl;
   ofs << "/run/initialize" << endl;

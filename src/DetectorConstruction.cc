@@ -145,13 +145,13 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
   // Mount
   G4AssemblyVolume * MountAssembly = DetectorAndMount(aluminum, // Mount material
                                                       302.*mm, 150.*mm, 137.*mm, // Mount size
-                                                      6.*mm,          // Mount thickness
-                                                      20.*mm, 36.*mm, // Window Size
-                                                      76.*mm, 0.*mm,  // Window position based mount center
-                                                      silicon,        // Detector material
+                                                      6.*mm,                  // Mount thickness
+                                                      20.*mm, 36.*mm,         // Window Size
+                                                      76.*mm, 0.*mm,          // Window position based mount center
+                                                      silicon,                // Detector material
                                                       20.*mm, 36.*mm, 0.1*mm, // Detector size, NOTE: Change thickness from 0.1mm to 3mm for QA
-                                                      30.*mm, // Detector depth from surface
-                                                      mylar, 6.*mm); // Window material, window thickness FIXME: Window thickness not needed(?)
+                                                      23.28*mm,               // Detector depth from surface
+                                                      mylar, 6.*mm);          // Window material, window thickness FIXME: Window thickness not needed(?)
   G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);
   MountAssembly -> MakeImprint(worldLogical, Ta4, Ra);
 
@@ -372,7 +372,7 @@ G4AssemblyVolume * DetectorConstruction::DetectorAndMount(G4Material * mountMate
   detectorLogical -> SetVisAttributes(detector_color);
 
   G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
-  G4ThreeVector Ta = G4ThreeVector(0.*m, 0.*m, detectorDepth);
+  G4ThreeVector Ta = G4ThreeVector(-1.5*mm, 0.*mm, detectorDepth + detectorSizeZ/2);
   DetectorAndMountAssembly -> AddPlacedVolume(detectorLogical, Ta, Ra);
 
   fScoringVolume0 = detectorLogical;

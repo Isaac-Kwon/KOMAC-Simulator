@@ -178,6 +178,36 @@ void draw(TString name = "../build/run", int nEvent = 100000){
 	h1d_Ekin_detector->SetLineColor(kGreen);
 	h1d_Ekin_detector->Draw();
 
+	// Kinetic energy difference between mount window and detector window
+	TCanvas *cDiffKinE = getCanvas(1, "DiffKinE");
+	cDiffKinE->cd();
+
+	TH1D *h1d_Ekin_diff = new TH1D("h1d_Ekin_diff", ";Diff (MeV);", 2500, 0, 25);
+	h1d_Ekin_diff->Add(h1d_Ekin_mount, h1d_Ekin_detector, 1, -1);
+
+	// t_mount_window->Draw(">>mountList", "pid==2212 && prePosZ== -1", "entrylist");
+	// TEntryList *mountList = (TEntryList*)gDirectory->Get("mountList");
+	// t_detector->Draw(">>detectorList", "pid==2212", "entrylist");
+	// TEntryList *detectorList = (TEntryList*)gDirectory->Get("detectorList");
+
+	// Double_t mountInputKinE, detectorInputKinE;
+	// t_mount_window->SetBranchAddress("IncidentEkin", &mountInputKinE);
+	// t_detector->SetBranchAddress("IncidentEkin", &detectorInputKinE);
+
+
+	// for (int i = 0; i < mountList->GetN(); ++i)
+	// {
+	// 	int mountIndex = mountList->GetEntry(i);
+	// 	int detectorIndex = detectorList->GetEntry(i);
+
+	// 	t_mount_window->GetEntry(mountIndex);
+	// 	t_mount_window->GetEntry(detectorIndex);
+	// 	Double_t diff = mountInputKinE - detectorInputKinE;
+	// 	h1d_Ekin_diff->Fill(diff);
+	// 	cout << "#" << i << ": " << diff << " MeV" << endl;
+	// }
+	h1d_Ekin_diff->Draw();
+
 	// ---------------------------------------------------------------------------
 	// Detector
 	// ---------------------------------------------------------------------------

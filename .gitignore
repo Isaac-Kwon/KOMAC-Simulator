@@ -44,4 +44,9 @@ user.properties
 # log file
 *.log
 
+# Output
+*.root
+*.pdf
+
+
 .DS_Store

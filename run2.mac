@@ -5,18 +5,6 @@
 # KOMAC Simulator
 #
 # HepRepFile diriver
-/vis/open HepRepFile
-# Add world volume
-/vis/drawVolume
-
-/vis/scene/add/trajectories
-
-
-/vis/scene/endOfEventAction accumulate -1
-/vis/scene/endOfRunAction accumulate
-
-# Accumulate multiple events in one picture.
-/vis/drawOnlyToBeKeptEvents
 
 # Initialize kernel
 /run/initialize
@@ -28,14 +16,14 @@
 /tutorial/generator/momentum 194 MeV
 ################################################
 #
-# Test
+# Radius: 50~51mm
 #
-# Particle position distribution in polar angle 
-/tutorial/generator/radius 0 mm
+# Particle position distribution in polar angle
+/tutorial/generator/radius 50 mm
 #
 # Rootfile setup
 #
-/analysis/setFileName run_test
+/analysis/setFileName test_run_50_mm
 /analysis/h1/set 1 100 1 30 MeV
 /analysis/h2/setX 1 300 -15 15 cm  #x-y
 /analysis/h2/setY 1 300 -15 15 cm  #x-y

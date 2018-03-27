@@ -98,7 +98,6 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   // collect energy deposited in this step
   G4double edepStep = step->GetTotalEnergyDeposit();
-  if (ntuple==2) fEventAction->AddEdep(edepStep);
 
   G4double stepLength = step->GetStepLength();
 
@@ -115,6 +114,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   G4double kinEnergy_preStep = step->GetPreStepPoint()->GetKineticEnergy();
   G4double kinEnergy_postStep = step->GetPostStepPoint()->GetKineticEnergy();
+
+  if (ntuple==2 && pid==2212) fEventAction->AddEdep(edepStep);
 
   // TODO: Add debug flag to handle below debugging message.
   // G4cout << "Step information" << G4endl;

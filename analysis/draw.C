@@ -86,7 +86,7 @@ TFile *getFile(TString name){
 	TFile *file = TFile::Open(Form("%s.root", name.Data()));
 	return file;
 }
-void draw(TString name = "../build/run", int nEvent = 100000){
+void draw(TString name = "../build/run", int nEvent = 1000000){
 	gStyle->SetOptStat(1);
 	// Get file & Tree
 	TFile *file = getFile(name.Data());

@@ -5,8 +5,7 @@ void resultScan(){
 	int counter = 0;
 	for (int i = 0; i < 100; ++i)
 	{
-		// TFile *file = TFile::Open(Form("../build/run_%02d_mm.root", i));
-		TFile *file = TFile::Open(Form("result/nEventFactor_100/total/run_%02d_mm.root", i));
+		TFile *file = TFile::Open(Form("result/run_101/run_%02d_mm.root", i));
 		TTree *tree = (TTree*)file->Get("ntuple/201");
 		TTree *tree2 = (TTree*)file->Get("ntuple/202");
 		TTree *tree3 = (TTree*)file->Get("ntuple/203");
@@ -24,16 +23,11 @@ void resultScan(){
 			float nDet_sigma = TMath::Sqrt(nDet);
 			float nColl2_sigma = TMath::Sqrt(nColl2);
 
-			float ratio = nDet/nColl2;
-			float ratio_sigma2 = TMath::Power(nDet_sigma, 2)*TMath::Power(nDet, -2) + TMath::Power(nColl2_sigma, 2)*TMath::Power(nColl2, -2);
-			float ratio_sigma = TMath::Sqrt(ratio_sigma2);
-
 			gr->SetPoint(counter, i+0.5, nDet);
 			gr->SetPointError(counter, 0.5, nDet_sigma);
 
-			gr2->SetPoint(counter, i+0.5, ratio);
+			gr2->SetPoint(counter, i+0.5, nColl2);
 			gr2->SetPointError(counter, 0.5, 0);
-			// gr2->SetPointError(counter, 0.5, ratio_sigma);
 			cout << ratio << " " << ratio_sigma << endl;
 			counter++;
 		}
@@ -44,6 +38,6 @@ void resultScan(){
 	gr->Draw("AP");
 	TCanvas *c2 = new TCanvas("c2", "Result", 800, 600);
 	c2->cd();
-	gr2->SetTitle(";radius (mm);");
+	gr2->SetTitle(";radius (mm);Number of proton in collimator2");
 	gr2->Draw("AP");
 }

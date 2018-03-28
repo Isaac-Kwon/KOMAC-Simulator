@@ -149,7 +149,7 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
                                                       20.*mm, 36.*mm,         // Window Size
                                                       76.*mm, 0.*mm,          // Window position based mount center
                                                       silicon,                // Detector material
-                                                      20.*mm, 36.*mm, 0.1*mm, // Detector size, NOTE: Change thickness from 0.1mm to 3mm for QA
+                                                      15.*mm, 30.*mm, 0.1*mm, // Detector size, NOTE: Change thickness from 0.1mm to 3mm for QA
                                                       23.28*mm,               // Detector depth from surface
                                                       mylar, 6.*mm);          // Window material, window thickness FIXME: Window thickness not needed(?)
   G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);

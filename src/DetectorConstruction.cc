@@ -372,7 +372,7 @@ G4AssemblyVolume * DetectorConstruction::DetectorAndMount(G4Material * mountMate
   detectorLogical -> SetVisAttributes(detector_color);
 
   G4RotationMatrix * Ra = new G4RotationMatrix(0.*deg, 0.*deg, 0.*deg);
-  G4ThreeVector Ta = G4ThreeVector(-1.5*mm, 0.*mm, detectorDepth + detectorSizeZ/2);
+  G4ThreeVector Ta = G4ThreeVector(0.*mm, 0.*mm, detectorDepth);
   DetectorAndMountAssembly -> AddPlacedVolume(detectorLogical, Ta, Ra);
 
   fScoringVolume0 = detectorLogical;

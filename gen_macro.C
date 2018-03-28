@@ -2,7 +2,7 @@
 // 0: No event display
 // 1: OGS
 // 2: HEPREP
-// 3: DAWN
+// 3: DAWN (Not yet added in this code)
 void gen_macro(int gui =1, int runAcc = 0, int min_event = 1){ 
 
   std::ofstream ofs ("run_generated.mac", std::ofstream::out);

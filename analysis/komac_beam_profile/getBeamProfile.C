@@ -1,6 +1,6 @@
 void getBeamProfile(){
 	Int_t debug = 0;
-	gStyle->SetOptStat(1);
+	gStyle->SetOptStat(0);
 	ifstream in;
 	in.open("beamProfile.csv");
 	Float_t count;
@@ -68,17 +68,27 @@ void getBeamProfile(){
 	Float_t scale = TMath::Power(max, -1);
 	beamProfile->Scale(scale);
 	beamProfile->Draw("colz");
-	beamProfile->SetTitle("BeamProfile;X (cm); Y (cm)");
+	beamProfile->SetTitle("BeamProfile;x (cm);y (cm)");
 	cout << max_x <<  " " << max_y << endl;	
 	cout << max_x - 4.875 <<  " " << max_y - 4.625 << endl;
-	TCanvas *c2 = new TCanvas("c2", "Beam Profile in X", 800, 600);
+
+	TCanvas *c2 = new TCanvas("c2", "Beam Profile in X", 500, 500);
 	c2->cd();
-	TH1D *h1dSliceX = beamProfile->ProjectionX("h1dSliceX", 1, 110);
-	h1dSliceX->SetTitle("BeamProfile;X (cm);");
+	TH1D *h1dSliceX = beamProfile->ProjectionX("sliceX", 55, 55);
+	Float_t xBinCenter = beamProfile->GetXaxis()->GetBinCenter(55);
+	Float_t xBinWidth = beamProfile->GetXaxis()->GetBinWidth(55);
+	Float_t min_xBinCenter = xBinCenter - xBinWidth/2;
+	Float_t max_xBinCenter = xBinCenter + xBinWidth/2;
+	h1dSliceX->SetTitle(Form("h1dSliceX[%.3f, %.3f];x (cm);", min_xBinCenter, max_xBinCenter));
 	h1dSliceX->Draw();
-	TCanvas *c3 = new TCanvas("c3", "Beam Profile in Y", 800, 600);
+	TCanvas *c3 = new TCanvas("c3", "Beam Profile in Y", 500, 500);
 	c3->cd();
-	TH1D *h1dSliceY = beamProfile->ProjectionY("h1dSliceY", 1, 108);
-	h1dSliceY->SetTitle("BeamProfile;Y (cm);");
+	TH1D *h1dSliceY = beamProfile->ProjectionY("h1dSliceY", 54, 54);
+	Float_t yBinCenter = beamProfile->GetYaxis()->GetBinCenter(54);
+	Float_t yBinWidth = beamProfile->GetYaxis()->GetBinWidth(54);
+	Float_t min_yBinCenter = yBinCenter - yBinWidth/2;
+	Float_t max_yBinCenter = yBinCenter + yBinWidth/2;
+	h1dSliceY->SetTitle(Form("h1dSliceY[%.3f, %.3f];y (cm);", min_yBinCenter, max_yBinCenter));
+	h1dSliceY->GetXaxis()->SetTitleOffset(1.0);
 	h1dSliceY->Draw();
 }

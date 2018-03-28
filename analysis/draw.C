@@ -28,7 +28,7 @@ void fill1dHistoFromTree(TTree* tree, TH1D* histo, TString branch, TString cut){
 	tree->Draw(Form("%s>>%s", branch.Data(), histo->GetName()), cut.Data(), "goff");
 }
 void fill2dHistoFromTree(TTree* tree, TH2D* histo, TString branchX, TString branchY, TString cut){
-	tree->Draw(Form("%s:%s>>%s", branchX.Data(), branchY.Data(), histo->GetName()), cut.Data(), "goff");
+	tree->Draw(Form("%s:%s>>%s", branchY.Data(), branchX.Data(), histo->GetName()), cut.Data(), "goff");
 }
 TH1D *getSlice(TH2D *histo, int axis, TString name, int range1, int range2){
 	TH1D *slice;
@@ -214,6 +214,15 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	// 	cout << "#" << i << ": " << diff << " MeV" << endl;
 	// }
 	h1d_Ekin_diff->Draw();
+
+	// ---------------------------------------------------------------------------
+	// Collimaotr2(Au foil input)
+	// ---------------------------------------------------------------------------
+	TCanvas *cColl2Profile = getCanvas(0, "Coll2Profile");
+	cColl2Profile->cd();
+	TH2D *h2d_coll2Profile = new TH2D("h2d_coll2Profile", ";x (mm);y (mm)", 101, -50, 50, 101, -50, 50);
+	fill2dHistoFromTree(t_col2_hole, h2d_coll2Profile, "prePosX", "prePosY", "pid==2212 && prePosZ==-522.5");
+	h2d_coll2Profile->Draw("colz");
 
 	// ---------------------------------------------------------------------------
 	// Detector

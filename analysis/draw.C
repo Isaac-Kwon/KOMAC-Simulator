@@ -86,7 +86,7 @@ TFile *getFile(TString name){
 	TFile *file = TFile::Open(Form("%s.root", name.Data()));
 	return file;
 }
-void draw(TString name = "../build/run", int nEvent = 1000000){
+void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	gStyle->SetOptStat(1);
 	// Get file & Tree
 	TFile *file = getFile(name.Data());
@@ -95,6 +95,13 @@ void draw(TString name = "../build/run", int nEvent = 1000000){
 	TTree *t_col2_hole = getTree(file, 203);
 	TTree *t_mount_window = getTree(file, 202);
 	TTree *t_detector = getTree(file, 201);
+	// Counting volume for mount window
+	float countingVolumePosPre = countingVolumePos-0.5;
+	// # of proton in collimator2
+	int nEvent = 0;
+	t_mount_window->Draw(">>listColl2", Form("pid==2212 && prePosZ == %f", countingVolumePosPre), "entrylist");
+	TEntryList *listColl2 = (TEntryList*)gDirectory->Get("listColl2");
+	nEvent = listColl2->GetN();
 
 	// ---------------------------------------------------------------------------
 	// Beam profile at beam window
@@ -167,7 +174,7 @@ void draw(TString name = "../build/run", int nEvent = 1000000){
 	cInputKinE->cd(3);
 	TH1D *h1d_Ekin_mount = new TH1D("h1d_Ekin_mount", ";Kinetic Energy (MeV);", 2500, 0, 25);
 	// fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", "");
-	fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", "pid==2212 && prePosZ == -1");
+	fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", Form("pid==2212 && prePosZ == %f", countingVolumePosPre));
 	h1d_Ekin_mount->SetLineColor(kBlue);
 	h1d_Ekin_mount->Draw();
 

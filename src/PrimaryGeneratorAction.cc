@@ -53,7 +53,9 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   fSigmaAngle(0.*deg),
   fRandomizePrimary(false),
   fBeamWindow(0),
-  fRadius(0.*mm)
+  fRadius(0.*mm),
+  fPositionX(0.*mm),
+  fPositionY(0.*mm)
 {
     G4int n_particle = 1;
     fParticleGun  = new G4ParticleGun(n_particle);
@@ -127,21 +129,31 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
     G4double Ekin = std::sqrt(pp*pp+mass*mass)-mass;
 
     fParticleGun->SetParticleEnergy(Ekin);
-
+    //////////////////////////////////
     // 2pi beam directrion(Hafl sphere)
+    //////////////////////////////////
     // G4double phi = G4UniformRand()*2*CLHEP::pi;
     // G4double theta = G4UniformRand()*0.5*CLHEP::pi; // polar angle
     // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(theta)*std::cos(phi),
     //                                                             std::sin(theta)*std::sin(phi),
     //                                                             std::cos(theta)));
+    //////////////////////////////////
     // Beam goes straght
+    //////////////////////////////////
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,1));
+
     // G4cout << "Particle momentum direction: " << phi << " " << theta<< G4endl;
-    G4double size = 1; 
-    G4double radius_input = size * G4UniformRand()*mm + fRadius;
-    G4double position_angle_input = position_angle * G4UniformRand();
-    G4double x0 = size * radius_input * std::cos(position_angle_input);
-    G4double y0 = size * radius_input * std::sin(position_angle_input);
+    // G4double size = 1; 
+    // G4double radius_input = size * G4UniformRand()*mm + fRadius;
+    // G4double position_angle_input = position_angle * G4UniformRand();
+    // G4double x0 = size * radius_input * std::cos(position_angle_input);
+    // G4double y0 = size * radius_input * std::sin(position_angle_input);
+
+    G4double unitCellSizeX = 20.*mm;
+    G4double unitCellSizeY = 20.*mm;
+    G4double x0 = unitCellSizeX * (G4UniformRand()-0.5) + fPositionX;
+    G4double y0 = unitCellSizeY * (G4UniformRand()-0.5) + fPositionY;
+
     G4double z0 = (-1.42*m) + half_thickness;
 
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
@@ -177,6 +189,20 @@ void PrimaryGeneratorAction::DefineCommands()
     radiusCmd.SetParameterName("r", true);
     radiusCmd.SetRange("r>=0.");
     radiusCmd.SetDefaultValue("25.");
+
+    // fPositionX command
+    G4GenericMessenger::Command& positionXCmd
+      = fMessenger->DeclarePropertyWithUnit("PositionX",
+          "mm", fPositionX, "x position of sourceposition.");
+    positionXCmd.SetParameterName("x", true);
+    positionXCmd.SetDefaultValue("0.");
+
+    // fPositionY command
+    G4GenericMessenger::Command& positionYCmd
+      = fMessenger->DeclarePropertyWithUnit("PositionY",
+          "mm", fPositionY, "y position of sourceposition.");
+    positionYCmd.SetParameterName("y", true);
+    positionYCmd.SetDefaultValue("0.");
 
     // sigmaMomentum command
     G4GenericMessenger::Command& sigmaMomentumCmd

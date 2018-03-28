@@ -90,6 +90,8 @@ private:
   G4bool fRandomizePrimary;
   G4Tubs* fBeamWindow;
   G4double fRadius;
+  G4double fPositionX;
+  G4double fPositionY;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

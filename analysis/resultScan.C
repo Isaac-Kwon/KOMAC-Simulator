@@ -5,7 +5,7 @@ void resultScan(){
 	int counter = 0;
 	for (int i = 0; i < 100; ++i)
 	{
-		TFile *file = TFile::Open(Form("result/run_101/run_%02d_mm.root", i));
+		TFile *file = TFile::Open(Form("result/run_102/run_%02d_mm.root", i));
 		TTree *tree = (TTree*)file->Get("ntuple/201");
 		TTree *tree2 = (TTree*)file->Get("ntuple/202");
 		TTree *tree3 = (TTree*)file->Get("ntuple/203");
@@ -27,8 +27,8 @@ void resultScan(){
 			gr->SetPointError(counter, 0.5, nDet_sigma);
 
 			gr2->SetPoint(counter, i+0.5, nColl2);
+			// gr2->SetPoint(counter, i+0.5, nColl2/(2*i+1));
 			gr2->SetPointError(counter, 0.5, 0);
-			cout << ratio << " " << ratio_sigma << endl;
 			counter++;
 		}
 	}

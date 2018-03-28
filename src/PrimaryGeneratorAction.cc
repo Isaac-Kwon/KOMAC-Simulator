@@ -151,8 +151,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
 
     G4double unitCellSizeX = 20.*mm;
     G4double unitCellSizeY = 20.*mm;
-    G4double x0 = unitCellSizeX * (G4UniformRand()-0.5) + fPositionX;
-    G4double y0 = unitCellSizeY * (G4UniformRand()-0.5) + fPositionY;
+    G4double x0 = unitCellSizeX * G4UniformRand() + fPositionX;
+    G4double y0 = unitCellSizeY * G4UniformRand() + fPositionY;
 
     G4double z0 = (-1.42*m) + half_thickness;
 

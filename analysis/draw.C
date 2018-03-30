@@ -1,3 +1,23 @@
+void getRatio(Double_t input_event, Double_t ncoll2, Double_t nmount){
+	Double_t ncoll2_sigma = TMath::Sqrt(ncoll2);
+	Double_t nmount_sigma = TMath::Sqrt(nmount);
+	Double_t ratio = nmount/ncoll2;
+
+	Double_t ncoll2_component = TMath::Power(ncoll2_sigma, 2)/TMath::Power(ncoll2, 2);
+	Double_t nmount_component = TMath::Power(nmount_sigma, 2)/TMath::Power(nmount, 2);
+	Double_t ratio_sigma2 = TMath::Power(ratio, 2)*(ncoll2_component+nmount_component);
+	Double_t ratio_sigma = TMath::Sqrt(ratio_sigma2);
+
+	cout << "-------------------------------------" << endl;
+	cout << "Input event" << endl;
+	cout << input_event << endl;
+	cout << "Collimator2 #" << endl;
+	cout << ncoll2 << " \u00b1 " << ncoll2_sigma << " | " << ncoll2/input_event << endl;
+	cout << "Mount window #" << endl;
+	cout << nmount << " \u00b1 " << nmount_sigma << endl;
+	cout << "Ratio" << endl;
+	cout << ratio*100 << " \u00b1 " << ratio_sigma*100 << " %" << endl;
+}
 void getDose(TH1D* depositE, Double_t nEvent){
 	Double_t depositEnergy = depositE->GetMean();
 	Double_t depositEnergy_RMS = depositE->GetRMS();
@@ -92,6 +112,7 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	TFile *file = getFile(name.Data());
 	// Load TTree
 	TTree *t_input = getTree(file, 101);
+	Double_t input_event = t_input->GetEntries();
 	TTree *t_col2_hole = getTree(file, 203);
 	TTree *t_mount_window = getTree(file, 202);
 	TTree *t_detector = getTree(file, 201);
@@ -170,6 +191,7 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	fill1dHistoFromTree(t_col2_hole, h1d_Ekin_coll2, "IncidentEkin", "pid==2212 && prePosZ == -522.5");
 	h1d_Ekin_coll2->SetLineColor(kRed);
 	h1d_Ekin_coll2->Draw();
+	Double_t ncoll2 = h1d_Ekin_coll2->GetEntries();
 
 	cInputKinE->cd(3);
 	TH1D *h1d_Ekin_mount = new TH1D("h1d_Ekin_mount", ";Kinetic Energy (MeV);", 2500, 0, 25);
@@ -177,6 +199,7 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", Form("pid==2212 && prePosZ == %f", countingVolumePosPre));
 	h1d_Ekin_mount->SetLineColor(kBlue);
 	h1d_Ekin_mount->Draw();
+	Double_t nmount = h1d_Ekin_mount->GetEntries();
 
 	cInputKinE->cd(4);
 	TH1D *h1d_Ekin_detector = new TH1D("h1d_Ekin_detector", ";Kinetic Energy (MeV);", 2500, 0, 25);
@@ -225,6 +248,15 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	h2d_coll2Profile->Draw("colz");
 
 	// ---------------------------------------------------------------------------
+	// Mount window
+	// ---------------------------------------------------------------------------
+	TCanvas *cMountWindowProfile = getCanvas(0, "MountWindowProfile");
+	cMountWindowProfile->cd();
+	TH2D *h2d_mountWindowProfile = new TH2D("h2d_mountWindowProfile", ";x (mm);y (mm)", 60, -85, -55, 81, -20, 20);
+	fill2dHistoFromTree(t_mount_window, h2d_mountWindowProfile, "prePosX", "prePosY", Form("pid==2212 && prePosZ == %f", countingVolumePosPre));
+	h2d_mountWindowProfile->Draw("colz");
+
+	// ---------------------------------------------------------------------------
 	// Detector
 	// ---------------------------------------------------------------------------
 
@@ -253,5 +285,6 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	// ---------------------------------------------------------------------------
 	// End
 	// ---------------------------------------------------------------------------
+	getRatio(input_event, ncoll2, nmount);
 	cout << "End of macro" << endl;
 }

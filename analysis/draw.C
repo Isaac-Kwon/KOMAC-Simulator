@@ -106,10 +106,10 @@ TFile *getFile(TString name){
 	TFile *file = TFile::Open(Form("%s.root", name.Data()));
 	return file;
 }
-void draw(TString name = "../build/run", float countingVolumePos = -0.5){
+void draw(TString path = "../build/", TString file_name = "run", float countingVolumePos = -0.5){
 	gStyle->SetOptStat(1);
 	// Get file & Tree
-	TFile *file = getFile(name.Data());
+	TFile *file = getFile(Form("%s/%s", path.Data(), file_name.Data()));
 	// Load TTree
 	TTree *t_input = getTree(file, 101);
 	Double_t input_event = t_input->GetEntries();
@@ -286,5 +286,10 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	// End
 	// ---------------------------------------------------------------------------
 	getRatio(input_event, ncoll2, nmount);
+	cProfile->SaveAs(Form("%s/input_profile.pdf", path.Data()));
+	cColl2Profile->SaveAs(Form("%s/coll2_profile.pdf", path.Data()));
+	cMountWindowProfile->SaveAs(Form("%s/mountwindow_profile.pdf", path.Data()));
+	cInputKinE->SaveAs(Form("%s/incidentEkin_profile.pdf", path.Data()));
+
 	cout << "End of macro" << endl;
 }

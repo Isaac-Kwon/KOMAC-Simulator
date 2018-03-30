@@ -248,7 +248,7 @@ void draw(TString name = "../build/run", float countingVolumePos = -0.5){
 	cDetPtlPosition->cd();
 	TH2D *h2d_IncidentProtonPosition = new TH2D("h2d_IncidentProtonPosition", "h2d_IncidentProtonPosition", 400, -110, -30, 381, -36, 36);
 	fill2dHistoFromTree(t_detector, h2d_IncidentProtonPosition, "prePosX", "prePosY", "pid==2212");
-	h2d_IncidentProtonPosition->Draw();
+	h2d_IncidentProtonPosition->Draw("colz");
 
 	// ---------------------------------------------------------------------------
 	// End

@@ -40,9 +40,6 @@ void gen_macro_piece(int gui =0, int runAcc = 0){
 		ofs << "/run/printProgress 100" << endl;
 		ofs << "#" << endl;
 		ofs << "/run/beamOn 30000" << endl;
-	}
-	for (int i = 0; i < 10; ++i)
-	{
 		ofs << "################################################" << endl;
 		ofs << "#" << endl;
 		ofs << "# cell coordinate: 3,5" << endl;

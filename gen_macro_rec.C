@@ -22,49 +22,49 @@ void gen_macro_rec(int gui =0, int runAcc = 0){
 		{3,	2,	2,	2,	2,	2,	2,	1,	1,	1}
 	};	
 
-  ofs << "# KOMAC Simulator" << endl;
-  ofs << "#" << endl;
-  if (gui==1){
-  	ofs << "# Add trajectories to the visualization." << endl;
-  	ofs << "/vis/scene/add/trajectories" << endl;
-	ofs << "# Accumulate multiple events in one picture." << endl;
-	ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
-	ofs << "# Multithread mode" << endl;
-	ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
-	ofs << "/vis/ogl/set/displayListLimit 9999999" << endl;
-	ofs << "#Multithreading mode for visulaization" << endl;
-	ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
-	ofs << "/vis/multithreading/actionOnEventQueueFull wait" << endl;
-  }
+	ofs << "# KOMAC Simulator" << endl;
+	ofs << "#" << endl;
+	if (gui==1){
+		ofs << "# Add trajectories to the visualization." << endl;
+		ofs << "/vis/scene/add/trajectories" << endl;
+		ofs << "# Accumulate multiple events in one picture." << endl;
+		ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
+		ofs << "# Multithread mode" << endl;
+		ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
+		ofs << "/vis/ogl/set/displayListLimit 9999999" << endl;
+		ofs << "#Multithreading mode for visulaization" << endl;
+		ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
+		ofs << "/vis/multithreading/actionOnEventQueueFull wait" << endl;
+	}
 
-  if (gui==2){
-	ofs << "# HepRepFile diriver" << endl;
-	ofs << "/vis/open HepRepFile" << endl;
-	ofs << "# Add world volume" << endl;
-	ofs << "/vis/drawVolume" << endl;
-  	ofs << "# Add trajectories to the visualization." << endl;
-  	ofs << "/vis/scene/add/trajectories" << endl;
-	// ofs << "# Accumulate multiple events in one picture." << endl;
-	// ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
-	ofs << "/vis/drawOnlyToBeKeptEvents" << endl;
-	ofs << "#Multithreading mode for visulaization" << endl;
-	ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
-	ofs << "/vis/multithreading/actionOnEventQueueFull wait" << endl;
-  }
+	if (gui==2){
+		ofs << "# HepRepFile diriver" << endl;
+		ofs << "/vis/open HepRepFile" << endl;
+		ofs << "# Add world volume" << endl;
+		ofs << "/vis/drawVolume" << endl;
+		ofs << "# Add trajectories to the visualization." << endl;
+		ofs << "/vis/scene/add/trajectories" << endl;
+		// ofs << "# Accumulate multiple events in one picture." << endl;
+		// ofs << "/vis/scene/endOfEventAction accumulate -1" << endl;
+		ofs << "/vis/drawOnlyToBeKeptEvents" << endl;
+		ofs << "#Multithreading mode for visulaization" << endl;
+		ofs << "/vis/multithreading/maxEventQueueSize -1" << endl;
+		ofs << "/vis/multithreading/actionOnEventQueueFull wait" << endl;
+	}
 
-  if (runAcc>0){
-	ofs << "# Accumulate multiple runs in one picture." << endl;
-	ofs << "/vis/scene/endOfRunAction accumulate" << endl;  	
-  }
+	if (runAcc>0){
+		ofs << "# Accumulate multiple runs in one picture." << endl;
+		ofs << "/vis/scene/endOfRunAction accumulate" << endl;  	
+	}
 
-  ofs << "# Initialize kernel" << endl;
-  ofs << "/run/initialize" << endl;
-  ofs << "# Particle Energy" << endl;
-  ofs << Form("/tutorial/generator/momentum %f MeV", momentum) << endl;
+	ofs << "# Initialize kernel" << endl;
+	ofs << "/run/initialize" << endl;
+	ofs << "# Particle Energy" << endl;
+	ofs << Form("/tutorial/generator/momentum %f MeV", momentum) << endl;
 
-  int maxBin = 10;
-  float start_xBin_position = -100;
-  float start_yBin_position = -100;
+	int maxBin = 10;
+	float start_xBin_position = -100;
+	float start_yBin_position = -100;
 
 	for (int iX = 0; iX < maxBin; ++iX)
 	{

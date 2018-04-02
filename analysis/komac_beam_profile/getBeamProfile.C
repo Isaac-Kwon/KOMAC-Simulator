@@ -1,20 +1,21 @@
 void getBeamProfile(){
 	Int_t debug = 1;
 	gStyle->SetOptStat(0);
+	gStyle->SetPalette(kRainBow);
 	ifstream in;
 	in.open("beamProfile.csv");
 	Float_t count;
 	Float_t x=0;
-	Float_t y=7.4 - 4.675;
+	Float_t y=74 - 46.75;
 
 	Int_t nbinx = 110;
 	Int_t nbiny = 110;
-	TH2F *beamProfile = new TH2F("h2dBeamProfile", "Beam Profile", nbinx, -2.775, 2.775, nbiny, -2.775, 2.775);
+	TH2F *beamProfile = new TH2F("h2dBeamProfile", "Beam Profile", nbinx, -27.75, 27.75, nbiny, -27.75, 27.75);
 
 	Int_t nlines = 0;
 	TString cell, correctedCell;
 	for (int iY = 0; iY < 108; ++iY){
-		x = 7.65-4.925;
+		x = 76.5-49.25;
 		for (int iX = 0; iX < 110; ++iX)
 		{
 			if (!(iX==109)) cell.ReadToDelim(in, ',');
@@ -29,9 +30,9 @@ void getBeamProfile(){
 				// if (iX==109) cout << "End: " << count << endl;				
 			}
 			beamProfile->SetBinContent(binx, biny, count);
-			x -= 0.05;
+			x -= 0.5;
 		}
-		y -= 0.05;
+		y -= 0.5;
 	}
 	cout << nlines << endl;
 	Float_t gmax = beamProfile->GetMaximum();

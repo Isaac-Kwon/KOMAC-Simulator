@@ -12,7 +12,7 @@ void getRatio(Double_t input_event, Double_t ncoll2, Double_t nmount){
 	cout << "Input event" << endl;
 	cout << input_event << endl;
 	cout << "Collimator2 #" << endl;
-	cout << ncoll2 << " \u00b1 " << ncoll2_sigma << " | " << ncoll2/input_event << endl;
+	cout << ncoll2 << " \u00b1 " << ncoll2_sigma << " | " << ncoll2/input_event*100 << " \u00b1 " << ncoll2_sigma/input_event*100 << endl;
 	cout << "Mount window #" << endl;
 	cout << nmount << " \u00b1 " << nmount_sigma << endl;
 	cout << "Ratio" << endl;
@@ -107,7 +107,8 @@ TFile *getFile(TString name){
 	return file;
 }
 void draw(TString path = "../build/", TString file_name = "run", float countingVolumePos = -0.5){
-	gStyle->SetOptStat(1);
+	gStyle->SetOptStat(0);
+	gStyle->SetPalette(kRainBow);
 	// Get file & Tree
 	TFile *file = getFile(Form("%s/%s", path.Data(), file_name.Data()));
 	// Load TTree
@@ -243,7 +244,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	// ---------------------------------------------------------------------------
 	TCanvas *cColl2Profile = getCanvas(0, "Coll2Profile");
 	cColl2Profile->cd();
-	TH2D *h2d_coll2Profile = new TH2D("h2d_coll2Profile", ";x (mm);y (mm)", 101, -50, 50, 101, -50, 50);
+	TH2D *h2d_coll2Profile = new TH2D("h2d_coll2Profile", ";x (mm);y (mm)", 110, -27.75, 27.75, 110, -27.75, 27.75);
 	fill2dHistoFromTree(t_col2_hole, h2d_coll2Profile, "prePosX", "prePosY", "pid==2212 && prePosZ==-522.5");
 	h2d_coll2Profile->Draw("colz");
 
@@ -286,10 +287,11 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	// End
 	// ---------------------------------------------------------------------------
 	getRatio(input_event, ncoll2, nmount);
-	cProfile->SaveAs(Form("%s/input_profile.pdf", path.Data()));
-	cColl2Profile->SaveAs(Form("%s/coll2_profile.pdf", path.Data()));
-	cMountWindowProfile->SaveAs(Form("%s/mountwindow_profile.pdf", path.Data()));
-	cInputKinE->SaveAs(Form("%s/incidentEkin_profile.pdf", path.Data()));
+	TString prefix = "run_";
+	cProfile->SaveAs(Form("%s/%s%s_input_profile.pdf", path.Data(), prefix.Data(), file_name.Data()));
+	cColl2Profile->SaveAs(Form("%s/%s%s_coll2_profile.pdf", path.Data(), prefix.Data(), file_name.Data()));
+	cMountWindowProfile->SaveAs(Form("%s/%s%s_mountwindow_profile.pdf", path.Data(), prefix.Data(), file_name.Data()));
+	cInputKinE->SaveAs(Form("%s/%s%s_incidentEkin_profile.pdf", path.Data(), prefix.Data(), file_name.Data()));
 
 	cout << "End of macro" << endl;
 }

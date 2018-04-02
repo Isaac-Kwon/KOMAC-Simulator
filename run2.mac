@@ -1,29 +1,20 @@
 # KOMAC Simulator
 #
-# Change the default number of workers (in multi-threading mode) 
-# /run/numberOfWorkers 4
-# KOMAC Simulator
-#
-# HepRepFile diriver
-
 # Initialize kernel
 /run/initialize
-#
-# proton 194 MeV(Energy: 20MeV)
-# proton 141 MeV(Energy: 10.5MeV)
-#
-/gun/particle proton
-/tutorial/generator/momentum 194 MeV
+# Particle Energy
+/tutorial/generator/momentum 194.000000 MeV
 ################################################
 #
-# Radius: 50~51mm
+# cell coordinate: 1,1
 #
 # Particle position distribution in polar angle
-/tutorial/generator/radius 50 mm
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
 #
 # Rootfile setup
 #
-/analysis/setFileName test_run_50_mm
+/analysis/setFileName run1_0_0
 /analysis/h1/set 1 100 1 30 MeV
 /analysis/h2/setX 1 300 -15 15 cm  #x-y
 /analysis/h2/setY 1 300 -15 15 cm  #x-y
@@ -32,7 +23,1984 @@
 #
 /run/printProgress 100
 #
-/run/beamOn 100
-
-
-
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 1,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 1,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -100.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_0_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 2,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 2,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 2,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 2,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 2,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 2,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 2,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 2,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 2,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 2,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -80.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_1_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 3,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 3,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 3,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 3,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 3,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 54000
+################################################
+#
+# cell coordinate: 3,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 54000
+################################################
+#
+# cell coordinate: 3,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 3,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 3,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 3,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -60.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_2_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 4,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 4,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 4,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 4,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 4,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 162000
+################################################
+#
+# cell coordinate: 4,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 4,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 4,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 4,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 4,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 5,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 5,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 5,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 5,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 5,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 5,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 5,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 108000
+################################################
+#
+# cell coordinate: 5,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 5,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 5,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -20.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_4_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 6,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 6,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 6,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 6,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 6,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 81000
+################################################
+#
+# cell coordinate: 6,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 54000
+################################################
+#
+# cell coordinate: 6,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 6,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 6,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 6,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 0.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_5_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 7,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 7,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 7,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 7,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 7,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 54000
+################################################
+#
+# cell coordinate: 7,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 7,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 7,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 27000
+################################################
+#
+# cell coordinate: 7,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 16200
+################################################
+#
+# cell coordinate: 7,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 20.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_6_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 8,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 8,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 40.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_7_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 9,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 9,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 10800
+################################################
+#
+# cell coordinate: 9,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 60.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_8_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,1
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY -100.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_0
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,2
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY -80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_1
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,3
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY -60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_2
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,4
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY -40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_3
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,6
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY 0.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_5
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,7
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY 20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_6
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,8
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY 40.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_7
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,9
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY 60.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_8
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400
+################################################
+#
+# cell coordinate: 10,10
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX 80.000000 mm
+/tutorial/generator/PositionY 80.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_9_9
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 5400

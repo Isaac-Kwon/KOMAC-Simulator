@@ -35,21 +35,11 @@ void getBeamProfile(){
 		y -= 0.5;
 	}
 	cout << nlines << endl;
-	Float_t gmax = beamProfile->GetMaximum();
 
 	TCanvas *c1 = new TCanvas("c1", "Beam Profile", 500, 500);
 	c1->cd();
-	Int_t gbin = beamProfile->GetMaximumBin();
-	Int_t gmax_bin_x, gmax_bin_y, gmax_bin_z;
-	beamProfile->GetBinXYZ(gbin, gmax_bin_x, gmax_bin_y, gmax_bin_z);
-	Float_t gmax_x = beamProfile->GetXaxis()->GetBinCenter(gmax_bin_x) ;
-	Float_t gmax_y = beamProfile->GetYaxis()->GetBinCenter(gmax_bin_y) ;
-	Float_t scale = TMath::Power(gmax, -1);
-	// beamProfile->Scale(scale);
 	beamProfile->Draw("colz");
 	beamProfile->SetTitle("BeamProfile;x (cm);y (cm)");
-	cout << gmax_x <<  " " << gmax_y << endl;	
-	cout << gmax_x - 4.875 <<  " " << gmax_y - 4.625 << endl;
 
 	TCanvas *c2 = new TCanvas("c2", "Beam Profile in X", 500, 500);
 	c2->cd();
@@ -75,4 +65,16 @@ void getBeamProfile(){
 	h1dSliceY->SetTitle(Form("h1dSliceY[%.3f, %.3f];y (cm);", min_y, max_y));
 	h1dSliceY->GetXaxis()->SetTitleOffset(1.0);
 	h1dSliceY->Draw();
+
+	TCanvas *c4 = new TCanvas("c4", "Beam Profile_rebin", 500, 500);
+	c4->cd();
+	TH2F *beamProfile_rebin = (TH2F*)beamProfile->Clone();
+	beamProfile_rebin->RebinX(11);
+	beamProfile_rebin->RebinY(11);
+	Float_t gmax = beamProfile_rebin->GetMaximum();
+	Float_t scale = TMath::Power(gmax, -1);
+	beamProfile_rebin->Scale(scale);
+	beamProfile_rebin->Draw("colztext");
+	beamProfile_rebin->SetTitle("BeamProfile;x (cm);y (cm)");
+
 }

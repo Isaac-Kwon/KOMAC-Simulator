@@ -196,7 +196,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	h1d_Ekin_beamWindow->Write();
 
 	cInputKinE->cd(2);
-	TH1D *h1d_Ekin_coll2 = new TH1I("h1d_Ekin_coll2", ";Kinetic Energy (MeV);", 2500, 0, 25);
+	TH1D *h1d_Ekin_coll2 = new TH1D("h1d_Ekin_coll2", ";Kinetic Energy (MeV);", 2500, 0, 25);
 	// fill1dHistoFromTree(t_col2_hole, h1d_Ekin_coll2, "IncidentEkin", "");
 	fill1dHistoFromTree(t_col2_hole, h1d_Ekin_coll2, "IncidentEkin", "pid==2212 && prePosZ == -522.5");
 	h1d_Ekin_coll2->SetLineColor(kRed);

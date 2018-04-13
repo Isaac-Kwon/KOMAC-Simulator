@@ -120,7 +120,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TTree *t_mount_window = getTree(file, 202);
 	TTree *t_detector = getTree(file, 201);
 	// Counting volume for mount window
-	float countingVolumePosPre = countingVolumePos-0.5;
+	float countingVolumePosPre = countingVolumePos;
 	// # of proton in collimator2
 	int nEvent = 0;
 	t_mount_window->Draw(">>listColl2", Form("pid==2212 && prePosZ == %f", countingVolumePosPre), "entrylist");

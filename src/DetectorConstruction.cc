@@ -151,26 +151,26 @@ G4VPhysicalVolume * DetectorConstruction::Construct()
                                                       silicon,                // Detector material
                                                       20.*mm, 36.*mm, 0.1*mm, // Detector size, NOTE: Change thickness from 0.1mm to 3mm for QA
                                                       25.*mm,                 // Detector depth from surface
-                                                      mylar, 6.*mm);          // Window material, window thickness FIXME: Window thickness not needed(?)
+                                                      mylar, 0.01*mm);        // Window material, window thickness FIXME: Window thickness not needed(?)
   G4ThreeVector Ta4 = G4ThreeVector(-7.*cm,0.*m,0.*m);
   MountAssembly -> MakeImprint(worldLogical, Ta4, Ra);
 
-  // Beam profile detector at mount window
-  G4VSolid *beamProfileSolid2 = new G4Box("beamProfileSolid2",
-                                         20/2*mm,
-                                         36/2*mm,
-                                         0.5*mm);  // Window solid, use it in subtraction to make a front side
-  G4LogicalVolume* beamProfileLogical2 = new G4LogicalVolume(beamProfileSolid2, air, "beamProfileLogical2");
-  new G4PVPlacement(0,                                      // No rotation
-                    G4ThreeVector(-7.*cm, 0.*cm, -0.5*mm),  // at (-7cm, 0, -0.5mm)
-                    beamProfileLogical2,                    // its logical volume
-                    "beamProfilePhysical2",                 // its name
-                    worldLogical,                           // its mother volume
-                    false,                                  // no boolean operations
-                    0,                                      // copy number
-                    checkOverlaps);                         // Checking overlaps
-  beamProfileLogical2->SetVisAttributes(gray);
-  fScoringVolume1 = beamProfileLogical2;
+  // // Beam profile detector at mount window
+  // G4VSolid *beamProfileSolid2 = new G4Box("beamProfileSolid2",
+  //                                        20/2*mm,
+  //                                        36/2*mm,
+  //                                        0.5*mm);  // Window solid, use it in subtraction to make a front side
+  // G4LogicalVolume* beamProfileLogical2 = new G4LogicalVolume(beamProfileSolid2, air, "beamProfileLogical2");
+  // new G4PVPlacement(0,                                      // No rotation
+  //                   G4ThreeVector(-7.*cm, 0.*cm, -6.5*mm),  // at (-7cm, 0, -0.5mm)
+  //                   beamProfileLogical2,                    // its logical volume
+  //                   "beamProfilePhysical2",                 // its name
+  //                   worldLogical,                           // its mother volume
+  //                   false,                                  // no boolean operations
+  //                   0,                                      // copy number
+  //                   checkOverlaps);                         // Checking overlaps
+  // beamProfileLogical2->SetVisAttributes(gray);
+  // fScoringVolume1 = beamProfileLogical2;
 
 
   return worldPhysical;
@@ -333,14 +333,32 @@ G4AssemblyVolume * DetectorConstruction::Mount(G4Material * mountMaterial,
   // Window cover to shield light from outside.
   // TODO: Separate the input variable. The cover geometry and window geometry is different.
   // FIXME: Separate the cover and mylar film. It's different.
-  G4VSolid *mountWindowCoverSolid = new G4Box("mountWindowCoverSolid",
-                                              mountWindowSizeX/2,
-                                              mountWindowSizeY/2,
-                                              windowThickness/2);
+  G4double mountWindowCoverPlateX = 55.*mm;
+  G4double mountWindowCoverPlateY = 55.*mm;
+  G4double mountWindowCoverWindowX = 15.*mm;
+  G4double mountWindowCoverWindowY = 30.*mm;
+  G4VSolid *mountWindowCoverSolidPlate = new G4Box("mountWindowCoverSolid",
+                                                mountWindowCoverPlateX/2,
+                                                mountWindowCoverPlateY/2,
+                                                thickness/2);
+  G4VSolid *mountWindowCoverSolidWindow = new G4Box("mountWindowCoverWindow",
+                                                    mountWindowCoverWindowX/2,
+                                                    mountWindowCoverWindowY/2,
+                                                    thickness);
+  G4ThreeVector mountWindowPositionVector = G4ThreeVector(-2.5*mm, 0.*mm, 0.*mm);
+  G4VSolid * mountWindowCoverSolid = new G4SubtractionSolid("mountWindowSizePlateSolid", mountWindowCoverSolidPlate, mountWindowCoverSolidWindow, Ra, mountWindowPositionVector); // Define the front plate including a window.
   G4LogicalVolume * mountWindowCoverLogical = new G4LogicalVolume(mountWindowCoverSolid, windowMaterial, "mountWindowCoverLogical", 0, 0, 0);
-  mountWindowCoverLogical -> SetVisAttributes(mylar_color);
-  G4ThreeVector coverVector = G4ThreeVector(0.*m, 0.*m, -windowThickness/2);
-  // MountAssembly->AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra); // Place the cover plate. NOTE: Comment out for QA
+  G4ThreeVector coverVector = G4ThreeVector(1.*mm, 0.*m, -thickness/2);
+  MountAssembly->AddPlacedVolume(mountWindowCoverLogical, coverVector, Ra); // Place the cover plate. NOTE: Comment out for QA
+
+  G4VSolid *mylarSolid = new G4Box("mylarSolid",
+                                    mountWindowCoverWindowX/2,
+                                    mountWindowCoverWindowY/2,
+                                    windowThickness/2);
+  G4LogicalVolume * mylarLogical = new G4LogicalVolume(mylarSolid, windowMaterial, "mylarLogical", 0, 0, 0);
+  G4ThreeVector mylarVector = G4ThreeVector(-2.5*mm, 0.*mm, -(thickness+windowThickness/2));
+  MountAssembly->AddPlacedVolume(mylarLogical, mylarVector, Ra);
+  fScoringVolume1 = mylarLogical;
 
   return MountAssembly;
 

@@ -49,6 +49,10 @@ user.properties
 *.pdf
 *.png
 *.dat
+dedx_calculator/atlas_style
+
+# root style folder
+
 
 # MAC related file
 .DS_Store

@@ -147,6 +147,10 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
     // G4double x0 = size * radius_input * std::cos(position_angle_input);
     // G4double y0 = size * radius_input * std::sin(position_angle_input);
 
+    // For aufoil event map
+    // G4double unitCellSizeX = 5.04545*mm;
+    // G4double unitCellSizeY = 5.04545*mm;
+    // For rectangular map
     G4double unitCellSizeX = 20.*mm;
     G4double unitCellSizeY = 20.*mm;
     G4double x0 = unitCellSizeX * G4UniformRand() + fPositionX;
@@ -171,7 +175,7 @@ void PrimaryGeneratorAction::DefineCommands()
 
     // Kinetic Energy command
     G4GenericMessenger::Command& energyCmd
-      = fMessenger->DeclarePropertyWithUnit("Kinetic Energy", "MeV", fEnergy,
+      = fMessenger->DeclarePropertyWithUnit("KineticEnergy", "MeV", fEnergy,
                                     "Mean kinetic energy of primaries.");
     energyCmd.SetParameterName("E", true);
     energyCmd.SetRange("E>=0.");
@@ -206,7 +210,6 @@ void PrimaryGeneratorAction::DefineCommands()
           "mm", fPositionY, "y position of sourceposition.");
     positionYCmd.SetParameterName("y", true);
     positionYCmd.SetDefaultValue("0.");
-
 
     // sigmaAngle command
     G4GenericMessenger::Command& sigmaAngleCmd

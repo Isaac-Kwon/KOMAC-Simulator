@@ -212,6 +212,10 @@ void calculation(Int_t debug=0, Float_t thickness=0.01, Float_t proton_energy=20
 			density = 2.33;
 			materialFile = "pstar_silicon.dat";
 			break;
+		case 2:
+			density = 1.93200E+01;
+			materialFile = "pstar_gold.dat";
+			break;
 	}
 	Float_t area = 2.0 * 3.6; // unit: cm^2
 	Float_t mass = density*area*thickness; // unit: g

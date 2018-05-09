@@ -39,7 +39,8 @@ int main(int argc,char** argv)
 #else
     G4RunManager* runManager = new G4RunManager;
 #endif
-
+    // Enroll scoring manager
+    // G4ScoringManager* scoringManager = G4ScoringManager::GetScoringManager();
     // Mandatory user initialization classes
     //====================
     //The Geometry

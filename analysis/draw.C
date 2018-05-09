@@ -12,7 +12,7 @@ void getRatio(Double_t input_event, Double_t ncoll2, Double_t nmount){
 	cout << "Input event" << endl;
 	cout << input_event << endl;
 	cout << "Collimator2 #" << endl;
-	cout << ncoll2 << " \u00b1 " << ncoll2_sigma << " | " << ncoll2/input_event*100 << " \u00b1 " << ncoll2_sigma/input_event*100 << endl;
+	cout << ncoll2 << " \u00b1 " << ncoll2_sigma << " | " << ncoll2/input_event*100 << " \u00b1 " << ncoll2_sigma/input_event*100 << " %" << endl;
 	cout << "Mount window #" << endl;
 	cout << nmount << " \u00b1 " << nmount_sigma << endl;
 	cout << "Ratio" << endl;
@@ -106,7 +106,7 @@ TFile *getFile(TString name){
 	TFile *file = TFile::Open(Form("%s.root", name.Data()));
 	return file;
 }
-void draw(TString path = "../build/", TString file_name = "run", float countingVolumePos = -0.5){
+void draw(TString path = "../build/", TString file_name = "run", Double_t countingVolumePos = -0.5){
 	gStyle->SetOptStat(1);
 	gStyle->SetPalette(kRainBow);
 	// Save
@@ -119,11 +119,26 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TTree *t_col2_hole = getTree(file, 203);
 	TTree *t_mount_window = getTree(file, 202);
 	TTree *t_detector = getTree(file, 201);
+	// Range for cut
+	Double_t range = 0.000001;
 	// Counting volume for mount window
-	float countingVolumePosPre = countingVolumePos-0.5;
+	Double_t countingVolumePosPre = countingVolumePos - range;
+	Double_t countingVolumePosPost = countingVolumePos + range;
 	// # of proton in collimator2
 	int nEvent = 0;
-	t_mount_window->Draw(">>listColl2", Form("pid==2212 && prePosZ == %f", countingVolumePosPre), "entrylist");
+
+	Double_t detPosition = 24.95;
+	Double_t detPositionPre = detPosition - range;
+	Double_t detPositionPost = detPosition + range;
+	TString cond_col2 = "pid==2212 && prePosZ > -522.500001 && prePosZ < -522.499999";
+	TString cond_mw = Form("pid==2212 && prePosZ > %f && prePosZ < %f", countingVolumePosPre, countingVolumePosPost);
+	TString cond_det = Form("pid==2212 && prePosZ > %f && prePosZ < %f", detPositionPre, detPositionPost);
+	cout << "Condition" << endl;
+	cout << "Collimator2: " << cond_col2.Data() << endl;
+	cout << "MountWindow: " << cond_mw.Data() << endl;
+	cout << "Detector: " << cond_det.Data() << endl;
+
+	t_col2_hole->Draw(">>listColl2", cond_col2.Data(), "entrylist");
 	TEntryList *listColl2 = (TEntryList*)gDirectory->Get("listColl2");
 	nEvent = listColl2->GetN();
 
@@ -198,7 +213,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	cInputKinE->cd(2);
 	TH1D *h1d_Ekin_coll2 = new TH1D("h1d_Ekin_coll2", ";Kinetic Energy (MeV);", 2500, 0, 25);
 	// fill1dHistoFromTree(t_col2_hole, h1d_Ekin_coll2, "IncidentEkin", "");
-	fill1dHistoFromTree(t_col2_hole, h1d_Ekin_coll2, "IncidentEkin", "pid==2212 && prePosZ == -522.5");
+	fill1dHistoFromTree(t_col2_hole, h1d_Ekin_coll2, "IncidentEkin", cond_col2.Data());
 	h1d_Ekin_coll2->SetLineColor(kRed);
 	h1d_Ekin_coll2->Draw();
 	h1d_Ekin_coll2->Write();
@@ -208,7 +223,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	cInputKinE->cd(3);
 	TH1D *h1d_Ekin_mount = new TH1D("h1d_Ekin_mount", ";Kinetic Energy (MeV);", 2500, 0, 25);
 	// fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", "");
-	fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", Form("pid==2212 && prePosZ == %f", countingVolumePosPre));
+	fill1dHistoFromTree(t_mount_window, h1d_Ekin_mount, "IncidentEkin", cond_mw.Data());
 	h1d_Ekin_mount->SetLineColor(kBlue);
 	h1d_Ekin_mount->Draw();
 	h1d_Ekin_mount->Write();
@@ -218,7 +233,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	cInputKinE->cd(4);
 	TH1D *h1d_Ekin_detector = new TH1D("h1d_Ekin_detector", ";Kinetic Energy (MeV);", 2500, 0, 25);
 	// fill1dHistoFromTree(t_detector, h1d_Ekin_detector, "IncidentEkin", "");
-	fill1dHistoFromTree(t_detector, h1d_Ekin_detector, "IncidentEkin", "pid==2212");
+	fill1dHistoFromTree(t_detector, h1d_Ekin_detector, "IncidentEkin", cond_det.Data());
 	h1d_Ekin_detector->SetLineColor(kGreen);
 	h1d_Ekin_detector->Draw();
 	h1d_Ekin_detector->Write();
@@ -263,7 +278,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TCanvas *cColl2Profile = getCanvas(0, "Coll2Profile");
 	cColl2Profile->cd();
 	TH2D *h2d_coll2Profile = new TH2D("h2d_coll2Profile", ";x (mm);y (mm)", 110, -27.75, 27.75, 110, -27.75, 27.75);
-	fill2dHistoFromTree(t_col2_hole, h2d_coll2Profile, "prePosX", "prePosY", "pid==2212 && prePosZ==-522.5");
+	fill2dHistoFromTree(t_col2_hole, h2d_coll2Profile, "prePosX", "prePosY", cond_col2.Data());
 	h2d_coll2Profile->Draw("colz");
 	h2d_coll2Profile->Write();
 
@@ -276,7 +291,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TCanvas *cMountWindowProfile = getCanvas(0, "MountWindowProfile");
 	cMountWindowProfile->cd();
 	TH2D *h2d_mountWindowProfile = new TH2D("h2d_mountWindowProfile", ";x (mm);y (mm)", 60, -85, -55, 81, -20, 20);
-	fill2dHistoFromTree(t_mount_window, h2d_mountWindowProfile, "prePosX", "prePosY", Form("pid==2212 && prePosZ == %f", countingVolumePosPre));
+	fill2dHistoFromTree(t_mount_window, h2d_mountWindowProfile, "prePosX", "prePosY", cond_mw.Data());
 	h2d_mountWindowProfile->Draw("colz");
 	h2d_mountWindowProfile->Write();
 	// ---------------------------------------------------------------------------
@@ -288,7 +303,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TCanvas *cDetEnteringE = getCanvas(1, "DetEnteringE");
 	cDetEnteringE->cd();
 	TH1D *h1d_detEnteringE = new TH1D("h1d_detEnteringE", ";Kinetic Energy (MeV);", 100, 0, 25);
-	fill1dHistoFromTree(t_detector, h1d_detEnteringE, "IncidentEkin", "pid==2212");
+	fill1dHistoFromTree(t_detector, h1d_detEnteringE, "IncidentEkin", cond_det.Data());
 	h1d_detEnteringE->Draw();
 	h1d_detEnteringE->Write();
 
@@ -296,7 +311,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TCanvas *cDepositE = getCanvas(1, "DepositE");
 	cDepositE->cd();
 	TH1D *h1d_depositE = new TH1D("h1d_depositE", ";Deposit Energy (MeV);", 400, 0, 4);
-	fill1dHistoFromTree(t_detector, h1d_depositE, "DepositE", "pid==2212");
+	fill1dHistoFromTree(t_detector, h1d_depositE, "DepositE", cond_det.Data());
 	h1d_depositE->Draw();
 	h1d_depositE->Write();
 	getDose(h1d_depositE, nEvent);
@@ -305,7 +320,7 @@ void draw(TString path = "../build/", TString file_name = "run", float countingV
 	TCanvas *cDetPtlPosition = getCanvas(1, "DetPtlPosition");
 	cDetPtlPosition->cd();
 	TH2D *h2d_IncidentProtonPosition = new TH2D("h2d_IncidentProtonPosition", "h2d_IncidentProtonPosition", 400, -110, -30, 381, -36, 36);
-	fill2dHistoFromTree(t_detector, h2d_IncidentProtonPosition, "prePosX", "prePosY", "pid==2212");
+	fill2dHistoFromTree(t_detector, h2d_IncidentProtonPosition, "prePosX", "prePosY", cond_det.Data());
 	h2d_IncidentProtonPosition->Draw("colz");
 	h2d_IncidentProtonPosition->Write();
 

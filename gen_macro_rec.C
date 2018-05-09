@@ -7,16 +7,16 @@ void gen_macro_rec(int gui =0, int runAcc = 0){
 
 	std::ofstream ofs ("run_generated.mac", std::ofstream::out);
 
-	float momentum = 194; //Unit: MeV
+	float momentum = 179; //Unit: MeV
 
 	int event_map1[10][10] = {  	
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
-		{0,	0,	0,	20,	20,	5,	0,	0,	0,	0},
-		{0,	0,	0,	25,	20,	25,	0,	0,	0,	0},
-		{0,	0,	0,	0,	10,	0,	0,	0,	0,	0},
+		{0,	0,	0,	4,	4,	1,	0,	0,	0,	0},
+		{0,	0,	0,	5,	4,	5,	0,	0,	0,	0},
+		{0,	0,	0,	0,	2,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0}
@@ -91,7 +91,7 @@ void gen_macro_rec(int gui =0, int runAcc = 0){
 				ofs << "#" << endl;
 				ofs << "/run/printProgress 100" << endl;
 				ofs << "#" << endl;
-				ofs << Form("/run/beamOn %d", 10000*event_map1[9-iY][iX]) << endl;  		
+				ofs << Form("/run/beamOn %d", 500*event_map1[9-iY][iX]) << endl;  		
 			}
 		}
 	}

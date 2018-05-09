@@ -44,7 +44,7 @@ void braggPeak()
 	SetAtlasStyle();
 	int debug = 0;
 	Float_t density = 1.19; // unit: g/cm^2
-	Float_t input_proton_energy[3] = {8, 12, 20};
+	Float_t input_proton_energy[5] = {8, 9, 10, 12, 20};
 	TString materialFile = "pstar_plexiglass.dat";
 
 	TGraph * tStoppingPower = getTotalStoppingPower(debug, materialFile);
@@ -54,13 +54,13 @@ void braggPeak()
 	Float_t step_size = 0.00001; // unit: cm
 	Float_t proton_energy = 0;
 
-	TGraph *g_result[3];
-	for (int i = 0; i < 3; ++i)
+	TGraph *g_result[5];
+	for (int i = 0; i < 5; ++i)
 	{
 		g_result[i] = new TGraph();
 	}
 	// Energy loss
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 5; ++i)
 	{
 		proton_energy = input_proton_energy[i];
 		penetration_length = 0;
@@ -109,6 +109,16 @@ void braggPeak()
 	g_result[2]->SetMarkerSize(0.3);
 	g_result[2]->SetLineColor(kBlue);
 	mg->Add(g_result[2]);
+	g_result[3]->SetMarkerStyle(20);
+	g_result[3]->SetMarkerColor(kOrange);
+	g_result[3]->SetMarkerSize(0.3);
+	g_result[3]->SetLineColor(kOrange);
+	mg->Add(g_result[3]);
+	// g_result[4]->SetMarkerStyle(20);
+	// g_result[4]->SetMarkerColor(kGreen);
+	// g_result[4]->SetMarkerSize(0.3);
+	// g_result[4]->SetLineColor(kGreen);
+	// mg->Add(g_result[4]);
 
 	TCanvas *c_result = new TCanvas("c_result", "Result", 800, 600);
 	c_result->cd();
@@ -117,9 +127,10 @@ void braggPeak()
 	mg->GetXaxis()->SetLimits(0,0.5);
 	TLegend *legend = new TLegend(0.1,0.7,0.48,0.9);
 	legend->SetHeader("Step size = 0.00001 cm | Plexiglass density = 1.19 g/cm^{2}");
-	legend->AddEntry(g_result[0],"Kinetic Energy =  8 MeV","lp");
-	legend->AddEntry(g_result[1],"Kinetic Energy = 12 MeV","lp");
-	legend->AddEntry(g_result[2],"Kinetic Energy = 20 MeV","lp");
+	legend->AddEntry(g_result[0],Form("Kinetic Energy = %.1f MeV", input_proton_energy[0]),"lp");
+	legend->AddEntry(g_result[1],Form("Kinetic Energy = %.1f MeV", input_proton_energy[1]),"lp");
+	legend->AddEntry(g_result[2],Form("Kinetic Energy = %.1f MeV", input_proton_energy[2]),"lp");
+	legend->AddEntry(g_result[3],Form("Kinetic Energy = %.1f MeV", input_proton_energy[3]),"lp");
 	legend->Draw();
 
 	TLine *line = new TLine(0.07, 0, 0.07, 0.0115);

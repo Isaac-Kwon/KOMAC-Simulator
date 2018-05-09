@@ -1,0 +1,69 @@
+# KOMAC Simulator
+#
+# Initialize kernel
+/run/initialize
+# Particle Energy
+/tutorial/generator/momentum 194.000000 MeV
+/random/setSeeds 0 0
+########################################
+#
+/score/create/boxMesh box_MW
+#
+/score/mesh/boxSize 10. 18. 0.5 mm
+/score/mesh/translate/xyz -7. 0. -0.05 cm
+/score/mesh/nBin 1 1 1
+#
+/score/quantity/flatSurfaceCurrent incidentProtonMW1 0
+/score/filter/particle protonFilterMW1 proton
+/score/quantity/flatSurfaceCurrent incidentProtonMW2 1
+/score/filter/particle protonFilterMW2 proton
+#
+/score/close
+#
+########################################
+#
+/score/create/boxMesh box_Det
+#
+/score/mesh/boxSize 10. 18. 0.5 mm
+/score/mesh/translate/xyz -7. 0. 2.5 cm
+/score/mesh/nBin 1 1 1
+#
+/score/quantity/flatSurfaceCurrent incidentProtonDet1 0
+/score/filter/particle protonFilterDet1 proton
+/score/quantity/flatSurfaceCurrent incidentProtonDet2 1
+/score/filter/particle protonFilterDet2 proton
+#
+/score/close
+#
+/score/list
+#
+################################################
+#
+# cell coordinate: 4,5
+#
+# Particle position distribution in polar angle
+/tutorial/generator/PositionX -40.000000 mm
+/tutorial/generator/PositionY -20.000000 mm
+#
+# Rootfile setup
+#
+/analysis/setFileName run1_3_4
+/analysis/h1/set 1 100 1 30 MeV
+/analysis/h2/setX 1 300 -15 15 cm  #x-y
+/analysis/h2/setY 1 300 -15 15 cm  #x-y
+/analysis/h2/setX 4 120 0 360 deg
+/analysis/h2/setY 4 101 -1.005 1.005 none
+#
+/run/printProgress 100
+#
+/run/beamOn 2500
+########################################
+#
+# Dump scores to a file
+#
+/score/dumpQuantityToFile box_MW incidentProtonMW1 incidentProtonMW1.txt
+/score/dumpQuantityToFile box_MW incidentProtonMW2 incidentProtonMW2.txt
+/score/dumpQuantityToFile box_Det incidentProtonDet1 incidentProtonDet1.txt
+/score/dumpQuantityToFile box_Det incidentProtonDet2 incidentProtonDet2.txt
+#
+#

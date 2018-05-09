@@ -58,11 +58,11 @@ public:
 
   virtual void GeneratePrimaries(G4Event*);
 
-  void SetMomentum(G4double val) { fMomentum = val; }
-  G4double GetMomentum() const { return fMomentum; }
+  void SetEnergy(G4double val) { fEnergy = val; }
+  G4double GetEnergy() const { return fEnergy; }
 
-  void SetSigmaMomentum(G4double val) { fSigmaMomentum = val; }
-  G4double GetSigmaMomentum() const { return fSigmaMomentum; }
+  void SetSigmaEnergy(G4double val) { fSigmaEnergy = val; }
+  G4double GetSigmaEnergy() const { return fSigmaEnergy; }
 
   void SetSigmaAngle(G4double val) { fSigmaAngle = val; }
   G4double GetSigmaAngle() const { return fSigmaAngle; }
@@ -84,8 +84,8 @@ private:
   G4ParticleDefinition* fPion;
   G4ParticleDefinition* fKaon;
   G4ParticleDefinition* fProton;
-  G4double fMomentum;
-  G4double fSigmaMomentum;
+  G4double fEnergy;
+  G4double fSigmaEnergy;
   G4double fSigmaAngle;
   G4bool fRandomizePrimary;
   G4Tubs* fBeamWindow;

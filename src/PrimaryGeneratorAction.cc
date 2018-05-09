@@ -48,8 +48,8 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction(),
   fParticleGun(0), fMessenger(0),
   fPositron(0), fMuon(0), fPion(0), fKaon(0), fProton(0),
-  fMomentum(194.*MeV),
-  fSigmaMomentum(0.*MeV),
+  fEnergy(20.*MeV),
+  fSigmaEnergy(0.*MeV),
   fSigmaAngle(0.*deg),
   fRandomizePrimary(false),
   fBeamWindow(0),
@@ -124,9 +124,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
         particle = fParticleGun->GetParticleDefinition();
     }
 
-    G4double pp = fMomentum + (G4UniformRand()-0.5)*fSigmaMomentum;
-    G4double mass = particle->GetPDGMass();
-    G4double Ekin = std::sqrt(pp*pp+mass*mass)-mass;
+    G4double Ekin = fEnergy + (G4UniformRand()-0.5)*fSigmaEnergy;
 
     fParticleGun->SetParticleEnergy(Ekin);
     //////////////////////////////////
@@ -171,16 +169,21 @@ void PrimaryGeneratorAction::DefineCommands()
                                "/tutorial/generator/",
                                "Primary generator control");
 
-    // momentum command
-    G4GenericMessenger::Command& momentumCmd
-      = fMessenger->DeclarePropertyWithUnit("momentum", "GeV", fMomentum,
-                                    "Mean momentum of primaries.");
-    momentumCmd.SetParameterName("p", true);
-    momentumCmd.SetRange("p>=0.");
-    momentumCmd.SetDefaultValue("1.");
-    // ok
-    //momentumCmd.SetParameterName("p", true);
-    //momentumCmd.SetRange("p>=0.");
+    // Kinetic Energy command
+    G4GenericMessenger::Command& energyCmd
+      = fMessenger->DeclarePropertyWithUnit("Kinetic Energy", "MeV", fEnergy,
+                                    "Mean kinetic energy of primaries.");
+    energyCmd.SetParameterName("E", true);
+    energyCmd.SetRange("E>=0.");
+    energyCmd.SetDefaultValue("20.");
+
+    // sigmaMomentum command
+    G4GenericMessenger::Command& sigmaEnergyCmd
+      = fMessenger->DeclarePropertyWithUnit("sigmaEnergy",
+          "MeV", fSigmaEnergy, "Sigma kinteic energy of primaries.");
+    sigmaEnergyCmd.SetParameterName("sE", true);
+    sigmaEnergyCmd.SetRange("sE>=0.");
+    sigmaEnergyCmd.SetDefaultValue("2.");
 
     // fRadius command
     G4GenericMessenger::Command& radiusCmd
@@ -204,13 +207,6 @@ void PrimaryGeneratorAction::DefineCommands()
     positionYCmd.SetParameterName("y", true);
     positionYCmd.SetDefaultValue("0.");
 
-    // sigmaMomentum command
-    G4GenericMessenger::Command& sigmaMomentumCmd
-      = fMessenger->DeclarePropertyWithUnit("sigmaMomentum",
-          "MeV", fSigmaMomentum, "Sigma momentum of primaries.");
-    sigmaMomentumCmd.SetParameterName("sp", true);
-    sigmaMomentumCmd.SetRange("sp>=0.");
-    sigmaMomentumCmd.SetDefaultValue("50.");
 
     // sigmaAngle command
     G4GenericMessenger::Command& sigmaAngleCmd

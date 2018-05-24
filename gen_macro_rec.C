@@ -7,16 +7,16 @@ void gen_macro_rec(int gui =0, int runAcc = 0){
 
 	std::ofstream ofs ("run_generated.mac", std::ofstream::out);
 
-	float momentum = 179; //Unit: MeV
+	float momentum = 17; //Unit: MeV
 
 	int event_map1[10][10] = {  	
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
-		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
-		{0,	0,	0,	4,	4,	1,	0,	0,	0,	0},
-		{0,	0,	0,	5,	4,	5,	0,	0,	0,	0},
-		{0,	0,	0,	0,	2,	0,	0,	0,	0,	0},
+		{0,	0,	0,	1,	1,	1,	1,	0,	0,	0},
+		{0,	0,	0,	4,	4,	1,	1,	0,	0,	0},
+		{0,	0,	0,	5,	4,	5,	1,	0,	0,	0},
+		{0,	0,	0,	1,	2,	1,	1,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
 		{0,	0,	0,	0,	0,	0,	0,	0,	0,	0}
@@ -60,7 +60,7 @@ void gen_macro_rec(int gui =0, int runAcc = 0){
 	ofs << "# Initialize kernel" << endl;
 	ofs << "/run/initialize" << endl;
 	ofs << "# Particle Energy" << endl;
-	ofs << Form("/tutorial/generator/momentum %f MeV", momentum) << endl;
+	ofs << Form("/tutorial/generator/KineticEnergy %f MeV", momentum) << endl;
 
 	int maxBin = 10;
 	float start_xBin_position = -100;

@@ -11,6 +11,7 @@ void getBeamProfile(){
 	Int_t nbinx = 110;
 	Int_t nbiny = 110;
 	TH2F *beamProfile = new TH2F("h2dBeamProfile", "Beam Profile", nbinx, -27.75, 27.75, nbiny, -27.75, 27.75);
+	TFile *save = new TFile("result_beamProfile.root", "recreate");
 
 	Int_t nlines = 0;
 	TString cell, correctedCell;
@@ -40,6 +41,8 @@ void getBeamProfile(){
 	c1->cd();
 	beamProfile->Draw("colz");
 	beamProfile->SetTitle("BeamProfile;x (mm);y (mm)");
+	save->cd();
+	beamProfile->Write();
 
 	TCanvas *c2 = new TCanvas("c2", "Beam Profile in X", 500, 500);
 	c2->cd();
@@ -69,6 +72,7 @@ void getBeamProfile(){
 	TCanvas *c4 = new TCanvas("c4", "Beam Profile_rebin", 500, 500);
 	c4->cd();
 	TH2F *beamProfile_rebin = (TH2F*)beamProfile->Clone();
+	beamProfile_rebin->SetName("beamProfile_rebin");
 	beamProfile_rebin->RebinX(11);
 	beamProfile_rebin->RebinY(11);
 	Float_t gmax = beamProfile_rebin->GetMaximum();
@@ -76,5 +80,6 @@ void getBeamProfile(){
 	beamProfile_rebin->Scale(scale);
 	beamProfile_rebin->Draw("colztext");
 	beamProfile_rebin->SetTitle("BeamProfile;x (mm);y (mm)");
-
+	save->cd();
+	beamProfile_rebin->Write();
 }
